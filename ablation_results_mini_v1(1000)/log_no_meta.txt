@@ -1,0 +1,245 @@
+2025-12-26 19:27:51,313 | INFO | Starting Training Session...
+2025-12-26 19:27:51,313 | INFO | Config: {'domain_a': 'amazon', 'domain_b': 'yelp', 'embedding_dim': 128, 'z_inv_dim': 64, 'z_spec_dim': 64, 'dropout': 0.2, 'text_model': 'distilbert-base-uncased', 'freeze_text_layers': 2, 'gnn_layers': 2, 'gnn_heads': 4, 'lambda_rec': 1.0, 'lambda_orth': 0.01, 'lambda_contrast': 0.01, 'lambda_causal': 0.5, 'lr': 0.001, 'batch_size': 256, 'enable_disentangle': True, 'enable_kg': True, 'enable_causal': True, 'enable_meta': True, 'enable_lasso': True, 'enable_retrieval': True, 'enable_contrast': True, 'seed': 42, 'latency_budget_ms': 50}
+🔒 Reproducibility: Seed set to 42
+2025-12-26 19:27:51,327 | INFO | Using Data Directory: ./Datasets_mini
+2025-12-26 19:27:51,327 | INFO | Using device: mps
+2025-12-26 19:27:51,327 | INFO | Loading Real Datasets...
+2025-12-26 19:27:51,327 | INFO | Loading Sample Yelp Dataset from: ./Datasets_mini/yelp_sample_100k.csv
+Loading Douban book reviews from ./Datasets_mini/douban_dataset(text information)/bookreviews_cleaned.txt...
+2025-12-26 19:27:51,337 | INFO | Merging 1000 Douban reviews into Source...
+2025-12-26 19:27:51,337 | INFO | Loading Sample Amazon Dataset from: ./Datasets_mini/amazon_sample_100k.csv
+2025-12-26 19:27:51,338 | INFO | Target CSV seems to lack headers. Reloading with header=None...
+2025-12-26 19:27:51,339 | INFO | Source (Yelp) shape: (2000, 4)
+2025-12-26 19:27:51,339 | INFO | Target (Amazon) shape: (1000, 4)
+2025-12-26 19:27:51,339 | INFO | Applying synthetic user mapping from ./Datasets_mini/user_mapping.csv...
+2025-12-26 19:27:51,340 | INFO | User IDs in Target domain updated to match Source domain based on mapping.
+2025-12-26 19:27:51,340 | INFO | Found Lasso Augmented Data at ./Datasets_mini/lasso_augmented_data.csv. Merging...
+2025-12-26 19:27:51,342 | INFO | New Target (Amazon) shape after Lasso: (2345, 4)
+2025-12-26 19:27:51,343 | INFO | Number of overlapping users found by ID: 996
+2025-12-26 19:27:51,343 | INFO | Number of overlapping users found by ID: 996
+2025-12-26 19:27:51,343 | INFO | Encoding IDs...
+2025-12-26 19:27:51,345 | INFO | Ensuring Dense User ID Encoding (Early)...
+2025-12-26 19:27:51,346 | INFO | Refined Target User IDs: Count=997, Max=996
+2025-12-26 19:27:51,347 | INFO | Initializing Tokenizer...
+2025-12-26 19:27:52,961 | INFO | Pre-computing Source Item Embeddings for HSGE Pruning...
+2025-12-26 19:27:57,021 | INFO | Computed embeddings for 1772 items.
+2025-12-26 19:27:57,021 | INFO | Initializing Dataset...
+2025-12-26 19:27:57,022 | INFO | Dataset length: 2000
+2025-12-26 19:27:57,022 | INFO | Initializing DataLoader...
+2025-12-26 19:27:57,022 | INFO | Iterating through DataLoader (checking for overlap)...
+2025-12-26 19:27:57,030 | INFO | Batch 0 has overlap!
+2025-12-26 19:27:57,032 | INFO | Batch 1 has overlap!
+2025-12-26 19:27:57,033 | INFO | Batch 2 has overlap!
+2025-12-26 19:27:57,035 | INFO | Batch 3 has overlap!
+2025-12-26 19:27:57,038 | INFO | Batch 4 has overlap!
+2025-12-26 19:27:57,040 | INFO | Batch 5 has overlap!
+2025-12-26 19:27:57,043 | INFO | Batch 6 has overlap!
+2025-12-26 19:27:57,047 | INFO | Batch 7 has overlap!
+2025-12-26 19:27:57,048 | INFO | Batch 8 has overlap!
+2025-12-26 19:27:57,052 | INFO | Batch 9 has overlap!
+2025-12-26 19:27:57,054 | INFO | Batch 10 has overlap!
+2025-12-26 19:27:57,054 | INFO | Verification Complete!
+2025-12-26 19:27:57,054 | INFO | 
+--- Model Verification ---
+2025-12-26 19:27:57,061 | INFO | 
+--- Full System Verification ---
+2025-12-26 19:27:57,061 | INFO | 
+[3] Constructing Heterogeneous Graph...
+2025-12-26 19:27:57,061 | INFO | Ensuring Dense User ID Encoding for Graph Construction...
+2025-12-26 19:27:57,061 | INFO | Refined Target User IDs: Count=997, Max=996
+2025-12-26 19:27:57,096 | INFO | Loading Custom KG Alignment from ./Datasets_mini/amazon_item_to_kg.csv...
+2025-12-26 19:27:57,097 | INFO | Filtered KG Alignment: 811 -> 811 edges matched to Target items.
+2025-12-26 19:27:57,098 | INFO | Augmented KG with 811 alignment edges.
+Edge Pruner: IOF Threshold=1.3323. Pruned 89 items (5.02%).
+Edge Pruning: Kept 1683/1772 source items.
+Integrating Knowledge Graph...
+DEBUG: KG Valid Length: 811
+Generating embeddings for 425 KG entities...
+2025-12-26 19:27:57,424 | INFO | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+KG Node Embeddings generated successfully.
+KG Integrated: 425 entities, 811 edges.
+2025-12-26 19:28:01,047 | INFO | HeteroData(
+  user_src={ x=[1553, 128] },
+  user_tgt={ x=[997, 128] },
+  item_src={ x=[1772, 128] },
+  item_tgt={ x=[2093, 128] },
+  entity={ x=[425, 384] },
+  (user_src, rates, item_src)={ edge_index=[2, 1908] },
+  (item_src, rated_by, user_src)={ edge_index=[2, 1908] },
+  (user_tgt, rates, item_tgt)={ edge_index=[2, 2345] },
+  (item_tgt, rated_by, user_tgt)={ edge_index=[2, 2345] },
+  (item_tgt, has_kg, entity)={ edge_index=[2, 811] },
+  (entity, kg_of, item_tgt)={ edge_index=[2, 811] }
+)
+2025-12-26 19:28:01,047 | INFO | Edge Types: [('user_src', 'rates', 'item_src'), ('item_src', 'rated_by', 'user_src'), ('user_tgt', 'rates', 'item_tgt'), ('item_tgt', 'rated_by', 'user_tgt'), ('item_tgt', 'has_kg', 'entity'), ('entity', 'kg_of', 'item_tgt')]
+2025-12-26 19:28:01,047 | INFO | Graph Metadata: (['user_src', 'user_tgt', 'item_src', 'item_tgt', 'entity'], [('user_src', 'rates', 'item_src'), ('item_src', 'rated_by', 'user_src'), ('user_tgt', 'rates', 'item_tgt'), ('item_tgt', 'rated_by', 'user_tgt'), ('item_tgt', 'has_kg', 'entity'), ('entity', 'kg_of', 'item_tgt')])
+2025-12-26 19:28:01,047 | INFO | Node Types in x_dict: dict_keys(['user_src', 'user_tgt', 'item_src', 'item_tgt', 'entity'])
+2025-12-26 19:28:01,047 | INFO | Initializing HGCDRPlus...
+2025-12-26 19:28:01,554 | INFO | Inspecting HGTModule...
+2025-12-26 19:28:01,554 | INFO | HGTModule(
+  (layers): ModuleList(
+    (0-1): 2 x HGTConv(-1, 128, heads=8)
+  )
+)
+2025-12-26 19:28:01,554 | INFO | Could not access k_lin keys
+2025-12-26 19:28:01,554 | INFO | Verifying HGT with data in isolation...
+2025-12-26 19:28:01,715 | INFO | HGT Isolation Test Passed!
+2025-12-26 19:28:01,715 | INFO | Initializing Auxiliary Modules...
+2025-12-26 19:28:01,724 | INFO | --- [Causal] Training Exposure Model ---
+2025-12-26 19:28:01,880 | INFO | [Exposure] Epoch 1/5 | Loss: 0.5752
+2025-12-26 19:28:01,957 | INFO | [Exposure] Epoch 2/5 | Loss: 0.5033
+2025-12-26 19:28:02,024 | INFO | [Exposure] Epoch 3/5 | Loss: 0.4944
+2025-12-26 19:28:02,087 | INFO | [Exposure] Epoch 4/5 | Loss: 0.4843
+2025-12-26 19:28:02,163 | INFO | [Exposure] Epoch 5/5 | Loss: 0.4780
+2025-12-26 19:28:02,163 | INFO | --- [Causal] Exposure Model Trained ---
+2025-12-26 19:28:02,164 | INFO | Initializing Trainer (Final)...
+2025-12-26 19:28:02,165 | INFO | Identified 996 Cold-Start Users (<5 interactions).
+2025-12-26 19:28:02,166 | INFO | Train samples: 1876, Test samples: 469
+2025-12-26 19:28:02,167 | INFO | Running Training Epoch...
+2025-12-26 19:28:02,459 | INFO | Epoch 0 | Batch 0 | Loss: 3.1417 | Rec: 3.0971 | Orth: 0.0445
+2025-12-26 19:28:02,459 | INFO |   Propensity (mean): 0.1882
+2025-12-26 19:28:02,743 | INFO | Training Epoch Complete! Avg Loss: 3.5105
+2025-12-26 19:28:02,743 | INFO | 
+--- Starting Full Training Loop ---
+2025-12-26 19:28:02,743 | INFO | No timestamp found. using Index (assuming chronological) or Random.
+2025-12-26 19:28:02,744 | INFO | Temporal Split: Train 1876, Test 469
+2025-12-26 19:28:02,751 | INFO | 
+Epoch 1/5
+Epoch 0 | Batch 0 | Loss: 3.0739 | Rec: 3.0240 | Orth: 0.0126 | Prop[Min:0.1183, Mean:0.2366, Max:0.3268]
+2025-12-26 19:28:05,364 | INFO |   Train Loss: 3.1224 | Time: 2.61s | Peak Mem: 0.00 MB
+2025-12-26 19:28:05,364 | INFO | Epoch 1 | Train Loss: 3.1224 | Time: 2.61s
+2025-12-26 19:28:05,364 | INFO |   Meta-Training Skipped (Disabled)
+2025-12-26 19:28:05,598 | INFO |   Eval Results:
+2025-12-26 19:28:05,598 | INFO |     HR@10: 0.0917 | NDCG@10: 0.0403
+2025-12-26 19:28:05,598 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.0403
+2025-12-26 19:28:05,598 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-26 19:28:05,598 | INFO | Epoch 1 | HR@10: 0.0917 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2025-12-26 19:28:05,598 | INFO |     HR@10: 0.0917 | NDCG@10: 0.0403
+2025-12-26 19:28:05,598 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-26 19:28:05,598 | INFO | Epoch 1 | HR@10: 0.0917 | NDCG@10: 0.0403 | Cold_HR@10: 0.0000
+2025-12-26 19:28:05,598 | INFO |     HR@20: 0.1962 | NDCG@20: 0.0665
+2025-12-26 19:28:05,598 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.0665
+2025-12-26 19:28:05,598 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-26 19:28:05,598 | INFO | Epoch 1 | HR@20: 0.1962 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2025-12-26 19:28:05,598 | INFO |     HR@20: 0.1962 | NDCG@20: 0.0665
+2025-12-26 19:28:05,598 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-26 19:28:05,598 | INFO | Epoch 1 | HR@20: 0.1962 | NDCG@20: 0.0665 | Cold_HR@20: 0.0000
+2025-12-26 19:28:06,439 | INFO |   New Best Model Saved! HR@10: 0.0917
+2025-12-26 19:28:06,439 | INFO | 
+Epoch 2/5
+Epoch 1 | Batch 0 | Loss: 3.0651 | Rec: 3.0164 | Orth: 0.0036 | Prop[Min:0.1289, Mean:0.2362, Max:0.4797]
+2025-12-26 19:28:08,744 | INFO |   Train Loss: 3.0710 | Time: 2.30s | Peak Mem: 0.00 MB
+2025-12-26 19:28:08,744 | INFO | Epoch 2 | Train Loss: 3.0710 | Time: 2.30s
+2025-12-26 19:28:08,744 | INFO |   Meta-Training Skipped (Disabled)
+2025-12-26 19:28:08,939 | INFO |   Eval Results:
+2025-12-26 19:28:08,939 | INFO |     HR@10: 0.1151 | NDCG@10: 0.0495
+2025-12-26 19:28:08,939 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.0495
+2025-12-26 19:28:08,939 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-26 19:28:08,939 | INFO | Epoch 2 | HR@10: 0.1151 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2025-12-26 19:28:08,939 | INFO |     HR@10: 0.1151 | NDCG@10: 0.0495
+2025-12-26 19:28:08,939 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-26 19:28:08,939 | INFO | Epoch 2 | HR@10: 0.1151 | NDCG@10: 0.0495 | Cold_HR@10: 0.0000
+2025-12-26 19:28:08,939 | INFO |     HR@20: 0.2217 | NDCG@20: 0.0765
+2025-12-26 19:28:08,939 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.0765
+2025-12-26 19:28:08,939 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-26 19:28:08,939 | INFO | Epoch 2 | HR@20: 0.2217 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2025-12-26 19:28:08,939 | INFO |     HR@20: 0.2217 | NDCG@20: 0.0765
+2025-12-26 19:28:08,939 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-26 19:28:08,939 | INFO | Epoch 2 | HR@20: 0.2217 | NDCG@20: 0.0765 | Cold_HR@20: 0.0000
+2025-12-26 19:28:09,764 | INFO |   New Best Model Saved! HR@10: 0.1151
+2025-12-26 19:28:09,765 | INFO | 
+Epoch 3/5
+Epoch 2 | Batch 0 | Loss: 3.1102 | Rec: 3.0618 | Orth: 0.0030 | Prop[Min:0.1201, Mean:0.2319, Max:0.5307]
+2025-12-26 19:28:12,182 | INFO |   Train Loss: 3.0323 | Time: 2.42s | Peak Mem: 0.00 MB
+2025-12-26 19:28:12,182 | INFO | Epoch 3 | Train Loss: 3.0323 | Time: 2.42s
+2025-12-26 19:28:12,182 | INFO |   Meta-Training Skipped (Disabled)
+2025-12-26 19:28:12,370 | INFO |   Eval Results:
+2025-12-26 19:28:12,370 | INFO |     HR@10: 0.1620 | NDCG@10: 0.0694
+2025-12-26 19:28:12,370 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.0694
+2025-12-26 19:28:12,370 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-26 19:28:12,370 | INFO | Epoch 3 | HR@10: 0.1620 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2025-12-26 19:28:12,370 | INFO |     HR@10: 0.1620 | NDCG@10: 0.0694
+2025-12-26 19:28:12,370 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-26 19:28:12,370 | INFO | Epoch 3 | HR@10: 0.1620 | NDCG@10: 0.0694 | Cold_HR@10: 0.0000
+2025-12-26 19:28:12,370 | INFO |     HR@20: 0.2239 | NDCG@20: 0.0849
+2025-12-26 19:28:12,370 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.0849
+2025-12-26 19:28:12,370 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-26 19:28:12,370 | INFO | Epoch 3 | HR@20: 0.2239 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2025-12-26 19:28:12,370 | INFO |     HR@20: 0.2239 | NDCG@20: 0.0849
+2025-12-26 19:28:12,370 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-26 19:28:12,370 | INFO | Epoch 3 | HR@20: 0.2239 | NDCG@20: 0.0849 | Cold_HR@20: 0.0000
+2025-12-26 19:28:13,183 | INFO |   New Best Model Saved! HR@10: 0.1620
+2025-12-26 19:28:13,183 | INFO | 
+Epoch 4/5
+Epoch 3 | Batch 0 | Loss: 3.0118 | Rec: 2.9648 | Orth: 0.0019 | Prop[Min:0.1266, Mean:0.2348, Max:0.3299]
+2025-12-26 19:28:15,440 | INFO |   Train Loss: 3.0193 | Time: 2.26s | Peak Mem: 0.00 MB
+2025-12-26 19:28:15,441 | INFO | Epoch 4 | Train Loss: 3.0193 | Time: 2.26s
+2025-12-26 19:28:15,441 | INFO |   Meta-Training Skipped (Disabled)
+2025-12-26 19:28:15,632 | INFO |   Eval Results:
+2025-12-26 19:28:15,632 | INFO |     HR@10: 0.1386 | NDCG@10: 0.0727
+2025-12-26 19:28:15,633 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.0727
+2025-12-26 19:28:15,633 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-26 19:28:15,633 | INFO | Epoch 4 | HR@10: 0.1386 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2025-12-26 19:28:15,633 | INFO |     HR@10: 0.1386 | NDCG@10: 0.0727
+2025-12-26 19:28:15,633 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-26 19:28:15,633 | INFO | Epoch 4 | HR@10: 0.1386 | NDCG@10: 0.0727 | Cold_HR@10: 0.0000
+2025-12-26 19:28:15,633 | INFO |     HR@20: 0.2324 | NDCG@20: 0.0963
+2025-12-26 19:28:15,633 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.0963
+2025-12-26 19:28:15,633 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-26 19:28:15,633 | INFO | Epoch 4 | HR@20: 0.2324 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2025-12-26 19:28:15,633 | INFO |     HR@20: 0.2324 | NDCG@20: 0.0963
+2025-12-26 19:28:15,633 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-26 19:28:15,633 | INFO | Epoch 4 | HR@20: 0.2324 | NDCG@20: 0.0963 | Cold_HR@20: 0.0000
+2025-12-26 19:28:15,633 | INFO | 
+Epoch 5/5
+Epoch 4 | Batch 0 | Loss: 3.0189 | Rec: 2.9725 | Orth: 0.0022 | Prop[Min:0.1399, Mean:0.2355, Max:0.4876]
+2025-12-26 19:28:17,952 | INFO |   Train Loss: 2.9614 | Time: 2.32s | Peak Mem: 0.00 MB
+2025-12-26 19:28:17,952 | INFO | Epoch 5 | Train Loss: 2.9614 | Time: 2.32s
+2025-12-26 19:28:17,952 | INFO |   Meta-Training Skipped (Disabled)
+2025-12-26 19:28:18,143 | INFO |   Eval Results:
+2025-12-26 19:28:18,143 | INFO |     HR@10: 0.1343 | NDCG@10: 0.0725
+2025-12-26 19:28:18,143 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.0725
+2025-12-26 19:28:18,143 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-26 19:28:18,143 | INFO | Epoch 5 | HR@10: 0.1343 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2025-12-26 19:28:18,143 | INFO |     HR@10: 0.1343 | NDCG@10: 0.0725
+2025-12-26 19:28:18,143 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-26 19:28:18,143 | INFO | Epoch 5 | HR@10: 0.1343 | NDCG@10: 0.0725 | Cold_HR@10: 0.0000
+2025-12-26 19:28:18,143 | INFO |     HR@20: 0.2367 | NDCG@20: 0.0983
+2025-12-26 19:28:18,143 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.0983
+2025-12-26 19:28:18,143 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-26 19:28:18,143 | INFO | Epoch 5 | HR@20: 0.2367 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2025-12-26 19:28:18,143 | INFO |     HR@20: 0.2367 | NDCG@20: 0.0983
+2025-12-26 19:28:18,143 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-26 19:28:18,143 | INFO | Epoch 5 | HR@20: 0.2367 | NDCG@20: 0.0983 | Cold_HR@20: 0.0000
+2025-12-26 19:28:18,143 | INFO | 
+Training Complete!
+2025-12-26 19:28:18,147 | INFO | Saved ID Mappings to models/saved/mappings.pkl
+2025-12-26 19:28:18,147 | INFO | 
+--- Running Scientific Evaluation (Ranking & Cold-Start) ---
+2025-12-26 19:28:18,148 | INFO | Bucket Definition 'Cold (1)': 703 users eligible.
+2025-12-26 19:28:18,148 | INFO | Bucket Definition 'Few (2-4)': 294 users eligible.
+2025-12-26 19:28:18,148 | INFO | Bucket Definition 'Medium (5-10)': 0 users eligible.
+2025-12-26 19:28:18,148 | INFO | Bucket Definition 'Warm (>10)': 0 users eligible.
+2025-12-26 19:28:18,148 | INFO | Running Inference on Full Dataset for Bucket Analysis...
+2025-12-26 19:28:18,544 | INFO | 
+=== FINAL SCIENTIFIC BREAKDOWN ===
+2025-12-26 19:28:18,544 | INFO | Bucket 'Cold (1)': 0/703 evaluated (All Skipped?)
+2025-12-26 19:28:18,544 | INFO | Bucket 'Few (2-4)': 0/294 evaluated (All Skipped?)
+2025-12-26 19:28:18,544 | INFO | Bucket 'Medium (5-10)': 0/0 evaluated (All Skipped?)
+2025-12-26 19:28:18,544 | INFO | Bucket 'Warm (>10)': 0/0 evaluated (All Skipped?)
+2025-12-26 19:28:18,544 | INFO | Full System Verification Complete!
+2025-12-26 19:28:18,544 | INFO | 
+--- [Module 5] Online Learning Phase ---
+2025-12-26 19:28:18,557 | INFO | Drift Detected: True
+2025-12-26 19:28:18,557 | INFO | Triggering Online Adaptation...
+2025-12-26 19:28:18,557 | INFO | User Adapted.
+2025-12-26 19:28:18,557 | INFO | 
+--- [Module 3] Retrieval & Re-ranking ---
+2025-12-26 19:28:18,557 | INFO | Building FAISS Index...
+Dataset size (100) is too small for IVF100. Switching to IndexFlatL2.
+2025-12-26 19:28:18,557 | INFO | Retrieving Candidates...
+2025-12-26 19:28:18,557 | INFO | Retrieved Candidates: (array([[86, 15, 41, 23, 22, 49, 67, 89, 37, 39]]), array([[185.05345, 194.9793 , 198.24763, 198.5841 , 201.91632, 201.949  ,
+        202.48526, 203.66277, 205.87904, 212.14969]], dtype=float32))
+2025-12-26 19:28:18,557 | INFO | 
+--- [Module 6] Explainability ---
+2025-12-26 19:28:18,557 | INFO | Explanation: {'user_id': 'User_X', 'item_id': 'Item_Y', 'cross_domain_contribution': 0.85, 'kg_evidence': ['User', 'Viewed', 'SciFi', 'IsGenre', 'Item'], 'history_match_score': 0.4}

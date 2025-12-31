@@ -1,0 +1,32 @@
+domain_a: "amazon"
+domain_b: "yelp"
+embedding_dim: 128
+z_inv_dim: 64
+z_spec_dim: 64
+dropout: 0.2
+# Encoders
+text_model: "distilbert-base-uncased"
+freeze_text_layers: 2
+# GNN
+gnn_layers: 2
+gnn_heads: 4
+# Loss Weights
+lambda_rec: 1.0
+lambda_orth: 0.01
+lambda_contrast: 0.01
+lambda_causal: 0.5
+# Training
+lr: 0.001
+batch_size: 256
+# Scientific Closure (Ablation Flags)
+enable_disentangle: true
+enable_kg: true
+enable_causal: true
+enable_meta: true
+enable_lasso: true
+enable_retrieval: true
+enable_contrast: true
+
+# Engineering Closure
+seed: 42
+latency_budget_ms: 50

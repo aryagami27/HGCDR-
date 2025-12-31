@@ -1,0 +1,500 @@
+2025-12-27 02:29:32,190 | INFO | Starting Training Session...
+2025-12-27 02:29:32,190 | INFO | Config: {'domain_a': 'amazon', 'domain_b': 'yelp', 'embedding_dim': 128, 'z_inv_dim': 64, 'z_spec_dim': 64, 'dropout': 0.2, 'text_model': 'distilbert-base-uncased', 'freeze_text_layers': 2, 'gnn_layers': 2, 'gnn_heads': 4, 'lambda_rec': 1.0, 'lambda_orth': 0.01, 'lambda_contrast': 0.01, 'lambda_causal': 0.5, 'lr': 0.001, 'batch_size': 256, 'enable_disentangle': True, 'enable_kg': True, 'enable_causal': True, 'enable_meta': True, 'enable_lasso': True, 'enable_retrieval': True, 'enable_contrast': True, 'seed': 42, 'latency_budget_ms': 50}
+🔒 Reproducibility: Seed set to 42
+2025-12-27 02:29:32,208 | INFO | Using Data Directory: ./Datasets_mini
+2025-12-27 02:29:32,208 | INFO | Using device: mps
+2025-12-27 02:29:32,208 | INFO | Loading Real Datasets...
+2025-12-27 02:29:32,208 | INFO | Loading Sample Yelp Dataset from: ./Datasets_mini/yelp_sample_100k.csv
+Loading Douban book reviews from ./Datasets_mini/douban_dataset(text information)/bookreviews_cleaned.txt...
+2025-12-27 02:29:32,222 | INFO | Merging 1000 Douban reviews into Source...
+2025-12-27 02:29:32,222 | INFO | Loading Sample Amazon Dataset from: ./Datasets_mini/amazon_sample_100k.csv
+2025-12-27 02:29:32,223 | INFO | Target CSV seems to lack headers. Reloading with header=None...
+2025-12-27 02:29:32,224 | INFO | Source (Yelp) shape: (2000, 4)
+2025-12-27 02:29:32,224 | INFO | Target (Amazon) shape: (1000, 4)
+2025-12-27 02:29:32,224 | INFO | Applying synthetic user mapping from ./Datasets_mini/user_mapping.csv...
+2025-12-27 02:29:32,225 | INFO | User IDs in Target domain updated to match Source domain based on mapping.
+2025-12-27 02:29:32,225 | INFO | Found Lasso Augmented Data at ./Datasets_mini/lasso_augmented_data.csv. Merging...
+2025-12-27 02:29:32,229 | INFO | New Target (Amazon) shape after Lasso: (2345, 4)
+2025-12-27 02:29:32,229 | INFO | Number of overlapping users found by ID: 996
+2025-12-27 02:29:32,230 | INFO | Number of overlapping users found by ID: 996
+2025-12-27 02:29:32,230 | INFO | Encoding IDs...
+2025-12-27 02:29:32,232 | INFO | Ensuring Dense User ID Encoding (Early)...
+2025-12-27 02:29:32,232 | INFO | Refined Target User IDs: Count=997, Max=996
+2025-12-27 02:29:32,233 | INFO | Initializing Tokenizer...
+2025-12-27 02:29:33,988 | INFO | Pre-computing Source Item Embeddings for HSGE Pruning...
+2025-12-27 02:29:38,950 | INFO | Computed embeddings for 1772 items.
+2025-12-27 02:29:38,950 | INFO | Initializing Dataset...
+2025-12-27 02:29:38,951 | INFO | Dataset length: 2000
+2025-12-27 02:29:38,951 | INFO | Initializing DataLoader...
+2025-12-27 02:29:38,951 | INFO | Iterating through DataLoader (checking for overlap)...
+2025-12-27 02:29:38,959 | INFO | Batch 0 has overlap!
+2025-12-27 02:29:38,961 | INFO | Batch 1 has overlap!
+2025-12-27 02:29:38,962 | INFO | Batch 2 has overlap!
+2025-12-27 02:29:38,964 | INFO | Batch 3 has overlap!
+2025-12-27 02:29:38,967 | INFO | Batch 4 has overlap!
+2025-12-27 02:29:38,969 | INFO | Batch 5 has overlap!
+2025-12-27 02:29:38,971 | INFO | Batch 6 has overlap!
+2025-12-27 02:29:38,975 | INFO | Batch 7 has overlap!
+2025-12-27 02:29:38,977 | INFO | Batch 8 has overlap!
+2025-12-27 02:29:38,981 | INFO | Batch 9 has overlap!
+2025-12-27 02:29:38,983 | INFO | Batch 10 has overlap!
+2025-12-27 02:29:38,984 | INFO | Verification Complete!
+2025-12-27 02:29:38,984 | INFO | 
+--- Model Verification ---
+2025-12-27 02:29:38,992 | INFO | 
+--- Full System Verification ---
+2025-12-27 02:29:38,992 | INFO | 
+[3] Constructing Heterogeneous Graph...
+2025-12-27 02:29:38,992 | INFO | Ensuring Dense User ID Encoding for Graph Construction...
+2025-12-27 02:29:38,993 | INFO | Refined Target User IDs: Count=997, Max=996
+2025-12-27 02:29:39,032 | INFO | Loading Custom KG Alignment from ./Datasets_mini/amazon_item_to_kg.csv...
+2025-12-27 02:29:39,034 | INFO | Filtered KG Alignment: 811 -> 811 edges matched to Target items.
+2025-12-27 02:29:39,034 | INFO | Augmented KG with 811 alignment edges.
+Edge Pruner: IOF Threshold=1.3323. Pruned 89 items (5.02%).
+Edge Pruning: Kept 1683/1772 source items.
+Integrating Knowledge Graph...
+DEBUG: KG Valid Length: 811
+Generating embeddings for 425 KG entities...
+2025-12-27 02:29:39,467 | INFO | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+KG Node Embeddings generated successfully.
+KG Integrated: 425 entities, 811 edges.
+2025-12-27 02:29:43,342 | INFO | HeteroData(
+  user_src={ x=[1553, 128] },
+  user_tgt={ x=[997, 128] },
+  item_src={ x=[1772, 128] },
+  item_tgt={ x=[2093, 128] },
+  entity={ x=[425, 384] },
+  (user_src, rates, item_src)={ edge_index=[2, 1908] },
+  (item_src, rated_by, user_src)={ edge_index=[2, 1908] },
+  (user_tgt, rates, item_tgt)={ edge_index=[2, 2345] },
+  (item_tgt, rated_by, user_tgt)={ edge_index=[2, 2345] },
+  (item_tgt, has_kg, entity)={ edge_index=[2, 811] },
+  (entity, kg_of, item_tgt)={ edge_index=[2, 811] }
+)
+2025-12-27 02:29:43,342 | INFO | Edge Types: [('user_src', 'rates', 'item_src'), ('item_src', 'rated_by', 'user_src'), ('user_tgt', 'rates', 'item_tgt'), ('item_tgt', 'rated_by', 'user_tgt'), ('item_tgt', 'has_kg', 'entity'), ('entity', 'kg_of', 'item_tgt')]
+2025-12-27 02:29:43,342 | INFO | Graph Metadata: (['user_src', 'user_tgt', 'item_src', 'item_tgt', 'entity'], [('user_src', 'rates', 'item_src'), ('item_src', 'rated_by', 'user_src'), ('user_tgt', 'rates', 'item_tgt'), ('item_tgt', 'rated_by', 'user_tgt'), ('item_tgt', 'has_kg', 'entity'), ('entity', 'kg_of', 'item_tgt')])
+2025-12-27 02:29:43,342 | INFO | Node Types in x_dict: dict_keys(['user_src', 'user_tgt', 'item_src', 'item_tgt', 'entity'])
+2025-12-27 02:29:43,342 | INFO | Final Config after overrides: {'domain_a': 'amazon', 'domain_b': 'yelp', 'embedding_dim': 128, 'z_inv_dim': 64, 'z_spec_dim': 64, 'dropout': 0.2, 'text_model': 'distilbert-base-uncased', 'freeze_text_layers': 2, 'gnn_layers': 2, 'gnn_heads': 8, 'lambda_rec': 1.0, 'lambda_orth': 0.1, 'lambda_contrast': 0.01, 'lambda_causal': 0.5, 'lr': 0.001, 'batch_size': 256, 'enable_disentangle': True, 'enable_kg': True, 'enable_causal': True, 'enable_meta': True, 'enable_lasso': True, 'enable_retrieval': True, 'enable_contrast': True, 'seed': 42, 'latency_budget_ms': 50, 'epochs': 5}
+2025-12-27 02:29:43,342 | INFO | Initializing HGCDRPlus...
+2025-12-27 02:29:43,895 | INFO | Inspecting HGTModule...
+2025-12-27 02:29:43,895 | INFO | HGTModule(
+  (layers): ModuleList(
+    (0-1): 2 x HGTConv(-1, 128, heads=8)
+  )
+)
+2025-12-27 02:29:43,895 | INFO | Could not access k_lin keys
+2025-12-27 02:29:43,895 | INFO | Verifying HGT with data in isolation...
+2025-12-27 02:29:44,046 | INFO | HGT Isolation Test Passed!
+2025-12-27 02:29:44,046 | INFO | Initializing Auxiliary Modules...
+2025-12-27 02:29:44,056 | INFO | --- [Causal] Training Exposure Model ---
+2025-12-27 02:29:44,215 | INFO | [Exposure] Epoch 1/5 | Loss: 0.5752
+2025-12-27 02:29:44,289 | INFO | [Exposure] Epoch 2/5 | Loss: 0.5033
+2025-12-27 02:29:44,358 | INFO | [Exposure] Epoch 3/5 | Loss: 0.4944
+2025-12-27 02:29:44,424 | INFO | [Exposure] Epoch 4/5 | Loss: 0.4843
+2025-12-27 02:29:44,493 | INFO | [Exposure] Epoch 5/5 | Loss: 0.4780
+2025-12-27 02:29:44,493 | INFO | --- [Causal] Exposure Model Trained ---
+2025-12-27 02:29:44,494 | INFO | Initializing Trainer (Final)...
+2025-12-27 02:29:44,495 | INFO | Identified 996 Cold-Start Users (<5 interactions).
+2025-12-27 02:29:44,496 | INFO | Train samples: 1876, Test samples: 469
+2025-12-27 02:29:44,497 | INFO | Running Training Epoch...
+2025-12-27 02:29:44,785 | INFO | Epoch 0 | Batch 0 | Loss: 3.1417 | Rec: 3.0971 | Orth: 0.0445
+2025-12-27 02:29:44,785 | INFO |   Propensity (mean): 0.1882
+2025-12-27 02:29:45,074 | INFO | Training Epoch Complete! Avg Loss: 3.5105
+2025-12-27 02:29:45,074 | INFO | 
+--- Starting Full Training Loop ---
+2025-12-27 02:29:45,074 | INFO | No timestamp found. using Index (assuming chronological) or Random.
+2025-12-27 02:29:45,074 | INFO | Temporal Split: Train 1876, Test 469
+2025-12-27 02:29:45,082 | INFO | 
+Epoch 1/5
+Epoch 0 | Batch 0 | Loss: 3.0750 | Rec: 3.0240 | Orth: 0.0126 | Prop[Min:0.1183, Mean:0.2366, Max:0.3268]
+2025-12-27 02:29:47,757 | INFO |   Train Loss: 3.1229 | Time: 2.67s | Peak Mem: 0.00 MB
+2025-12-27 02:29:47,757 | INFO | Epoch 1 | Train Loss: 3.1229 | Time: 2.67s
+Meta-Epoch | Batch 0 | Query Loss: 0.6548
+Meta-Epoch | Batch 5 | Query Loss: 0.6807
+Meta-Epoch | Batch 10 | Query Loss: 0.6431
+Meta-Epoch | Batch 15 | Query Loss: 0.5991
+Meta-Epoch | Batch 20 | Query Loss: 0.6895
+Meta-Epoch | Batch 25 | Query Loss: 0.6831
+Meta-Epoch | Batch 30 | Query Loss: 0.7046
+Meta-Epoch | Batch 35 | Query Loss: 0.6603
+Meta-Epoch | Batch 40 | Query Loss: 0.6274
+Meta-Epoch | Batch 45 | Query Loss: 0.6725
+Meta-Epoch | Batch 50 | Query Loss: 0.5751
+Meta-Epoch | Batch 55 | Query Loss: 0.6274
+Meta-Epoch | Batch 60 | Query Loss: 0.6560
+Meta-Epoch | Batch 65 | Query Loss: 0.7412
+Meta-Epoch | Batch 70 | Query Loss: 0.6563
+Meta-Epoch | Batch 75 | Query Loss: 0.7248
+Meta-Epoch | Batch 80 | Query Loss: 0.7705
+Meta-Epoch | Batch 85 | Query Loss: 0.6084
+Meta-Epoch | Batch 90 | Query Loss: 0.6719
+Meta-Epoch | Batch 95 | Query Loss: 0.6524
+Meta-Epoch | Batch 100 | Query Loss: 0.6620
+Meta-Epoch | Batch 105 | Query Loss: 0.6602
+Meta-Epoch | Batch 110 | Query Loss: 0.6768
+Meta-Epoch | Batch 115 | Query Loss: 0.5825
+Meta-Epoch | Batch 120 | Query Loss: 0.6867
+Meta-Epoch | Batch 125 | Query Loss: 0.7077
+Meta-Epoch | Batch 130 | Query Loss: 0.6204
+Meta-Epoch | Batch 135 | Query Loss: 0.6646
+Meta-Epoch | Batch 140 | Query Loss: 0.6828
+Meta-Epoch | Batch 145 | Query Loss: 0.6242
+Meta-Epoch | Batch 150 | Query Loss: 0.6913
+Meta-Epoch | Batch 155 | Query Loss: 0.6504
+Meta-Epoch | Batch 160 | Query Loss: 0.6727
+Meta-Epoch | Batch 165 | Query Loss: 0.7656
+Meta-Epoch | Batch 170 | Query Loss: 0.6290
+Meta-Epoch | Batch 175 | Query Loss: 0.6386
+Meta-Epoch | Batch 180 | Query Loss: 0.6968
+Meta-Epoch | Batch 185 | Query Loss: 0.5685
+Meta-Epoch | Batch 190 | Query Loss: 0.6089
+Meta-Epoch | Batch 195 | Query Loss: 0.5797
+Meta-Epoch | Batch 200 | Query Loss: 0.6514
+Meta-Epoch | Batch 205 | Query Loss: 0.7404
+Meta-Epoch | Batch 210 | Query Loss: 0.5875
+Meta-Epoch | Batch 215 | Query Loss: 0.6462
+Meta-Epoch | Batch 220 | Query Loss: 0.6624
+Meta-Epoch | Batch 225 | Query Loss: 0.6741
+Meta-Epoch | Batch 230 | Query Loss: 0.6619
+Meta-Epoch | Batch 235 | Query Loss: 0.6590
+Meta-Epoch | Batch 240 | Query Loss: 0.6742
+Meta-Epoch | Batch 245 | Query Loss: 0.6462
+2025-12-27 02:32:20,273 | INFO |   Meta Loss: 0.6637 (Steps: 5)
+2025-12-27 02:32:20,273 | INFO | Epoch 1 | Meta Loss: 0.6637
+2025-12-27 02:32:20,506 | INFO |   Eval Results:
+2025-12-27 02:32:20,506 | INFO |     HR@10: 0.0959 | NDCG@10: 0.0409
+2025-12-27 02:32:20,506 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.0409
+2025-12-27 02:32:20,506 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-27 02:32:20,506 | INFO | Epoch 1 | HR@10: 0.0959 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2025-12-27 02:32:20,506 | INFO |     HR@10: 0.0959 | NDCG@10: 0.0409
+2025-12-27 02:32:20,506 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-27 02:32:20,506 | INFO | Epoch 1 | HR@10: 0.0959 | NDCG@10: 0.0409 | Cold_HR@10: 0.0000
+2025-12-27 02:32:20,506 | INFO |     HR@20: 0.2068 | NDCG@20: 0.0682
+2025-12-27 02:32:20,506 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.0682
+2025-12-27 02:32:20,506 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-27 02:32:20,506 | INFO | Epoch 1 | HR@20: 0.2068 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2025-12-27 02:32:20,506 | INFO |     HR@20: 0.2068 | NDCG@20: 0.0682
+2025-12-27 02:32:20,506 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-27 02:32:20,506 | INFO | Epoch 1 | HR@20: 0.2068 | NDCG@20: 0.0682 | Cold_HR@20: 0.0000
+2025-12-27 02:32:21,340 | INFO |   New Best Model Saved! HR@10: 0.0959
+2025-12-27 02:32:21,340 | INFO | 
+Epoch 2/5
+Epoch 1 | Batch 0 | Loss: 3.1199 | Rec: 3.0705 | Orth: 0.0037 | Prop[Min:0.1429, Mean:0.2359, Max:0.5103]
+2025-12-27 02:32:23,727 | INFO |   Train Loss: 3.0997 | Time: 2.39s | Peak Mem: 0.00 MB
+2025-12-27 02:32:23,727 | INFO | Epoch 2 | Train Loss: 3.0997 | Time: 2.39s
+Meta-Epoch | Batch 0 | Query Loss: 0.5937
+Meta-Epoch | Batch 5 | Query Loss: 0.6497
+Meta-Epoch | Batch 10 | Query Loss: 0.6134
+Meta-Epoch | Batch 15 | Query Loss: 0.6904
+Meta-Epoch | Batch 20 | Query Loss: 0.7570
+Meta-Epoch | Batch 25 | Query Loss: 0.6390
+Meta-Epoch | Batch 30 | Query Loss: 0.7083
+Meta-Epoch | Batch 35 | Query Loss: 0.5758
+Meta-Epoch | Batch 40 | Query Loss: 0.7203
+Meta-Epoch | Batch 45 | Query Loss: 0.6948
+Meta-Epoch | Batch 50 | Query Loss: 0.7363
+Meta-Epoch | Batch 55 | Query Loss: 0.6474
+Meta-Epoch | Batch 60 | Query Loss: 0.6610
+Meta-Epoch | Batch 65 | Query Loss: 0.6023
+Meta-Epoch | Batch 70 | Query Loss: 0.7271
+Meta-Epoch | Batch 75 | Query Loss: 0.6385
+Meta-Epoch | Batch 80 | Query Loss: 0.7168
+Meta-Epoch | Batch 85 | Query Loss: 0.6148
+Meta-Epoch | Batch 90 | Query Loss: 0.6602
+Meta-Epoch | Batch 95 | Query Loss: 0.6774
+Meta-Epoch | Batch 100 | Query Loss: 0.5906
+Meta-Epoch | Batch 105 | Query Loss: 0.6930
+Meta-Epoch | Batch 110 | Query Loss: 0.7214
+Meta-Epoch | Batch 115 | Query Loss: 0.6365
+Meta-Epoch | Batch 120 | Query Loss: 0.6608
+Meta-Epoch | Batch 125 | Query Loss: 0.6693
+Meta-Epoch | Batch 130 | Query Loss: 0.5880
+Meta-Epoch | Batch 135 | Query Loss: 0.6345
+Meta-Epoch | Batch 140 | Query Loss: 0.7139
+Meta-Epoch | Batch 145 | Query Loss: 0.5988
+Meta-Epoch | Batch 150 | Query Loss: 0.6331
+Meta-Epoch | Batch 155 | Query Loss: 0.6646
+Meta-Epoch | Batch 160 | Query Loss: 0.6975
+Meta-Epoch | Batch 165 | Query Loss: 0.6002
+Meta-Epoch | Batch 170 | Query Loss: 0.6697
+Meta-Epoch | Batch 175 | Query Loss: 0.7587
+Meta-Epoch | Batch 180 | Query Loss: 0.6598
+Meta-Epoch | Batch 185 | Query Loss: 0.7930
+Meta-Epoch | Batch 190 | Query Loss: 0.6029
+Meta-Epoch | Batch 195 | Query Loss: 0.5852
+Meta-Epoch | Batch 200 | Query Loss: 0.6287
+Meta-Epoch | Batch 205 | Query Loss: 0.6235
+Meta-Epoch | Batch 210 | Query Loss: 0.6511
+Meta-Epoch | Batch 215 | Query Loss: 0.6767
+Meta-Epoch | Batch 220 | Query Loss: 0.6084
+Meta-Epoch | Batch 225 | Query Loss: 0.6335
+Meta-Epoch | Batch 230 | Query Loss: 0.5743
+Meta-Epoch | Batch 235 | Query Loss: 0.6305
+Meta-Epoch | Batch 240 | Query Loss: 0.6139
+Meta-Epoch | Batch 245 | Query Loss: 0.6015
+2025-12-27 02:34:56,316 | INFO |   Meta Loss: 0.6620 (Steps: 5)
+2025-12-27 02:34:56,316 | INFO | Epoch 2 | Meta Loss: 0.6620
+2025-12-27 02:34:56,515 | INFO |   Eval Results:
+2025-12-27 02:34:56,515 | INFO |     HR@10: 0.1237 | NDCG@10: 0.0528
+2025-12-27 02:34:56,515 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.0528
+2025-12-27 02:34:56,515 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-27 02:34:56,515 | INFO | Epoch 2 | HR@10: 0.1237 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2025-12-27 02:34:56,515 | INFO |     HR@10: 0.1237 | NDCG@10: 0.0528
+2025-12-27 02:34:56,515 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-27 02:34:56,515 | INFO | Epoch 2 | HR@10: 0.1237 | NDCG@10: 0.0528 | Cold_HR@10: 0.0000
+2025-12-27 02:34:56,515 | INFO |     HR@20: 0.2260 | NDCG@20: 0.0782
+2025-12-27 02:34:56,515 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.0782
+2025-12-27 02:34:56,515 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-27 02:34:56,515 | INFO | Epoch 2 | HR@20: 0.2260 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2025-12-27 02:34:56,515 | INFO |     HR@20: 0.2260 | NDCG@20: 0.0782
+2025-12-27 02:34:56,515 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-27 02:34:56,515 | INFO | Epoch 2 | HR@20: 0.2260 | NDCG@20: 0.0782 | Cold_HR@20: 0.0000
+2025-12-27 02:34:57,356 | INFO |   New Best Model Saved! HR@10: 0.1237
+2025-12-27 02:34:57,356 | INFO | 
+Epoch 3/5
+Epoch 2 | Batch 0 | Loss: 3.1726 | Rec: 3.1213 | Orth: 0.0234 | Prop[Min:0.1183, Mean:0.2338, Max:0.4853]
+2025-12-27 02:34:59,620 | INFO |   Train Loss: 3.0907 | Time: 2.26s | Peak Mem: 0.00 MB
+2025-12-27 02:34:59,620 | INFO | Epoch 3 | Train Loss: 3.0907 | Time: 2.26s
+Meta-Epoch | Batch 0 | Query Loss: 0.5566
+Meta-Epoch | Batch 5 | Query Loss: 0.6817
+Meta-Epoch | Batch 10 | Query Loss: 0.5380
+Meta-Epoch | Batch 15 | Query Loss: 0.6377
+Meta-Epoch | Batch 20 | Query Loss: 0.6555
+Meta-Epoch | Batch 25 | Query Loss: 0.7131
+Meta-Epoch | Batch 30 | Query Loss: 0.6776
+Meta-Epoch | Batch 35 | Query Loss: 0.5890
+Meta-Epoch | Batch 40 | Query Loss: 0.6074
+Meta-Epoch | Batch 45 | Query Loss: 0.6572
+Meta-Epoch | Batch 50 | Query Loss: 0.5487
+Meta-Epoch | Batch 55 | Query Loss: 0.5805
+Meta-Epoch | Batch 60 | Query Loss: 0.6460
+Meta-Epoch | Batch 65 | Query Loss: 0.6917
+Meta-Epoch | Batch 70 | Query Loss: 0.7342
+Meta-Epoch | Batch 75 | Query Loss: 0.6741
+Meta-Epoch | Batch 80 | Query Loss: 0.5612
+Meta-Epoch | Batch 85 | Query Loss: 0.6100
+Meta-Epoch | Batch 90 | Query Loss: 0.7394
+Meta-Epoch | Batch 95 | Query Loss: 0.6733
+Meta-Epoch | Batch 100 | Query Loss: 0.6212
+Meta-Epoch | Batch 105 | Query Loss: 0.7518
+Meta-Epoch | Batch 110 | Query Loss: 0.7802
+Meta-Epoch | Batch 115 | Query Loss: 0.6873
+Meta-Epoch | Batch 120 | Query Loss: 0.5646
+Meta-Epoch | Batch 125 | Query Loss: 0.6218
+Meta-Epoch | Batch 130 | Query Loss: 0.7354
+Meta-Epoch | Batch 135 | Query Loss: 0.6724
+Meta-Epoch | Batch 140 | Query Loss: 0.7670
+Meta-Epoch | Batch 145 | Query Loss: 0.5833
+Meta-Epoch | Batch 150 | Query Loss: 0.6720
+Meta-Epoch | Batch 155 | Query Loss: 0.5745
+Meta-Epoch | Batch 160 | Query Loss: 0.6130
+Meta-Epoch | Batch 165 | Query Loss: 0.6550
+Meta-Epoch | Batch 170 | Query Loss: 0.6983
+Meta-Epoch | Batch 175 | Query Loss: 0.6610
+Meta-Epoch | Batch 180 | Query Loss: 0.6776
+Meta-Epoch | Batch 185 | Query Loss: 0.7544
+Meta-Epoch | Batch 190 | Query Loss: 0.6422
+Meta-Epoch | Batch 195 | Query Loss: 0.5770
+Meta-Epoch | Batch 200 | Query Loss: 0.7095
+Meta-Epoch | Batch 205 | Query Loss: 0.6335
+Meta-Epoch | Batch 210 | Query Loss: 0.6191
+Meta-Epoch | Batch 215 | Query Loss: 0.6534
+Meta-Epoch | Batch 220 | Query Loss: 0.6303
+Meta-Epoch | Batch 225 | Query Loss: 0.5566
+Meta-Epoch | Batch 230 | Query Loss: 0.5774
+Meta-Epoch | Batch 235 | Query Loss: 0.5493
+Meta-Epoch | Batch 240 | Query Loss: 0.6161
+Meta-Epoch | Batch 245 | Query Loss: 0.6701
+2025-12-27 02:37:32,176 | INFO |   Meta Loss: 0.6434 (Steps: 5)
+2025-12-27 02:37:32,176 | INFO | Epoch 3 | Meta Loss: 0.6434
+2025-12-27 02:37:32,375 | INFO |   Eval Results:
+2025-12-27 02:37:32,375 | INFO |     HR@10: 0.1087 | NDCG@10: 0.0494
+2025-12-27 02:37:32,375 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.0494
+2025-12-27 02:37:32,375 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-27 02:37:32,375 | INFO | Epoch 3 | HR@10: 0.1087 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2025-12-27 02:37:32,375 | INFO |     HR@10: 0.1087 | NDCG@10: 0.0494
+2025-12-27 02:37:32,375 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-27 02:37:32,375 | INFO | Epoch 3 | HR@10: 0.1087 | NDCG@10: 0.0494 | Cold_HR@10: 0.0000
+2025-12-27 02:37:32,375 | INFO |     HR@20: 0.2324 | NDCG@20: 0.0803
+2025-12-27 02:37:32,375 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.0803
+2025-12-27 02:37:32,375 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-27 02:37:32,375 | INFO | Epoch 3 | HR@20: 0.2324 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2025-12-27 02:37:32,375 | INFO |     HR@20: 0.2324 | NDCG@20: 0.0803
+2025-12-27 02:37:32,376 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-27 02:37:32,376 | INFO | Epoch 3 | HR@20: 0.2324 | NDCG@20: 0.0803 | Cold_HR@20: 0.0000
+2025-12-27 02:37:32,376 | INFO | 
+Epoch 4/5
+Epoch 3 | Batch 0 | Loss: 3.1786 | Rec: 3.1279 | Orth: 0.0089 | Prop[Min:0.1323, Mean:0.2332, Max:0.4797]
+2025-12-27 02:37:34,672 | INFO |   Train Loss: 3.1238 | Time: 2.30s | Peak Mem: 0.00 MB
+2025-12-27 02:37:34,673 | INFO | Epoch 4 | Train Loss: 3.1238 | Time: 2.30s
+Meta-Epoch | Batch 0 | Query Loss: 0.6933
+Meta-Epoch | Batch 5 | Query Loss: 0.5622
+Meta-Epoch | Batch 10 | Query Loss: 0.5946
+Meta-Epoch | Batch 15 | Query Loss: 0.6577
+Meta-Epoch | Batch 20 | Query Loss: 0.7288
+Meta-Epoch | Batch 25 | Query Loss: 0.7114
+Meta-Epoch | Batch 30 | Query Loss: 0.6565
+Meta-Epoch | Batch 35 | Query Loss: 0.6768
+Meta-Epoch | Batch 40 | Query Loss: 0.6488
+Meta-Epoch | Batch 45 | Query Loss: 0.5684
+Meta-Epoch | Batch 50 | Query Loss: 0.7045
+Meta-Epoch | Batch 55 | Query Loss: 0.6312
+Meta-Epoch | Batch 60 | Query Loss: 0.6334
+Meta-Epoch | Batch 65 | Query Loss: 0.7247
+Meta-Epoch | Batch 70 | Query Loss: 0.5147
+Meta-Epoch | Batch 75 | Query Loss: 0.6956
+Meta-Epoch | Batch 80 | Query Loss: 0.7687
+Meta-Epoch | Batch 85 | Query Loss: 0.6766
+Meta-Epoch | Batch 90 | Query Loss: 0.7369
+Meta-Epoch | Batch 95 | Query Loss: 0.6368
+Meta-Epoch | Batch 100 | Query Loss: 0.5785
+Meta-Epoch | Batch 105 | Query Loss: 0.6017
+Meta-Epoch | Batch 110 | Query Loss: 0.6642
+Meta-Epoch | Batch 115 | Query Loss: 0.5974
+Meta-Epoch | Batch 120 | Query Loss: 0.7094
+Meta-Epoch | Batch 125 | Query Loss: 0.6519
+Meta-Epoch | Batch 130 | Query Loss: 0.5131
+Meta-Epoch | Batch 135 | Query Loss: 0.6751
+Meta-Epoch | Batch 140 | Query Loss: 0.7149
+Meta-Epoch | Batch 145 | Query Loss: 0.6424
+Meta-Epoch | Batch 150 | Query Loss: 0.6575
+Meta-Epoch | Batch 155 | Query Loss: 0.6406
+Meta-Epoch | Batch 160 | Query Loss: 0.6783
+Meta-Epoch | Batch 165 | Query Loss: 0.7236
+Meta-Epoch | Batch 170 | Query Loss: 0.7135
+Meta-Epoch | Batch 175 | Query Loss: 0.6449
+Meta-Epoch | Batch 180 | Query Loss: 0.6750
+Meta-Epoch | Batch 185 | Query Loss: 0.7141
+Meta-Epoch | Batch 190 | Query Loss: 0.7019
+Meta-Epoch | Batch 195 | Query Loss: 0.6151
+Meta-Epoch | Batch 200 | Query Loss: 0.7131
+Meta-Epoch | Batch 205 | Query Loss: 0.6032
+Meta-Epoch | Batch 210 | Query Loss: 0.6595
+Meta-Epoch | Batch 215 | Query Loss: 0.6964
+Meta-Epoch | Batch 220 | Query Loss: 0.6880
+Meta-Epoch | Batch 225 | Query Loss: 0.5574
+Meta-Epoch | Batch 230 | Query Loss: 0.6047
+Meta-Epoch | Batch 235 | Query Loss: 0.7502
+Meta-Epoch | Batch 240 | Query Loss: 0.5413
+Meta-Epoch | Batch 245 | Query Loss: 0.6139
+2025-12-27 02:40:07,192 | INFO |   Meta Loss: 0.6482 (Steps: 5)
+2025-12-27 02:40:07,192 | INFO | Epoch 4 | Meta Loss: 0.6482
+2025-12-27 02:40:07,383 | INFO |   Eval Results:
+2025-12-27 02:40:07,383 | INFO |     HR@10: 0.1087 | NDCG@10: 0.0487
+2025-12-27 02:40:07,383 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.0487
+2025-12-27 02:40:07,383 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-27 02:40:07,383 | INFO | Epoch 4 | HR@10: 0.1087 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2025-12-27 02:40:07,383 | INFO |     HR@10: 0.1087 | NDCG@10: 0.0487
+2025-12-27 02:40:07,383 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-27 02:40:07,383 | INFO | Epoch 4 | HR@10: 0.1087 | NDCG@10: 0.0487 | Cold_HR@10: 0.0000
+2025-12-27 02:40:07,383 | INFO |     HR@20: 0.2132 | NDCG@20: 0.0749
+2025-12-27 02:40:07,383 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.0749
+2025-12-27 02:40:07,383 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-27 02:40:07,383 | INFO | Epoch 4 | HR@20: 0.2132 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2025-12-27 02:40:07,383 | INFO |     HR@20: 0.2132 | NDCG@20: 0.0749
+2025-12-27 02:40:07,383 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-27 02:40:07,383 | INFO | Epoch 4 | HR@20: 0.2132 | NDCG@20: 0.0749 | Cold_HR@20: 0.0000
+2025-12-27 02:40:07,383 | INFO | 
+Epoch 5/5
+Epoch 4 | Batch 0 | Loss: 3.2712 | Rec: 3.2191 | Orth: 0.0217 | Prop[Min:0.1292, Mean:0.2277, Max:0.3648]
+2025-12-27 02:40:09,649 | INFO |   Train Loss: 3.1154 | Time: 2.27s | Peak Mem: 0.00 MB
+2025-12-27 02:40:09,649 | INFO | Epoch 5 | Train Loss: 3.1154 | Time: 2.27s
+Meta-Epoch | Batch 0 | Query Loss: 0.6424
+Meta-Epoch | Batch 5 | Query Loss: 0.6881
+Meta-Epoch | Batch 10 | Query Loss: 0.7144
+Meta-Epoch | Batch 15 | Query Loss: 0.7095
+Meta-Epoch | Batch 20 | Query Loss: 0.6664
+Meta-Epoch | Batch 25 | Query Loss: 0.6595
+Meta-Epoch | Batch 30 | Query Loss: 0.7171
+Meta-Epoch | Batch 35 | Query Loss: 0.6147
+Meta-Epoch | Batch 40 | Query Loss: 0.5496
+Meta-Epoch | Batch 45 | Query Loss: 0.6606
+Meta-Epoch | Batch 50 | Query Loss: 0.6874
+Meta-Epoch | Batch 55 | Query Loss: 0.6493
+Meta-Epoch | Batch 60 | Query Loss: 0.5988
+Meta-Epoch | Batch 65 | Query Loss: 0.5961
+Meta-Epoch | Batch 70 | Query Loss: 0.6085
+Meta-Epoch | Batch 75 | Query Loss: 0.6216
+Meta-Epoch | Batch 80 | Query Loss: 0.8109
+Meta-Epoch | Batch 85 | Query Loss: 0.6885
+Meta-Epoch | Batch 90 | Query Loss: 0.5903
+Meta-Epoch | Batch 95 | Query Loss: 0.7032
+Meta-Epoch | Batch 100 | Query Loss: 0.6567
+Meta-Epoch | Batch 105 | Query Loss: 0.7189
+Meta-Epoch | Batch 110 | Query Loss: 0.6301
+Meta-Epoch | Batch 115 | Query Loss: 0.7553
+Meta-Epoch | Batch 120 | Query Loss: 0.5701
+Meta-Epoch | Batch 125 | Query Loss: 0.6007
+Meta-Epoch | Batch 130 | Query Loss: 0.7292
+Meta-Epoch | Batch 135 | Query Loss: 0.6401
+Meta-Epoch | Batch 140 | Query Loss: 0.6102
+Meta-Epoch | Batch 145 | Query Loss: 0.6893
+Meta-Epoch | Batch 150 | Query Loss: 0.6684
+Meta-Epoch | Batch 155 | Query Loss: 0.6419
+Meta-Epoch | Batch 160 | Query Loss: 0.6460
+Meta-Epoch | Batch 165 | Query Loss: 0.7098
+Meta-Epoch | Batch 170 | Query Loss: 0.5729
+Meta-Epoch | Batch 175 | Query Loss: 0.6151
+Meta-Epoch | Batch 180 | Query Loss: 0.6588
+Meta-Epoch | Batch 185 | Query Loss: 0.5950
+Meta-Epoch | Batch 190 | Query Loss: 0.6955
+Meta-Epoch | Batch 195 | Query Loss: 0.6402
+Meta-Epoch | Batch 200 | Query Loss: 0.5199
+Meta-Epoch | Batch 205 | Query Loss: 0.6782
+Meta-Epoch | Batch 210 | Query Loss: 0.6136
+Meta-Epoch | Batch 215 | Query Loss: 0.6822
+Meta-Epoch | Batch 220 | Query Loss: 0.6807
+Meta-Epoch | Batch 225 | Query Loss: 0.6131
+Meta-Epoch | Batch 230 | Query Loss: 0.6694
+Meta-Epoch | Batch 235 | Query Loss: 0.7147
+Meta-Epoch | Batch 240 | Query Loss: 0.7392
+Meta-Epoch | Batch 245 | Query Loss: 0.6288
+2025-12-27 02:42:42,663 | INFO |   Meta Loss: 0.6540 (Steps: 5)
+2025-12-27 02:42:42,663 | INFO | Epoch 5 | Meta Loss: 0.6540
+2025-12-27 02:42:42,852 | INFO |   Eval Results:
+2025-12-27 02:42:42,852 | INFO |     HR@10: 0.1023 | NDCG@10: 0.0458
+2025-12-27 02:42:42,852 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.0458
+2025-12-27 02:42:42,852 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-27 02:42:42,852 | INFO | Epoch 5 | HR@10: 0.1023 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2025-12-27 02:42:42,853 | INFO |     HR@10: 0.1023 | NDCG@10: 0.0458
+2025-12-27 02:42:42,853 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2025-12-27 02:42:42,853 | INFO | Epoch 5 | HR@10: 0.1023 | NDCG@10: 0.0458 | Cold_HR@10: 0.0000
+2025-12-27 02:42:42,853 | INFO |     HR@20: 0.1940 | NDCG@20: 0.0688
+2025-12-27 02:42:42,853 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.0688
+2025-12-27 02:42:42,853 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-27 02:42:42,853 | INFO | Epoch 5 | HR@20: 0.1940 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2025-12-27 02:42:42,853 | INFO |     HR@20: 0.1940 | NDCG@20: 0.0688
+2025-12-27 02:42:42,853 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2025-12-27 02:42:42,853 | INFO | Epoch 5 | HR@20: 0.1940 | NDCG@20: 0.0688 | Cold_HR@20: 0.0000
+2025-12-27 02:42:42,853 | INFO | 
+Training Complete!
+2025-12-27 02:42:42,856 | INFO | Saved ID Mappings to models/saved/mappings.pkl
+2025-12-27 02:42:42,856 | INFO | 
+--- Running Scientific Evaluation (Ranking & Cold-Start) ---
+2025-12-27 02:42:42,858 | INFO | Bucket Definition 'Cold (1)': 703 users eligible.
+2025-12-27 02:42:42,858 | INFO | Bucket Definition 'Few (2-4)': 294 users eligible.
+2025-12-27 02:42:42,858 | INFO | Bucket Definition 'Medium (5-10)': 0 users eligible.
+2025-12-27 02:42:42,858 | INFO | Bucket Definition 'Warm (>10)': 0 users eligible.
+2025-12-27 02:42:42,858 | INFO | Running Inference on Full Dataset for Bucket Analysis...
+2025-12-27 02:42:43,352 | INFO | 
+=== FINAL SCIENTIFIC BREAKDOWN ===
+2025-12-27 02:42:43,352 | INFO | Bucket 'Cold (1)': 0/703 evaluated (All Skipped?)
+2025-12-27 02:42:43,352 | INFO | Bucket 'Few (2-4)': 0/294 evaluated (All Skipped?)
+2025-12-27 02:42:43,352 | INFO | Bucket 'Medium (5-10)': 0/0 evaluated (All Skipped?)
+2025-12-27 02:42:43,352 | INFO | Bucket 'Warm (>10)': 0/0 evaluated (All Skipped?)
+2025-12-27 02:42:43,352 | INFO | Full System Verification Complete!
+2025-12-27 02:42:43,352 | INFO | 
+--- [Module 5] Online Learning Phase ---
+2025-12-27 02:42:43,366 | INFO | Drift Detected: True
+2025-12-27 02:42:43,366 | INFO | Triggering Online Adaptation...
+2025-12-27 02:42:43,366 | INFO | User Adapted.
+2025-12-27 02:42:43,366 | INFO | 
+--- [Module 3] Retrieval & Re-ranking ---
+2025-12-27 02:42:43,366 | INFO | Building FAISS Index...
+Dataset size (100) is too small for IVF100. Switching to IndexFlatL2.
+2025-12-27 02:42:43,366 | INFO | Retrieving Candidates...
+2025-12-27 02:42:43,367 | INFO | Retrieved Candidates: (array([[22, 96, 16, 62, 29, 42, 40,  1, 39, 92]]), array([[194.73705, 199.13196, 209.39539, 209.69019, 209.74963, 212.23796,
+        213.11479, 214.94066, 215.06213, 215.32346]], dtype=float32))
+2025-12-27 02:42:43,367 | INFO | 
+--- [Module 6] Explainability ---
+2025-12-27 02:42:43,367 | INFO | Explanation: {'user_id': 'User_X', 'item_id': 'Item_Y', 'cross_domain_contribution': 0.85, 'kg_evidence': ['User', 'Viewed', 'SciFi', 'IsGenre', 'Item'], 'history_match_score': 0.4}

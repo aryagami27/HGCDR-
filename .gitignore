@@ -1,0 +1,9 @@
+# Datasets
+Datasets*
+
+# Models 
+best_model.pth
+models/saved
+
+# Cache
+hf_cache
