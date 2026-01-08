@@ -141,8 +141,15 @@ Run on the complete datasets.
     ```
 3.  **Train & Evaluate**:
     ```bash
-    uv run main.py --data_dir ./Datasets
+    uv run main.py --data_dir ./Datasets --batch_size 32
     ```
+
+### Option C: Hyperparameter Tuning
+
+You can also adjust the batch size:
+
+```bash
+uv run main.py --batch_size 16
 
 ## 8. Scientific & Engineering Closure
 
@@ -204,3 +211,4 @@ The Knowledge Graph (KG) module aligns items with external entities (e.g., Freeb
 - **Alignment Strategy**: We rely on **ASIN Matching**.
 - **Preprocessing**: The `Preprocessor` filters the KG triples to include only those where the `head_id` matches a valid item ASIN in the target domain.
 - **Fusion**: KG-derived embeddings (contextualized by HGT) are fused with Item ID embeddings using an Attention-based `KGFusion` layer, regulating the injection of external knowledge.
+```

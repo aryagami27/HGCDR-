@@ -1,0 +1,358 @@
+2026-01-05 20:29:37,605 | INFO | Starting Training Session...
+2026-01-05 20:29:37,605 | INFO | Config: {'domain_a': 'amazon', 'domain_b': 'yelp', 'embedding_dim': 128, 'z_inv_dim': 64, 'z_spec_dim': 64, 'dropout': 0.2, 'text_model': 'distilbert-base-uncased', 'freeze_text_layers': 2, 'gnn_layers': 2, 'gnn_heads': 4, 'lambda_rec': 1.0, 'lambda_orth': 0.01, 'lambda_contrast': 0.01, 'lambda_causal': 0.5, 'lr': 0.001, 'batch_size': 256, 'enable_disentangle': True, 'enable_kg': True, 'enable_causal': True, 'enable_meta': True, 'enable_lasso': True, 'enable_retrieval': True, 'enable_contrast': True, 'seed': 42, 'latency_budget_ms': 50}
+🔒 Reproducibility: Seed set to 42
+2026-01-05 20:29:37,609 | INFO | Using Data Directory: Datasets_mini_v2(10000)
+2026-01-05 20:29:37,609 | INFO | Using device: cuda
+2026-01-05 20:29:37,609 | INFO | Loading Real Datasets...
+2026-01-05 20:29:37,609 | INFO | Source Path: Datasets_mini_v2(10000)/yelp_sample_100k.csv
+2026-01-05 20:29:37,609 | INFO | Target Path: Datasets_mini_v2(10000)/amazon_sample_100k.csv
+2026-01-05 20:29:37,609 | INFO | Loading Datasets_mini_v2(10000)/yelp_sample_100k.csv (Is Yelp? True)...
+Loading Douban book reviews from Datasets_mini_v2(10000)/douban_dataset(text information)/bookreviews_cleaned.txt...
+2026-01-05 20:29:37,725 | INFO | Merging 10000 Douban reviews into Source...
+2026-01-05 20:29:37,726 | INFO | Loading Datasets_mini_v2(10000)/amazon_sample_100k.csv (Is Yelp? False)...
+2026-01-05 20:29:37,742 | INFO | File Datasets_mini_v2(10000)/amazon_sample_100k.csv lacks headers. Reading with default names...
+2026-01-05 20:29:37,759 | INFO | Source shape: (20000, 4)
+2026-01-05 20:29:37,759 | INFO | Target shape: (10000, 4)
+2026-01-05 20:29:37,759 | INFO | Applying synthetic user mapping from Datasets_mini_v2(10000)/user_mapping.csv...
+2026-01-05 20:29:37,766 | INFO | User IDs in Target domain updated to match Source domain based on mapping.
+2026-01-05 20:29:37,766 | INFO | Found Lasso Augmented Data at Datasets/lasso_augmented_data.csv. Merging...
+2026-01-05 20:29:37,794 | INFO | New Target (Amazon) shape after Lasso: (25268, 4)
+2026-01-05 20:29:37,805 | INFO | Number of overlapping users found by ID: 2886
+2026-01-05 20:29:37,814 | INFO | Number of overlapping users found by ID: 2886
+2026-01-05 20:29:37,814 | INFO | Encoding IDs...
+2026-01-05 20:29:37,850 | INFO | Ensuring Dense User ID Encoding (Early)...
+2026-01-05 20:29:37,862 | INFO | Refined Target User IDs: Count=11393, Max=11392
+2026-01-05 20:29:37,873 | INFO | Initializing Tokenizer...
+2026-01-05 20:29:39,057 | INFO | Pre-computing Source Item Embeddings for HSGE Pruning...
+2026-01-05 20:29:39.663365: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1767644979.685193     209 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1767644979.691853     209 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1767644979.709324     209 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1767644979.709361     209 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1767644979.709365     209 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1767644979.709367     209 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2026-01-05 20:29:57,895 | INFO | Computed embeddings for 12275 items.
+2026-01-05 20:29:57,895 | INFO | Initializing Dataset...
+2026-01-05 20:29:57,903 | INFO | Dataset length: 20000
+2026-01-05 20:29:57,903 | INFO | Initializing DataLoader...
+2026-01-05 20:29:57,903 | INFO | Iterating through DataLoader (checking for overlap)...
+2026-01-05 20:29:58,023 | INFO | Batch 0 has overlap!
+2026-01-05 20:29:58,031 | INFO | Batch 1 has overlap!
+2026-01-05 20:29:58,040 | INFO | Batch 2 has overlap!
+2026-01-05 20:29:58,048 | INFO | Batch 3 has overlap!
+2026-01-05 20:29:58,054 | INFO | Batch 4 has overlap!
+2026-01-05 20:29:58,060 | INFO | Batch 5 has overlap!
+2026-01-05 20:29:58,068 | INFO | Batch 6 has overlap!
+2026-01-05 20:29:58,073 | INFO | Batch 7 has overlap!
+2026-01-05 20:29:58,086 | INFO | Batch 8 has overlap!
+2026-01-05 20:29:58,093 | INFO | Batch 9 has overlap!
+2026-01-05 20:29:58,098 | INFO | Batch 10 has overlap!
+2026-01-05 20:29:58,099 | INFO | Verification Complete!
+2026-01-05 20:29:58,099 | INFO | 
+--- Model Verification ---
+2026-01-05 20:29:58,102 | INFO | 
+--- Full System Verification ---
+2026-01-05 20:29:58,102 | INFO | 
+[3] Constructing Heterogeneous Graph...
+2026-01-05 20:29:58,102 | INFO | Ensuring Dense User ID Encoding for Graph Construction...
+2026-01-05 20:29:58,113 | INFO | Refined Target User IDs: Count=11393, Max=11392
+2026-01-05 20:29:58,223 | INFO | Loading Custom KG Alignment from Datasets_mini_v2(10000)/amazon_item_to_kg.csv...
+2026-01-05 20:29:58,231 | INFO | Filtered KG Alignment: 2353 -> 2353 edges matched to Target items.
+2026-01-05 20:29:58,233 | INFO | Augmented KG with 2353 alignment edges.
+Edge Pruner: IOF Threshold=1.2828. Pruned 614 items (5.00%).
+Edge Pruning: Kept 11661/12275 source items.
+Integrating Knowledge Graph...
+DEBUG: KG Valid Length: 2353
+2026-01-05 20:29:59,294 | INFO | TensorFlow version 2.19.0 available.
+2026-01-05 20:29:59,295 | INFO | JAX version 0.7.2 available.
+Generating embeddings for 1542 KG entities...
+2026-01-05 20:30:00,614 | INFO | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+KG Node Embeddings generated successfully.
+KG Integrated: 1542 entities, 2353 edges.
+2026-01-05 20:30:04,019 | INFO | HeteroData(
+  user_src={ x=[11094, 128] },
+  user_tgt={ x=[11393, 128] },
+  item_src={ x=[12275, 128] },
+  item_tgt={ x=[9469, 128] },
+  entity={ x=[1542, 384] },
+  (user_src, rates, item_src)={ edge_index=[2, 19231] },
+  (item_src, rated_by, user_src)={ edge_index=[2, 19231] },
+  (user_tgt, rates, item_tgt)={ edge_index=[2, 25268] },
+  (item_tgt, rated_by, user_tgt)={ edge_index=[2, 25268] },
+  (item_tgt, has_kg, entity)={ edge_index=[2, 2353] },
+  (entity, kg_of, item_tgt)={ edge_index=[2, 2353] }
+)
+2026-01-05 20:30:04,019 | INFO | Edge Types: [('user_src', 'rates', 'item_src'), ('item_src', 'rated_by', 'user_src'), ('user_tgt', 'rates', 'item_tgt'), ('item_tgt', 'rated_by', 'user_tgt'), ('item_tgt', 'has_kg', 'entity'), ('entity', 'kg_of', 'item_tgt')]
+2026-01-05 20:30:04,019 | INFO | Graph Metadata: (['user_src', 'user_tgt', 'item_src', 'item_tgt', 'entity'], [('user_src', 'rates', 'item_src'), ('item_src', 'rated_by', 'user_src'), ('user_tgt', 'rates', 'item_tgt'), ('item_tgt', 'rated_by', 'user_tgt'), ('item_tgt', 'has_kg', 'entity'), ('entity', 'kg_of', 'item_tgt')])
+2026-01-05 20:30:04,020 | INFO | Node Types in x_dict: dict_keys(['user_src', 'user_tgt', 'item_src', 'item_tgt', 'entity'])
+2026-01-05 20:30:04,020 | INFO | Final Config after overrides: {'domain_a': 'amazon', 'domain_b': 'yelp', 'embedding_dim': 128, 'z_inv_dim': 64, 'z_spec_dim': 64, 'dropout': 0.2, 'text_model': 'distilbert-base-uncased', 'freeze_text_layers': 2, 'gnn_layers': 2, 'gnn_heads': 8, 'lambda_rec': 1.0, 'lambda_orth': 0.01, 'lambda_contrast': 0.01, 'lambda_causal': 0.5, 'lr': 0.001, 'batch_size': 256, 'enable_disentangle': True, 'enable_kg': True, 'enable_causal': True, 'enable_meta': False, 'enable_lasso': True, 'enable_retrieval': True, 'enable_contrast': True, 'seed': 42, 'latency_budget_ms': 50, 'epochs': 5}
+2026-01-05 20:30:04,020 | INFO | Initializing HGCDRPlus...
+2026-01-05 20:30:04,234 | INFO | Inspecting HGTModule...
+2026-01-05 20:30:04,234 | INFO | HGTModule(
+  (layers): ModuleList(
+    (0-1): 2 x HGTConv(-1, 128, heads=8)
+  )
+)
+2026-01-05 20:30:04,234 | INFO | Could not access k_lin keys
+2026-01-05 20:30:04,234 | INFO | Verifying HGT with data in isolation...
+2026-01-05 20:30:04,431 | INFO | HGT Isolation Test Passed!
+2026-01-05 20:30:04,431 | INFO | Initializing Auxiliary Modules...
+2026-01-05 20:30:04,458 | INFO | --- [Causal] Training Exposure Model ---
+2026-01-05 20:30:06,819 | INFO | [Exposure] Epoch 1/5 | Loss: 0.3347
+2026-01-05 20:30:09,288 | INFO | [Exposure] Epoch 2/5 | Loss: 0.2716
+2026-01-05 20:30:11,360 | INFO | [Exposure] Epoch 3/5 | Loss: 0.2514
+2026-01-05 20:30:13,391 | INFO | [Exposure] Epoch 4/5 | Loss: 0.2303
+2026-01-05 20:30:15,828 | INFO | [Exposure] Epoch 5/5 | Loss: 0.2090
+2026-01-05 20:30:15,828 | INFO | --- [Causal] Exposure Model Trained ---
+2026-01-05 20:30:15,833 | INFO | FAISS not installed, skipping retrieval module initialization.
+2026-01-05 20:30:15,833 | INFO | Initializing Trainer (Final)...
+2026-01-05 20:30:15,839 | INFO | Identified 9869 Cold-Start Users (<5 interactions).
+2026-01-05 20:30:15,843 | INFO | Train samples: 20214, Test samples: 5054
+2026-01-05 20:30:15,850 | INFO | Running Training Epoch...
+2026-01-05 20:30:16,265 | INFO | Epoch 0 | Batch 0 | Loss: 2.0884 | Rec: 2.0781 | Orth: 0.0104
+2026-01-05 20:30:16,266 | INFO |   Propensity (mean): 0.2575
+2026-01-05 20:30:16,483 | INFO | Training Epoch Complete! Avg Loss: 2.4183
+2026-01-05 20:30:16,484 | INFO | 
+--- Starting Full Training Loop ---
+2026-01-05 20:30:16,484 | INFO | No timestamp found. using Index (assuming chronological) or Random.
+2026-01-05 20:30:16,484 | INFO | Temporal Split: Train 20215, Test 5053
+2026-01-05 20:30:16,637 | INFO | 
+Epoch 1/5
+Epoch 0 | Batch 0 | Loss: 2.6214 | Rec: 2.5654 | Orth: 0.0048 | Prop[Min:0.0327, Mean:0.4612, Max:0.9997]
+Epoch 0 | Batch 10 | Loss: 2.5932 | Rec: 2.5378 | Orth: 0.0024 | Prop[Min:0.0142, Mean:0.4462, Max:0.9997]
+Epoch 0 | Batch 20 | Loss: 2.7041 | Rec: 2.6491 | Orth: 0.0017 | Prop[Min:0.0210, Mean:0.4521, Max:0.9997]
+Epoch 0 | Batch 30 | Loss: 2.2606 | Rec: 2.2059 | Orth: 0.0020 | Prop[Min:0.0147, Mean:0.4799, Max:0.9999]
+Epoch 0 | Batch 40 | Loss: 2.2139 | Rec: 2.1605 | Orth: 0.0023 | Prop[Min:0.0184, Mean:0.4753, Max:0.9996]
+Epoch 0 | Batch 50 | Loss: 2.0577 | Rec: 2.0050 | Orth: 0.0037 | Prop[Min:0.0313, Mean:0.4844, Max:0.9998]
+Epoch 0 | Batch 60 | Loss: 1.7510 | Rec: 1.6975 | Orth: 0.0042 | Prop[Min:0.0222, Mean:0.4772, Max:0.9996]
+Epoch 0 | Batch 70 | Loss: 1.3624 | Rec: 1.3092 | Orth: 0.0029 | Prop[Min:0.0245, Mean:0.4852, Max:0.9998]
+2026-01-05 20:31:04,011 | INFO |   Train Loss: 2.1317 | Time: 47.37s | Peak Mem: 1465.46 MB
+2026-01-05 20:31:04,011 | INFO | Epoch 1 | Train Loss: 2.1317 | Time: 47.37s
+2026-01-05 20:31:04,011 | INFO |   Meta-Training Skipped (Disabled)
+2026-01-05 20:31:04,017 | INFO | DEBUG: Pre-Scan Test DataLoader for OOB IDs...
+2026-01-05 20:31:06,148 | INFO | DEBUG: Max Test Item ID: 9456 | Model Emb Size: 9469
+2026-01-05 20:31:07,347 | WARNING | OOB Source User IDs detected! Max: 11115, Limit: 11094. Clamping...
+2026-01-05 20:31:07,478 | WARNING | OOB Source User IDs detected! Max: 11141, Limit: 11094. Clamping...
+2026-01-05 20:31:07,604 | WARNING | OOB Source User IDs detected! Max: 11166, Limit: 11094. Clamping...
+2026-01-05 20:31:07,731 | WARNING | OOB Source User IDs detected! Max: 11192, Limit: 11094. Clamping...
+2026-01-05 20:31:07,859 | WARNING | OOB Source User IDs detected! Max: 11218, Limit: 11094. Clamping...
+2026-01-05 20:31:07,988 | WARNING | OOB Source User IDs detected! Max: 11243, Limit: 11094. Clamping...
+2026-01-05 20:31:08,119 | WARNING | OOB Source User IDs detected! Max: 11269, Limit: 11094. Clamping...
+2026-01-05 20:31:08,249 | WARNING | OOB Source User IDs detected! Max: 11295, Limit: 11094. Clamping...
+2026-01-05 20:31:08,387 | WARNING | OOB Source User IDs detected! Max: 11322, Limit: 11094. Clamping...
+2026-01-05 20:31:08,538 | WARNING | OOB Source User IDs detected! Max: 11348, Limit: 11094. Clamping...
+2026-01-05 20:31:08,676 | WARNING | OOB Source User IDs detected! Max: 11374, Limit: 11094. Clamping...
+2026-01-05 20:31:08,781 | WARNING | OOB Source User IDs detected! Max: 11392, Limit: 11094. Clamping...
+2026-01-05 20:31:08,787 | INFO |   Eval Results:
+2026-01-05 20:31:08,787 | INFO |     HR@10: 0.1583 | NDCG@10: 0.1183
+2026-01-05 20:31:08,788 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.1183
+2026-01-05 20:31:08,788 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 20:31:08,788 | INFO | Epoch 1 | HR@10: 0.1583 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2026-01-05 20:31:08,788 | INFO |     HR@10: 0.1583 | NDCG@10: 0.1183
+2026-01-05 20:31:08,788 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 20:31:08,788 | INFO | Epoch 1 | HR@10: 0.1583 | NDCG@10: 0.1183 | Cold_HR@10: 0.0000
+2026-01-05 20:31:08,788 | INFO |     HR@20: 0.2697 | NDCG@20: 0.1462
+2026-01-05 20:31:08,788 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.1462
+2026-01-05 20:31:08,789 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 20:31:08,789 | INFO | Epoch 1 | HR@20: 0.2697 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2026-01-05 20:31:08,789 | INFO |     HR@20: 0.2697 | NDCG@20: 0.1462
+2026-01-05 20:31:08,789 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 20:31:08,789 | INFO | Epoch 1 | HR@20: 0.2697 | NDCG@20: 0.1462 | Cold_HR@20: 0.0000
+2026-01-05 20:31:09,424 | INFO |   New Best Model Saved! HR@10: 0.1583
+2026-01-05 20:31:09,424 | INFO | 
+Epoch 2/5
+Epoch 1 | Batch 0 | Loss: 1.3213 | Rec: 1.2690 | Orth: 0.0018 | Prop[Min:0.0297, Mean:0.4930, Max:0.9998]
+Epoch 1 | Batch 10 | Loss: 1.3176 | Rec: 1.2654 | Orth: 0.0019 | Prop[Min:0.0148, Mean:0.4474, Max:0.9998]
+Epoch 1 | Batch 20 | Loss: 1.4211 | Rec: 1.3697 | Orth: 0.0021 | Prop[Min:0.0174, Mean:0.4448, Max:0.9998]
+Epoch 1 | Batch 30 | Loss: 0.6650 | Rec: 0.6129 | Orth: 0.0024 | Prop[Min:0.0452, Mean:0.4612, Max:0.9998]
+Epoch 1 | Batch 40 | Loss: 0.8870 | Rec: 0.8358 | Orth: 0.0029 | Prop[Min:0.0072, Mean:0.4947, Max:0.9998]
+Epoch 1 | Batch 50 | Loss: 0.7251 | Rec: 0.6735 | Orth: 0.0023 | Prop[Min:0.0340, Mean:0.4592, Max:0.9998]
+Epoch 1 | Batch 60 | Loss: 0.8373 | Rec: 0.7856 | Orth: 0.0027 | Prop[Min:0.0238, Mean:0.4770, Max:0.9997]
+Epoch 1 | Batch 70 | Loss: 0.5230 | Rec: 0.4729 | Orth: 0.0022 | Prop[Min:0.0386, Mean:0.4742, Max:0.9996]
+2026-01-05 20:31:56,467 | INFO |   Train Loss: 0.8738 | Time: 47.04s | Peak Mem: 1637.31 MB
+2026-01-05 20:31:56,468 | INFO | Epoch 2 | Train Loss: 0.8738 | Time: 47.04s
+2026-01-05 20:31:56,468 | INFO |   Meta-Training Skipped (Disabled)
+2026-01-05 20:31:56,474 | INFO | DEBUG: Pre-Scan Test DataLoader for OOB IDs...
+2026-01-05 20:31:58,548 | INFO | DEBUG: Max Test Item ID: 9456 | Model Emb Size: 9469
+2026-01-05 20:31:59,715 | WARNING | OOB Source User IDs detected! Max: 11115, Limit: 11094. Clamping...
+2026-01-05 20:31:59,846 | WARNING | OOB Source User IDs detected! Max: 11141, Limit: 11094. Clamping...
+2026-01-05 20:31:59,976 | WARNING | OOB Source User IDs detected! Max: 11166, Limit: 11094. Clamping...
+2026-01-05 20:32:00,107 | WARNING | OOB Source User IDs detected! Max: 11192, Limit: 11094. Clamping...
+2026-01-05 20:32:00,237 | WARNING | OOB Source User IDs detected! Max: 11218, Limit: 11094. Clamping...
+2026-01-05 20:32:00,368 | WARNING | OOB Source User IDs detected! Max: 11243, Limit: 11094. Clamping...
+2026-01-05 20:32:00,501 | WARNING | OOB Source User IDs detected! Max: 11269, Limit: 11094. Clamping...
+2026-01-05 20:32:00,635 | WARNING | OOB Source User IDs detected! Max: 11295, Limit: 11094. Clamping...
+2026-01-05 20:32:00,770 | WARNING | OOB Source User IDs detected! Max: 11322, Limit: 11094. Clamping...
+2026-01-05 20:32:00,909 | WARNING | OOB Source User IDs detected! Max: 11348, Limit: 11094. Clamping...
+2026-01-05 20:32:01,046 | WARNING | OOB Source User IDs detected! Max: 11374, Limit: 11094. Clamping...
+2026-01-05 20:32:01,157 | WARNING | OOB Source User IDs detected! Max: 11392, Limit: 11094. Clamping...
+2026-01-05 20:32:01,164 | INFO |   Eval Results:
+2026-01-05 20:32:01,164 | INFO |     HR@10: 0.1464 | NDCG@10: 0.1145
+2026-01-05 20:32:01,164 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.1145
+2026-01-05 20:32:01,164 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 20:32:01,165 | INFO | Epoch 2 | HR@10: 0.1464 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2026-01-05 20:32:01,165 | INFO |     HR@10: 0.1464 | NDCG@10: 0.1145
+2026-01-05 20:32:01,165 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 20:32:01,165 | INFO | Epoch 2 | HR@10: 0.1464 | NDCG@10: 0.1145 | Cold_HR@10: 0.0000
+2026-01-05 20:32:01,165 | INFO |     HR@20: 0.2361 | NDCG@20: 0.1369
+2026-01-05 20:32:01,165 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.1369
+2026-01-05 20:32:01,165 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 20:32:01,165 | INFO | Epoch 2 | HR@20: 0.2361 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2026-01-05 20:32:01,166 | INFO |     HR@20: 0.2361 | NDCG@20: 0.1369
+2026-01-05 20:32:01,166 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 20:32:01,166 | INFO | Epoch 2 | HR@20: 0.2361 | NDCG@20: 0.1369 | Cold_HR@20: 0.0000
+2026-01-05 20:32:01,166 | INFO | 
+Epoch 3/5
+Epoch 2 | Batch 0 | Loss: 0.4254 | Rec: 0.3758 | Orth: 0.0029 | Prop[Min:0.0211, Mean:0.4640, Max:0.9996]
+Epoch 2 | Batch 10 | Loss: 0.3968 | Rec: 0.3461 | Orth: 0.0024 | Prop[Min:0.0304, Mean:0.4957, Max:0.9997]
+Epoch 2 | Batch 20 | Loss: 0.2146 | Rec: 0.1653 | Orth: 0.0025 | Prop[Min:0.0245, Mean:0.4538, Max:0.9996]
+Epoch 2 | Batch 30 | Loss: 0.3319 | Rec: 0.2828 | Orth: 0.0024 | Prop[Min:0.0252, Mean:0.4619, Max:0.9994]
+Epoch 2 | Batch 40 | Loss: 0.2178 | Rec: 0.1688 | Orth: 0.0019 | Prop[Min:0.0162, Mean:0.4804, Max:0.9997]
+Epoch 2 | Batch 50 | Loss: 0.2474 | Rec: 0.1978 | Orth: 0.0025 | Prop[Min:0.0414, Mean:0.4707, Max:0.9994]
+Epoch 2 | Batch 60 | Loss: 0.3280 | Rec: 0.2784 | Orth: 0.0017 | Prop[Min:0.0072, Mean:0.4441, Max:0.9995]
+Epoch 2 | Batch 70 | Loss: 0.2579 | Rec: 0.2079 | Orth: 0.0022 | Prop[Min:0.0151, Mean:0.4248, Max:0.9997]
+2026-01-05 20:32:48,012 | INFO |   Train Loss: 0.3123 | Time: 46.85s | Peak Mem: 1637.94 MB
+2026-01-05 20:32:48,012 | INFO | Epoch 3 | Train Loss: 0.3123 | Time: 46.85s
+2026-01-05 20:32:48,012 | INFO |   Meta-Training Skipped (Disabled)
+2026-01-05 20:32:48,018 | INFO | DEBUG: Pre-Scan Test DataLoader for OOB IDs...
+2026-01-05 20:32:50,098 | INFO | DEBUG: Max Test Item ID: 9456 | Model Emb Size: 9469
+2026-01-05 20:32:51,294 | WARNING | OOB Source User IDs detected! Max: 11115, Limit: 11094. Clamping...
+2026-01-05 20:32:51,426 | WARNING | OOB Source User IDs detected! Max: 11141, Limit: 11094. Clamping...
+2026-01-05 20:32:51,558 | WARNING | OOB Source User IDs detected! Max: 11166, Limit: 11094. Clamping...
+2026-01-05 20:32:51,690 | WARNING | OOB Source User IDs detected! Max: 11192, Limit: 11094. Clamping...
+2026-01-05 20:32:51,833 | WARNING | OOB Source User IDs detected! Max: 11218, Limit: 11094. Clamping...
+2026-01-05 20:32:51,981 | WARNING | OOB Source User IDs detected! Max: 11243, Limit: 11094. Clamping...
+2026-01-05 20:32:52,115 | WARNING | OOB Source User IDs detected! Max: 11269, Limit: 11094. Clamping...
+2026-01-05 20:32:52,251 | WARNING | OOB Source User IDs detected! Max: 11295, Limit: 11094. Clamping...
+2026-01-05 20:32:52,388 | WARNING | OOB Source User IDs detected! Max: 11322, Limit: 11094. Clamping...
+2026-01-05 20:32:52,524 | WARNING | OOB Source User IDs detected! Max: 11348, Limit: 11094. Clamping...
+2026-01-05 20:32:52,660 | WARNING | OOB Source User IDs detected! Max: 11374, Limit: 11094. Clamping...
+2026-01-05 20:32:52,770 | WARNING | OOB Source User IDs detected! Max: 11392, Limit: 11094. Clamping...
+2026-01-05 20:32:52,777 | INFO |   Eval Results:
+2026-01-05 20:32:52,777 | INFO |     HR@10: 0.1627 | NDCG@10: 0.1212
+2026-01-05 20:32:52,777 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.1212
+2026-01-05 20:32:52,777 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 20:32:52,777 | INFO | Epoch 3 | HR@10: 0.1627 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2026-01-05 20:32:52,778 | INFO |     HR@10: 0.1627 | NDCG@10: 0.1212
+2026-01-05 20:32:52,778 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 20:32:52,778 | INFO | Epoch 3 | HR@10: 0.1627 | NDCG@10: 0.1212 | Cold_HR@10: 0.0000
+2026-01-05 20:32:52,778 | INFO |     HR@20: 0.2707 | NDCG@20: 0.1483
+2026-01-05 20:32:52,778 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.1483
+2026-01-05 20:32:52,778 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 20:32:52,778 | INFO | Epoch 3 | HR@20: 0.2707 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2026-01-05 20:32:52,778 | INFO |     HR@20: 0.2707 | NDCG@20: 0.1483
+2026-01-05 20:32:52,779 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 20:32:52,779 | INFO | Epoch 3 | HR@20: 0.2707 | NDCG@20: 0.1483 | Cold_HR@20: 0.0000
+2026-01-05 20:32:53,434 | INFO |   New Best Model Saved! HR@10: 0.1627
+2026-01-05 20:32:53,435 | INFO | 
+Epoch 4/5
+Epoch 3 | Batch 0 | Loss: 0.1920 | Rec: 0.1435 | Orth: 0.0015 | Prop[Min:0.0165, Mean:0.4577, Max:0.9995]
+Epoch 3 | Batch 10 | Loss: 0.1888 | Rec: 0.1409 | Orth: 0.0018 | Prop[Min:0.0340, Mean:0.4797, Max:0.9996]
+Epoch 3 | Batch 20 | Loss: 0.0932 | Rec: 0.0462 | Orth: 0.0017 | Prop[Min:0.0222, Mean:0.4720, Max:0.9998]
+Epoch 3 | Batch 30 | Loss: 0.1704 | Rec: 0.1212 | Orth: 0.0014 | Prop[Min:0.0345, Mean:0.4537, Max:0.9999]
+Epoch 3 | Batch 40 | Loss: 0.2363 | Rec: 0.1894 | Orth: 0.0019 | Prop[Min:0.0055, Mean:0.4807, Max:0.9997]
+Epoch 3 | Batch 50 | Loss: 0.1985 | Rec: 0.1516 | Orth: 0.0016 | Prop[Min:0.0236, Mean:0.4777, Max:0.9995]
+Epoch 3 | Batch 60 | Loss: 0.0952 | Rec: 0.0481 | Orth: 0.0015 | Prop[Min:0.0626, Mean:0.4728, Max:0.9998]
+Epoch 3 | Batch 70 | Loss: 0.1708 | Rec: 0.1241 | Orth: 0.0017 | Prop[Min:0.0238, Mean:0.4826, Max:0.9997]
+2026-01-05 20:33:40,191 | INFO |   Train Loss: 0.2205 | Time: 46.76s | Peak Mem: 1638.06 MB
+2026-01-05 20:33:40,191 | INFO | Epoch 4 | Train Loss: 0.2205 | Time: 46.76s
+2026-01-05 20:33:40,191 | INFO |   Meta-Training Skipped (Disabled)
+2026-01-05 20:33:40,197 | INFO | DEBUG: Pre-Scan Test DataLoader for OOB IDs...
+2026-01-05 20:33:42,262 | INFO | DEBUG: Max Test Item ID: 9456 | Model Emb Size: 9469
+2026-01-05 20:33:43,442 | WARNING | OOB Source User IDs detected! Max: 11115, Limit: 11094. Clamping...
+2026-01-05 20:33:43,583 | WARNING | OOB Source User IDs detected! Max: 11141, Limit: 11094. Clamping...
+2026-01-05 20:33:43,716 | WARNING | OOB Source User IDs detected! Max: 11166, Limit: 11094. Clamping...
+2026-01-05 20:33:43,848 | WARNING | OOB Source User IDs detected! Max: 11192, Limit: 11094. Clamping...
+2026-01-05 20:33:43,980 | WARNING | OOB Source User IDs detected! Max: 11218, Limit: 11094. Clamping...
+2026-01-05 20:33:44,113 | WARNING | OOB Source User IDs detected! Max: 11243, Limit: 11094. Clamping...
+2026-01-05 20:33:44,245 | WARNING | OOB Source User IDs detected! Max: 11269, Limit: 11094. Clamping...
+2026-01-05 20:33:44,378 | WARNING | OOB Source User IDs detected! Max: 11295, Limit: 11094. Clamping...
+2026-01-05 20:33:44,512 | WARNING | OOB Source User IDs detected! Max: 11322, Limit: 11094. Clamping...
+2026-01-05 20:33:44,646 | WARNING | OOB Source User IDs detected! Max: 11348, Limit: 11094. Clamping...
+2026-01-05 20:33:44,777 | WARNING | OOB Source User IDs detected! Max: 11374, Limit: 11094. Clamping...
+2026-01-05 20:33:44,883 | WARNING | OOB Source User IDs detected! Max: 11392, Limit: 11094. Clamping...
+2026-01-05 20:33:44,889 | INFO |   Eval Results:
+2026-01-05 20:33:44,889 | INFO |     HR@10: 0.1587 | NDCG@10: 0.1200
+2026-01-05 20:33:44,889 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.1200
+2026-01-05 20:33:44,889 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 20:33:44,890 | INFO | Epoch 4 | HR@10: 0.1587 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2026-01-05 20:33:44,890 | INFO |     HR@10: 0.1587 | NDCG@10: 0.1200
+2026-01-05 20:33:44,890 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 20:33:44,890 | INFO | Epoch 4 | HR@10: 0.1587 | NDCG@10: 0.1200 | Cold_HR@10: 0.0000
+2026-01-05 20:33:44,890 | INFO |     HR@20: 0.2717 | NDCG@20: 0.1484
+2026-01-05 20:33:44,890 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.1484
+2026-01-05 20:33:44,890 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 20:33:44,890 | INFO | Epoch 4 | HR@20: 0.2717 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2026-01-05 20:33:44,890 | INFO |     HR@20: 0.2717 | NDCG@20: 0.1484
+2026-01-05 20:33:44,891 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 20:33:44,891 | INFO | Epoch 4 | HR@20: 0.2717 | NDCG@20: 0.1484 | Cold_HR@20: 0.0000
+2026-01-05 20:33:44,891 | INFO | 
+Epoch 5/5
+Epoch 4 | Batch 0 | Loss: 0.1589 | Rec: 0.1135 | Orth: 0.0013 | Prop[Min:0.0220, Mean:0.4613, Max:0.9997]
+Epoch 4 | Batch 10 | Loss: 0.2629 | Rec: 0.2174 | Orth: 0.0013 | Prop[Min:0.0319, Mean:0.4759, Max:0.9995]
+Epoch 4 | Batch 20 | Loss: 0.2697 | Rec: 0.2229 | Orth: 0.0013 | Prop[Min:0.0137, Mean:0.4816, Max:0.9997]
+Epoch 4 | Batch 30 | Loss: 0.1618 | Rec: 0.1164 | Orth: 0.0009 | Prop[Min:0.0159, Mean:0.4819, Max:0.9996]
+Epoch 4 | Batch 40 | Loss: 0.1953 | Rec: 0.1499 | Orth: 0.0011 | Prop[Min:0.0174, Mean:0.4498, Max:0.9997]
+Epoch 4 | Batch 50 | Loss: 0.3478 | Rec: 0.3034 | Orth: 0.0011 | Prop[Min:0.0245, Mean:0.4443, Max:0.9998]
+Epoch 4 | Batch 60 | Loss: 0.2585 | Rec: 0.2139 | Orth: 0.0010 | Prop[Min:0.0246, Mean:0.4587, Max:0.9997]
+Epoch 4 | Batch 70 | Loss: 0.1376 | Rec: 0.0922 | Orth: 0.0008 | Prop[Min:0.0272, Mean:0.4375, Max:0.9997]
+2026-01-05 20:34:32,344 | INFO |   Train Loss: 0.1932 | Time: 47.45s | Peak Mem: 1638.06 MB
+2026-01-05 20:34:32,344 | INFO | Epoch 5 | Train Loss: 0.1932 | Time: 47.45s
+2026-01-05 20:34:32,345 | INFO |   Meta-Training Skipped (Disabled)
+2026-01-05 20:34:32,351 | INFO | DEBUG: Pre-Scan Test DataLoader for OOB IDs...
+2026-01-05 20:34:34,460 | INFO | DEBUG: Max Test Item ID: 9456 | Model Emb Size: 9469
+2026-01-05 20:34:35,669 | WARNING | OOB Source User IDs detected! Max: 11115, Limit: 11094. Clamping...
+2026-01-05 20:34:35,803 | WARNING | OOB Source User IDs detected! Max: 11141, Limit: 11094. Clamping...
+2026-01-05 20:34:35,939 | WARNING | OOB Source User IDs detected! Max: 11166, Limit: 11094. Clamping...
+2026-01-05 20:34:36,075 | WARNING | OOB Source User IDs detected! Max: 11192, Limit: 11094. Clamping...
+2026-01-05 20:34:36,211 | WARNING | OOB Source User IDs detected! Max: 11218, Limit: 11094. Clamping...
+2026-01-05 20:34:36,344 | WARNING | OOB Source User IDs detected! Max: 11243, Limit: 11094. Clamping...
+2026-01-05 20:34:36,477 | WARNING | OOB Source User IDs detected! Max: 11269, Limit: 11094. Clamping...
+2026-01-05 20:34:36,615 | WARNING | OOB Source User IDs detected! Max: 11295, Limit: 11094. Clamping...
+2026-01-05 20:34:36,750 | WARNING | OOB Source User IDs detected! Max: 11322, Limit: 11094. Clamping...
+2026-01-05 20:34:36,888 | WARNING | OOB Source User IDs detected! Max: 11348, Limit: 11094. Clamping...
+2026-01-05 20:34:37,027 | WARNING | OOB Source User IDs detected! Max: 11374, Limit: 11094. Clamping...
+2026-01-05 20:34:37,136 | WARNING | OOB Source User IDs detected! Max: 11392, Limit: 11094. Clamping...
+2026-01-05 20:34:37,142 | INFO |   Eval Results:
+2026-01-05 20:34:37,143 | INFO |     HR@10: 0.1591 | NDCG@10: 0.1206
+2026-01-05 20:34:37,143 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.1206
+2026-01-05 20:34:37,143 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 20:34:37,143 | INFO | Epoch 5 | HR@10: 0.1591 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2026-01-05 20:34:37,143 | INFO |     HR@10: 0.1591 | NDCG@10: 0.1206
+2026-01-05 20:34:37,143 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 20:34:37,143 | INFO | Epoch 5 | HR@10: 0.1591 | NDCG@10: 0.1206 | Cold_HR@10: 0.0000
+2026-01-05 20:34:37,143 | INFO |     HR@20: 0.2699 | NDCG@20: 0.1485
+2026-01-05 20:34:37,144 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.1485
+2026-01-05 20:34:37,144 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 20:34:37,144 | INFO | Epoch 5 | HR@20: 0.2699 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2026-01-05 20:34:37,144 | INFO |     HR@20: 0.2699 | NDCG@20: 0.1485
+2026-01-05 20:34:37,144 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 20:34:37,144 | INFO | Epoch 5 | HR@20: 0.2699 | NDCG@20: 0.1485 | Cold_HR@20: 0.0000
+2026-01-05 20:34:37,144 | INFO | 
+Training Complete!
+2026-01-05 20:34:37,151 | INFO | Saved ID Mappings to models/saved/mappings.pkl
+2026-01-05 20:34:37,151 | INFO | 
+--- Running Scientific Evaluation (Ranking & Cold-Start) ---
+2026-01-05 20:34:37,166 | INFO | Bucket Definition 'Cold (1)': 9754 users eligible.
+2026-01-05 20:34:37,166 | INFO | Bucket Definition 'Few (2-4)': 111 users eligible.
+2026-01-05 20:34:37,166 | INFO | Bucket Definition 'Medium (5-10)': 1003 users eligible.
+2026-01-05 20:34:37,166 | INFO | Bucket Definition 'Warm (>10)': 17 users eligible.
+2026-01-05 20:34:37,167 | INFO | Running Inference on Full Dataset for Bucket Analysis...
+2026-01-05 20:34:47,907 | INFO | 
+=== FINAL SCIENTIFIC BREAKDOWN ===
+2026-01-05 20:34:47,907 | INFO | Bucket 'Cold (1)': 0/9754 evaluated (All Skipped?)
+2026-01-05 20:34:47,908 | INFO | Bucket 'Few (2-4)': 0/111 evaluated (All Skipped?)
+2026-01-05 20:34:47,908 | INFO | Bucket 'Medium (5-10)': 0/1003 evaluated (All Skipped?)
+2026-01-05 20:34:47,908 | INFO | Bucket 'Warm (>10)': 0/17 evaluated (All Skipped?)
+2026-01-05 20:34:47,908 | INFO | Full System Verification Complete!
+2026-01-05 20:34:47,908 | INFO | 
+--- [Module 5] Online Learning Phase ---
+2026-01-05 20:34:47,916 | INFO | Drift Detected: True
+2026-01-05 20:34:47,916 | INFO | Triggering Online Adaptation...
+2026-01-05 20:34:47,916 | INFO | User Adapted.
+2026-01-05 20:34:47,917 | INFO | 
+--- [Module 3] Retrieval & Re-ranking ---
+2026-01-05 20:34:47,917 | INFO | 
+--- [Module 6] Explainability ---
+2026-01-05 20:34:47,917 | INFO | Explanation: {'user_id': 'User_X', 'item_id': 'Item_Y', 'cross_domain_contribution': 0.85, 'kg_evidence': ['User', 'Viewed', 'SciFi', 'IsGenre', 'Item'], 'history_match_score': 0.4}

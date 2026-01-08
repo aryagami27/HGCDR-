@@ -1,0 +1,3088 @@
+2026-01-05 15:50:41,882 | INFO | Starting Training Session...
+2026-01-05 15:50:41,882 | INFO | Config: {'domain_a': 'amazon', 'domain_b': 'yelp', 'embedding_dim': 128, 'z_inv_dim': 64, 'z_spec_dim': 64, 'dropout': 0.2, 'text_model': 'distilbert-base-uncased', 'freeze_text_layers': 2, 'gnn_layers': 2, 'gnn_heads': 4, 'lambda_rec': 1.0, 'lambda_orth': 0.01, 'lambda_contrast': 0.01, 'lambda_causal': 0.5, 'lr': 0.001, 'batch_size': 256, 'enable_disentangle': True, 'enable_kg': True, 'enable_causal': True, 'enable_meta': True, 'enable_lasso': True, 'enable_retrieval': True, 'enable_contrast': True, 'seed': 42, 'latency_budget_ms': 50}
+🔒 Reproducibility: Seed set to 42
+2026-01-05 15:50:41,885 | INFO | Using Data Directory: Datasets_mini_v2(10000)
+2026-01-05 15:50:41,885 | INFO | Using device: cuda
+2026-01-05 15:50:41,885 | INFO | Loading Real Datasets...
+2026-01-05 15:50:41,885 | INFO | Source Path: Datasets_mini_v2(10000)/yelp_sample_100k.csv
+2026-01-05 15:50:41,885 | INFO | Target Path: Datasets_mini_v2(10000)/amazon_sample_100k.csv
+2026-01-05 15:50:41,885 | INFO | Loading Datasets_mini_v2(10000)/yelp_sample_100k.csv (Is Yelp? True)...
+Loading Douban book reviews from Datasets_mini_v2(10000)/douban_dataset(text information)/bookreviews_cleaned.txt...
+2026-01-05 15:50:42,001 | INFO | Merging 10000 Douban reviews into Source...
+2026-01-05 15:50:42,002 | INFO | Loading Datasets_mini_v2(10000)/amazon_sample_100k.csv (Is Yelp? False)...
+2026-01-05 15:50:42,016 | INFO | File Datasets_mini_v2(10000)/amazon_sample_100k.csv lacks headers. Reading with default names...
+2026-01-05 15:50:42,031 | INFO | Source shape: (20000, 4)
+2026-01-05 15:50:42,031 | INFO | Target shape: (10000, 4)
+2026-01-05 15:50:42,031 | INFO | Applying synthetic user mapping from Datasets_mini_v2(10000)/user_mapping.csv...
+2026-01-05 15:50:42,037 | INFO | User IDs in Target domain updated to match Source domain based on mapping.
+2026-01-05 15:50:42,038 | INFO | Found Lasso Augmented Data at Datasets/lasso_augmented_data.csv. Merging...
+2026-01-05 15:50:42,063 | INFO | New Target (Amazon) shape after Lasso: (25268, 4)
+2026-01-05 15:50:42,074 | INFO | Number of overlapping users found by ID: 2886
+2026-01-05 15:50:42,083 | INFO | Number of overlapping users found by ID: 2886
+2026-01-05 15:50:42,083 | INFO | Encoding IDs...
+2026-01-05 15:50:42,117 | INFO | Ensuring Dense User ID Encoding (Early)...
+2026-01-05 15:50:42,127 | INFO | Refined Target User IDs: Count=11393, Max=11392
+2026-01-05 15:50:42,138 | INFO | Initializing Tokenizer...
+2026-01-05 15:50:43,226 | INFO | Pre-computing Source Item Embeddings for HSGE Pruning...
+2026-01-05 15:50:43.815277: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1767628243.837009     141 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1767628243.843637     141 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1767628243.861147     141 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1767628243.861179     141 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1767628243.861183     141 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1767628243.861187     141 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2026-01-05 15:51:01,785 | INFO | Computed embeddings for 12275 items.
+2026-01-05 15:51:01,786 | INFO | Initializing Dataset...
+2026-01-05 15:51:01,792 | INFO | Dataset length: 20000
+2026-01-05 15:51:01,792 | INFO | Initializing DataLoader...
+2026-01-05 15:51:01,793 | INFO | Iterating through DataLoader (checking for overlap)...
+2026-01-05 15:51:01,909 | INFO | Batch 0 has overlap!
+2026-01-05 15:51:01,917 | INFO | Batch 1 has overlap!
+2026-01-05 15:51:01,925 | INFO | Batch 2 has overlap!
+2026-01-05 15:51:01,932 | INFO | Batch 3 has overlap!
+2026-01-05 15:51:01,938 | INFO | Batch 4 has overlap!
+2026-01-05 15:51:01,945 | INFO | Batch 5 has overlap!
+2026-01-05 15:51:01,953 | INFO | Batch 6 has overlap!
+2026-01-05 15:51:01,958 | INFO | Batch 7 has overlap!
+2026-01-05 15:51:01,970 | INFO | Batch 8 has overlap!
+2026-01-05 15:51:01,978 | INFO | Batch 9 has overlap!
+2026-01-05 15:51:01,984 | INFO | Batch 10 has overlap!
+2026-01-05 15:51:01,984 | INFO | Verification Complete!
+2026-01-05 15:51:01,984 | INFO | 
+--- Model Verification ---
+2026-01-05 15:51:01,987 | INFO | 
+--- Full System Verification ---
+2026-01-05 15:51:01,988 | INFO | 
+[3] Constructing Heterogeneous Graph...
+2026-01-05 15:51:01,988 | INFO | Ensuring Dense User ID Encoding for Graph Construction...
+2026-01-05 15:51:01,999 | INFO | Refined Target User IDs: Count=11393, Max=11392
+2026-01-05 15:51:02,110 | INFO | Loading Custom KG Alignment from Datasets_mini_v2(10000)/amazon_item_to_kg.csv...
+2026-01-05 15:51:02,118 | INFO | Filtered KG Alignment: 2353 -> 2353 edges matched to Target items.
+2026-01-05 15:51:02,121 | INFO | Augmented KG with 2353 alignment edges.
+Edge Pruner: IOF Threshold=1.2828. Pruned 614 items (5.00%).
+Edge Pruning: Kept 11661/12275 source items.
+Integrating Knowledge Graph...
+DEBUG: KG Valid Length: 2353
+2026-01-05 15:51:03,096 | INFO | TensorFlow version 2.19.0 available.
+2026-01-05 15:51:03,097 | INFO | JAX version 0.7.2 available.
+Generating embeddings for 1542 KG entities...
+2026-01-05 15:51:04,395 | INFO | Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+KG Node Embeddings generated successfully.
+KG Integrated: 1542 entities, 2353 edges.
+2026-01-05 15:51:07,655 | INFO | HeteroData(
+  user_src={ x=[11094, 128] },
+  user_tgt={ x=[11393, 128] },
+  item_src={ x=[12275, 128] },
+  item_tgt={ x=[9469, 128] },
+  entity={ x=[1542, 384] },
+  (user_src, rates, item_src)={ edge_index=[2, 19231] },
+  (item_src, rated_by, user_src)={ edge_index=[2, 19231] },
+  (user_tgt, rates, item_tgt)={ edge_index=[2, 25268] },
+  (item_tgt, rated_by, user_tgt)={ edge_index=[2, 25268] },
+  (item_tgt, has_kg, entity)={ edge_index=[2, 2353] },
+  (entity, kg_of, item_tgt)={ edge_index=[2, 2353] }
+)
+2026-01-05 15:51:07,655 | INFO | Edge Types: [('user_src', 'rates', 'item_src'), ('item_src', 'rated_by', 'user_src'), ('user_tgt', 'rates', 'item_tgt'), ('item_tgt', 'rated_by', 'user_tgt'), ('item_tgt', 'has_kg', 'entity'), ('entity', 'kg_of', 'item_tgt')]
+2026-01-05 15:51:07,655 | INFO | Graph Metadata: (['user_src', 'user_tgt', 'item_src', 'item_tgt', 'entity'], [('user_src', 'rates', 'item_src'), ('item_src', 'rated_by', 'user_src'), ('user_tgt', 'rates', 'item_tgt'), ('item_tgt', 'rated_by', 'user_tgt'), ('item_tgt', 'has_kg', 'entity'), ('entity', 'kg_of', 'item_tgt')])
+2026-01-05 15:51:07,655 | INFO | Node Types in x_dict: dict_keys(['user_src', 'user_tgt', 'item_src', 'item_tgt', 'entity'])
+2026-01-05 15:51:07,655 | INFO | Final Config after overrides: {'domain_a': 'amazon', 'domain_b': 'yelp', 'embedding_dim': 128, 'z_inv_dim': 64, 'z_spec_dim': 64, 'dropout': 0.2, 'text_model': 'distilbert-base-uncased', 'freeze_text_layers': 2, 'gnn_layers': 2, 'gnn_heads': 8, 'lambda_rec': 1.0, 'lambda_orth': 0.01, 'lambda_contrast': 0.01, 'lambda_causal': 0.5, 'lr': 0.001, 'batch_size': 256, 'enable_disentangle': True, 'enable_kg': False, 'enable_causal': True, 'enable_meta': True, 'enable_lasso': True, 'enable_retrieval': True, 'enable_contrast': True, 'seed': 42, 'latency_budget_ms': 50, 'epochs': 5}
+2026-01-05 15:51:07,656 | INFO | Initializing HGCDRPlus...
+2026-01-05 15:51:07,893 | INFO | Inspecting HGTModule...
+2026-01-05 15:51:07,893 | INFO | HGTModule(
+  (layers): ModuleList(
+    (0-1): 2 x HGTConv(-1, 128, heads=8)
+  )
+)
+2026-01-05 15:51:07,893 | INFO | Could not access k_lin keys
+2026-01-05 15:51:07,893 | INFO | Verifying HGT with data in isolation...
+2026-01-05 15:51:08,114 | INFO | HGT Isolation Test Passed!
+2026-01-05 15:51:08,114 | INFO | Initializing Auxiliary Modules...
+2026-01-05 15:51:08,140 | INFO | --- [Causal] Training Exposure Model ---
+2026-01-05 15:51:10,510 | INFO | [Exposure] Epoch 1/5 | Loss: 0.3401
+2026-01-05 15:51:12,867 | INFO | [Exposure] Epoch 2/5 | Loss: 0.2717
+2026-01-05 15:51:14,857 | INFO | [Exposure] Epoch 3/5 | Loss: 0.2521
+2026-01-05 15:51:17,235 | INFO | [Exposure] Epoch 4/5 | Loss: 0.2312
+2026-01-05 15:51:19,253 | INFO | [Exposure] Epoch 5/5 | Loss: 0.2111
+2026-01-05 15:51:19,254 | INFO | --- [Causal] Exposure Model Trained ---
+2026-01-05 15:51:19,259 | INFO | FAISS not installed, skipping retrieval module initialization.
+2026-01-05 15:51:19,260 | INFO | Initializing Trainer (Final)...
+2026-01-05 15:51:19,265 | INFO | Identified 9869 Cold-Start Users (<5 interactions).
+2026-01-05 15:51:19,268 | INFO | Train samples: 20214, Test samples: 5054
+2026-01-05 15:51:19,275 | INFO | Running Training Epoch...
+2026-01-05 15:51:19,637 | INFO | Epoch 0 | Batch 0 | Loss: 2.2394 | Rec: 2.2260 | Orth: 0.0133
+2026-01-05 15:51:19,637 | INFO |   Propensity (mean): 0.2650
+2026-01-05 15:51:19,843 | INFO | Training Epoch Complete! Avg Loss: 2.0824
+2026-01-05 15:51:19,843 | INFO | 
+--- Starting Full Training Loop ---
+2026-01-05 15:51:19,844 | INFO | No timestamp found. using Index (assuming chronological) or Random.
+2026-01-05 15:51:19,844 | INFO | Temporal Split: Train 20215, Test 5053
+2026-01-05 15:51:19,973 | INFO | 
+Epoch 1/5
+Epoch 0 | Batch 0 | Loss: 2.6034 | Rec: 2.5474 | Orth: 0.0054 | Prop[Min:0.0316, Mean:0.4710, Max:0.9995]
+Epoch 0 | Batch 10 | Loss: 2.4376 | Rec: 2.3822 | Orth: 0.0020 | Prop[Min:0.0181, Mean:0.5177, Max:0.9996]
+Epoch 0 | Batch 20 | Loss: 2.5289 | Rec: 2.4738 | Orth: 0.0016 | Prop[Min:0.0108, Mean:0.4769, Max:0.9996]
+Epoch 0 | Batch 30 | Loss: 2.3432 | Rec: 2.2892 | Orth: 0.0033 | Prop[Min:0.0119, Mean:0.4310, Max:0.9993]
+Epoch 0 | Batch 40 | Loss: 1.4529 | Rec: 1.3983 | Orth: 0.0022 | Prop[Min:0.0114, Mean:0.4775, Max:0.9995]
+Epoch 0 | Batch 50 | Loss: 1.4447 | Rec: 1.3909 | Orth: 0.0058 | Prop[Min:0.0100, Mean:0.4426, Max:0.9995]
+Epoch 0 | Batch 60 | Loss: 1.3385 | Rec: 1.2856 | Orth: 0.0023 | Prop[Min:0.0173, Mean:0.4570, Max:0.9998]
+Epoch 0 | Batch 70 | Loss: 0.7856 | Rec: 0.7324 | Orth: 0.0017 | Prop[Min:0.0128, Mean:0.4812, Max:0.9996]
+2026-01-05 15:52:03,947 | INFO |   Train Loss: 1.7866 | Time: 43.97s | Peak Mem: 1466.08 MB
+2026-01-05 15:52:03,947 | INFO | Epoch 1 | Train Loss: 1.7866 | Time: 43.97s
+Meta-Epoch | Batch 0 | Query Loss: 0.7092
+Meta-Epoch | Batch 5 | Query Loss: 0.6974
+Meta-Epoch | Batch 10 | Query Loss: 0.6500
+Meta-Epoch | Batch 15 | Query Loss: 0.6801
+Meta-Epoch | Batch 20 | Query Loss: 0.6929
+Meta-Epoch | Batch 25 | Query Loss: 0.6822
+Meta-Epoch | Batch 30 | Query Loss: 0.7177
+Meta-Epoch | Batch 35 | Query Loss: 0.6430
+Meta-Epoch | Batch 40 | Query Loss: 0.6967
+Meta-Epoch | Batch 45 | Query Loss: 0.6768
+Meta-Epoch | Batch 50 | Query Loss: 0.6930
+Meta-Epoch | Batch 55 | Query Loss: 0.6482
+Meta-Epoch | Batch 60 | Query Loss: 0.6801
+Meta-Epoch | Batch 65 | Query Loss: 0.6759
+Meta-Epoch | Batch 70 | Query Loss: 0.6786
+Meta-Epoch | Batch 75 | Query Loss: 0.6955
+Meta-Epoch | Batch 80 | Query Loss: 0.6958
+Meta-Epoch | Batch 85 | Query Loss: 0.6589
+Meta-Epoch | Batch 90 | Query Loss: 0.6694
+Meta-Epoch | Batch 95 | Query Loss: 0.6750
+Meta-Epoch | Batch 100 | Query Loss: 0.6732
+Meta-Epoch | Batch 105 | Query Loss: 0.6948
+Meta-Epoch | Batch 110 | Query Loss: 0.6431
+Meta-Epoch | Batch 115 | Query Loss: 0.6984
+Meta-Epoch | Batch 120 | Query Loss: 0.7061
+Meta-Epoch | Batch 125 | Query Loss: 0.6661
+Meta-Epoch | Batch 130 | Query Loss: 0.7103
+Meta-Epoch | Batch 135 | Query Loss: 0.6587
+Meta-Epoch | Batch 140 | Query Loss: 0.6743
+Meta-Epoch | Batch 145 | Query Loss: 0.6483
+Meta-Epoch | Batch 150 | Query Loss: 0.6460
+Meta-Epoch | Batch 155 | Query Loss: 0.6355
+Meta-Epoch | Batch 160 | Query Loss: 0.6810
+Meta-Epoch | Batch 165 | Query Loss: 0.6772
+Meta-Epoch | Batch 170 | Query Loss: 0.7230
+Meta-Epoch | Batch 175 | Query Loss: 0.6777
+Meta-Epoch | Batch 180 | Query Loss: 0.6435
+Meta-Epoch | Batch 185 | Query Loss: 0.6798
+Meta-Epoch | Batch 190 | Query Loss: 0.7123
+Meta-Epoch | Batch 195 | Query Loss: 0.6748
+Meta-Epoch | Batch 200 | Query Loss: 0.7091
+Meta-Epoch | Batch 205 | Query Loss: 0.6260
+Meta-Epoch | Batch 210 | Query Loss: 0.6915
+Meta-Epoch | Batch 215 | Query Loss: 0.6655
+Meta-Epoch | Batch 220 | Query Loss: 0.7004
+Meta-Epoch | Batch 225 | Query Loss: 0.6536
+Meta-Epoch | Batch 230 | Query Loss: 0.7212
+Meta-Epoch | Batch 235 | Query Loss: 0.6568
+Meta-Epoch | Batch 240 | Query Loss: 0.6503
+Meta-Epoch | Batch 245 | Query Loss: 0.6794
+Meta-Epoch | Batch 250 | Query Loss: 0.7163
+Meta-Epoch | Batch 255 | Query Loss: 0.7108
+Meta-Epoch | Batch 260 | Query Loss: 0.6975
+Meta-Epoch | Batch 265 | Query Loss: 0.7196
+Meta-Epoch | Batch 270 | Query Loss: 0.7137
+Meta-Epoch | Batch 275 | Query Loss: 0.6681
+Meta-Epoch | Batch 280 | Query Loss: 0.6498
+Meta-Epoch | Batch 285 | Query Loss: 0.6707
+Meta-Epoch | Batch 290 | Query Loss: 0.6734
+Meta-Epoch | Batch 295 | Query Loss: 0.6526
+Meta-Epoch | Batch 300 | Query Loss: 0.6329
+Meta-Epoch | Batch 305 | Query Loss: 0.7368
+Meta-Epoch | Batch 310 | Query Loss: 0.6248
+Meta-Epoch | Batch 315 | Query Loss: 0.6884
+Meta-Epoch | Batch 320 | Query Loss: 0.6930
+Meta-Epoch | Batch 325 | Query Loss: 0.6258
+Meta-Epoch | Batch 330 | Query Loss: 0.6794
+Meta-Epoch | Batch 335 | Query Loss: 0.6931
+Meta-Epoch | Batch 340 | Query Loss: 0.6909
+Meta-Epoch | Batch 345 | Query Loss: 0.6763
+Meta-Epoch | Batch 350 | Query Loss: 0.6937
+Meta-Epoch | Batch 355 | Query Loss: 0.6702
+Meta-Epoch | Batch 360 | Query Loss: 0.7052
+Meta-Epoch | Batch 365 | Query Loss: 0.6821
+Meta-Epoch | Batch 370 | Query Loss: 0.6637
+Meta-Epoch | Batch 375 | Query Loss: 0.6877
+Meta-Epoch | Batch 380 | Query Loss: 0.7123
+Meta-Epoch | Batch 385 | Query Loss: 0.6764
+Meta-Epoch | Batch 390 | Query Loss: 0.6941
+Meta-Epoch | Batch 395 | Query Loss: 0.6645
+Meta-Epoch | Batch 400 | Query Loss: 0.6714
+Meta-Epoch | Batch 405 | Query Loss: 0.6400
+Meta-Epoch | Batch 410 | Query Loss: 0.6698
+Meta-Epoch | Batch 415 | Query Loss: 0.6725
+Meta-Epoch | Batch 420 | Query Loss: 0.7105
+Meta-Epoch | Batch 425 | Query Loss: 0.6438
+Meta-Epoch | Batch 430 | Query Loss: 0.6549
+Meta-Epoch | Batch 435 | Query Loss: 0.7081
+Meta-Epoch | Batch 440 | Query Loss: 0.6739
+Meta-Epoch | Batch 445 | Query Loss: 0.6859
+Meta-Epoch | Batch 450 | Query Loss: 0.6885
+Meta-Epoch | Batch 455 | Query Loss: 0.7094
+Meta-Epoch | Batch 460 | Query Loss: 0.6368
+Meta-Epoch | Batch 465 | Query Loss: 0.6216
+Meta-Epoch | Batch 470 | Query Loss: 0.6309
+Meta-Epoch | Batch 475 | Query Loss: 0.6769
+Meta-Epoch | Batch 480 | Query Loss: 0.7361
+Meta-Epoch | Batch 485 | Query Loss: 0.6366
+Meta-Epoch | Batch 490 | Query Loss: 0.6708
+Meta-Epoch | Batch 495 | Query Loss: 0.6664
+Meta-Epoch | Batch 500 | Query Loss: 0.7326
+Meta-Epoch | Batch 505 | Query Loss: 0.6763
+Meta-Epoch | Batch 510 | Query Loss: 0.6862
+Meta-Epoch | Batch 515 | Query Loss: 0.7060
+Meta-Epoch | Batch 520 | Query Loss: 0.7265
+Meta-Epoch | Batch 525 | Query Loss: 0.7025
+Meta-Epoch | Batch 530 | Query Loss: 0.7235
+Meta-Epoch | Batch 535 | Query Loss: 0.6631
+Meta-Epoch | Batch 540 | Query Loss: 0.7245
+Meta-Epoch | Batch 545 | Query Loss: 0.7084
+Meta-Epoch | Batch 550 | Query Loss: 0.7439
+Meta-Epoch | Batch 555 | Query Loss: 0.7331
+Meta-Epoch | Batch 560 | Query Loss: 0.7254
+Meta-Epoch | Batch 565 | Query Loss: 0.6821
+Meta-Epoch | Batch 570 | Query Loss: 0.6624
+Meta-Epoch | Batch 575 | Query Loss: 0.7311
+Meta-Epoch | Batch 580 | Query Loss: 0.6618
+Meta-Epoch | Batch 585 | Query Loss: 0.6552
+Meta-Epoch | Batch 590 | Query Loss: 0.7108
+Meta-Epoch | Batch 595 | Query Loss: 0.6641
+Meta-Epoch | Batch 600 | Query Loss: 0.6613
+Meta-Epoch | Batch 605 | Query Loss: 0.6830
+Meta-Epoch | Batch 610 | Query Loss: 0.6764
+Meta-Epoch | Batch 615 | Query Loss: 0.6714
+Meta-Epoch | Batch 620 | Query Loss: 0.6812
+Meta-Epoch | Batch 625 | Query Loss: 0.6741
+Meta-Epoch | Batch 630 | Query Loss: 0.6957
+Meta-Epoch | Batch 635 | Query Loss: 0.6795
+Meta-Epoch | Batch 640 | Query Loss: 0.7027
+Meta-Epoch | Batch 645 | Query Loss: 0.6621
+Meta-Epoch | Batch 650 | Query Loss: 0.7117
+Meta-Epoch | Batch 655 | Query Loss: 0.6880
+Meta-Epoch | Batch 660 | Query Loss: 0.7009
+Meta-Epoch | Batch 665 | Query Loss: 0.6270
+Meta-Epoch | Batch 670 | Query Loss: 0.7369
+Meta-Epoch | Batch 675 | Query Loss: 0.7045
+Meta-Epoch | Batch 680 | Query Loss: 0.7035
+Meta-Epoch | Batch 685 | Query Loss: 0.6860
+Meta-Epoch | Batch 690 | Query Loss: 0.6887
+Meta-Epoch | Batch 695 | Query Loss: 0.6956
+Meta-Epoch | Batch 700 | Query Loss: 0.6408
+Meta-Epoch | Batch 705 | Query Loss: 0.6780
+Meta-Epoch | Batch 710 | Query Loss: 0.6328
+Meta-Epoch | Batch 715 | Query Loss: 0.6718
+Meta-Epoch | Batch 720 | Query Loss: 0.6550
+Meta-Epoch | Batch 725 | Query Loss: 0.6813
+Meta-Epoch | Batch 730 | Query Loss: 0.6645
+Meta-Epoch | Batch 735 | Query Loss: 0.6823
+Meta-Epoch | Batch 740 | Query Loss: 0.6522
+Meta-Epoch | Batch 745 | Query Loss: 0.6773
+Meta-Epoch | Batch 750 | Query Loss: 0.7012
+Meta-Epoch | Batch 755 | Query Loss: 0.6660
+Meta-Epoch | Batch 760 | Query Loss: 0.6966
+Meta-Epoch | Batch 765 | Query Loss: 0.6929
+Meta-Epoch | Batch 770 | Query Loss: 0.6722
+Meta-Epoch | Batch 775 | Query Loss: 0.6899
+Meta-Epoch | Batch 780 | Query Loss: 0.6918
+Meta-Epoch | Batch 785 | Query Loss: 0.6826
+Meta-Epoch | Batch 790 | Query Loss: 0.6838
+Meta-Epoch | Batch 795 | Query Loss: 0.6063
+Meta-Epoch | Batch 800 | Query Loss: 0.6671
+Meta-Epoch | Batch 805 | Query Loss: 0.7128
+Meta-Epoch | Batch 810 | Query Loss: 0.7091
+Meta-Epoch | Batch 815 | Query Loss: 0.7073
+Meta-Epoch | Batch 820 | Query Loss: 0.6746
+Meta-Epoch | Batch 825 | Query Loss: 0.6880
+Meta-Epoch | Batch 830 | Query Loss: 0.6483
+Meta-Epoch | Batch 835 | Query Loss: 0.6939
+Meta-Epoch | Batch 840 | Query Loss: 0.6856
+Meta-Epoch | Batch 845 | Query Loss: 0.6605
+Meta-Epoch | Batch 850 | Query Loss: 0.6606
+Meta-Epoch | Batch 855 | Query Loss: 0.6583
+Meta-Epoch | Batch 860 | Query Loss: 0.6908
+Meta-Epoch | Batch 865 | Query Loss: 0.6776
+Meta-Epoch | Batch 870 | Query Loss: 0.7211
+Meta-Epoch | Batch 875 | Query Loss: 0.6835
+Meta-Epoch | Batch 880 | Query Loss: 0.6695
+Meta-Epoch | Batch 885 | Query Loss: 0.6955
+Meta-Epoch | Batch 890 | Query Loss: 0.6949
+Meta-Epoch | Batch 895 | Query Loss: 0.7127
+Meta-Epoch | Batch 900 | Query Loss: 0.6842
+Meta-Epoch | Batch 905 | Query Loss: 0.6775
+Meta-Epoch | Batch 910 | Query Loss: 0.6787
+Meta-Epoch | Batch 915 | Query Loss: 0.6222
+Meta-Epoch | Batch 920 | Query Loss: 0.6926
+Meta-Epoch | Batch 925 | Query Loss: 0.6588
+Meta-Epoch | Batch 930 | Query Loss: 0.6821
+Meta-Epoch | Batch 935 | Query Loss: 0.6815
+Meta-Epoch | Batch 940 | Query Loss: 0.6397
+Meta-Epoch | Batch 945 | Query Loss: 0.5842
+Meta-Epoch | Batch 950 | Query Loss: 0.6757
+Meta-Epoch | Batch 955 | Query Loss: 0.6584
+Meta-Epoch | Batch 960 | Query Loss: 0.6353
+Meta-Epoch | Batch 965 | Query Loss: 0.6696
+Meta-Epoch | Batch 970 | Query Loss: 0.6703
+Meta-Epoch | Batch 975 | Query Loss: 0.6677
+Meta-Epoch | Batch 980 | Query Loss: 0.6424
+Meta-Epoch | Batch 985 | Query Loss: 0.6714
+Meta-Epoch | Batch 990 | Query Loss: 0.6614
+Meta-Epoch | Batch 995 | Query Loss: 0.6799
+Meta-Epoch | Batch 1000 | Query Loss: 0.6319
+Meta-Epoch | Batch 1005 | Query Loss: 0.6770
+Meta-Epoch | Batch 1010 | Query Loss: 0.6971
+Meta-Epoch | Batch 1015 | Query Loss: 0.7003
+Meta-Epoch | Batch 1020 | Query Loss: 0.7105
+Meta-Epoch | Batch 1025 | Query Loss: 0.6539
+Meta-Epoch | Batch 1030 | Query Loss: 0.6826
+Meta-Epoch | Batch 1035 | Query Loss: 0.6951
+Meta-Epoch | Batch 1040 | Query Loss: 0.6942
+Meta-Epoch | Batch 1045 | Query Loss: 0.6411
+Meta-Epoch | Batch 1050 | Query Loss: 0.6805
+Meta-Epoch | Batch 1055 | Query Loss: 0.6515
+Meta-Epoch | Batch 1060 | Query Loss: 0.6585
+Meta-Epoch | Batch 1065 | Query Loss: 0.6410
+Meta-Epoch | Batch 1070 | Query Loss: 0.6763
+Meta-Epoch | Batch 1075 | Query Loss: 0.6847
+Meta-Epoch | Batch 1080 | Query Loss: 0.7062
+Meta-Epoch | Batch 1085 | Query Loss: 0.6614
+Meta-Epoch | Batch 1090 | Query Loss: 0.6480
+Meta-Epoch | Batch 1095 | Query Loss: 0.6363
+Meta-Epoch | Batch 1100 | Query Loss: 0.6568
+Meta-Epoch | Batch 1105 | Query Loss: 0.6695
+Meta-Epoch | Batch 1110 | Query Loss: 0.7161
+Meta-Epoch | Batch 1115 | Query Loss: 0.6961
+Meta-Epoch | Batch 1120 | Query Loss: 0.6706
+Meta-Epoch | Batch 1125 | Query Loss: 0.7013
+Meta-Epoch | Batch 1130 | Query Loss: 0.6828
+Meta-Epoch | Batch 1135 | Query Loss: 0.6881
+Meta-Epoch | Batch 1140 | Query Loss: 0.7158
+Meta-Epoch | Batch 1145 | Query Loss: 0.6775
+Meta-Epoch | Batch 1150 | Query Loss: 0.6622
+Meta-Epoch | Batch 1155 | Query Loss: 0.6639
+Meta-Epoch | Batch 1160 | Query Loss: 0.6960
+Meta-Epoch | Batch 1165 | Query Loss: 0.6882
+Meta-Epoch | Batch 1170 | Query Loss: 0.6992
+Meta-Epoch | Batch 1175 | Query Loss: 0.7098
+Meta-Epoch | Batch 1180 | Query Loss: 0.6924
+Meta-Epoch | Batch 1185 | Query Loss: 0.6796
+Meta-Epoch | Batch 1190 | Query Loss: 0.7064
+Meta-Epoch | Batch 1195 | Query Loss: 0.6821
+Meta-Epoch | Batch 1200 | Query Loss: 0.6996
+Meta-Epoch | Batch 1205 | Query Loss: 0.6679
+Meta-Epoch | Batch 1210 | Query Loss: 0.6880
+Meta-Epoch | Batch 1215 | Query Loss: 0.6771
+Meta-Epoch | Batch 1220 | Query Loss: 0.6999
+Meta-Epoch | Batch 1225 | Query Loss: 0.6767
+Meta-Epoch | Batch 1230 | Query Loss: 0.6993
+Meta-Epoch | Batch 1235 | Query Loss: 0.6817
+Meta-Epoch | Batch 1240 | Query Loss: 0.7059
+Meta-Epoch | Batch 1245 | Query Loss: 0.6779
+Meta-Epoch | Batch 1250 | Query Loss: 0.7088
+Meta-Epoch | Batch 1255 | Query Loss: 0.6358
+Meta-Epoch | Batch 1260 | Query Loss: 0.7037
+Meta-Epoch | Batch 1265 | Query Loss: 0.6549
+Meta-Epoch | Batch 1270 | Query Loss: 0.7030
+Meta-Epoch | Batch 1275 | Query Loss: 0.6931
+Meta-Epoch | Batch 1280 | Query Loss: 0.6398
+Meta-Epoch | Batch 1285 | Query Loss: 0.6815
+Meta-Epoch | Batch 1290 | Query Loss: 0.6500
+Meta-Epoch | Batch 1295 | Query Loss: 0.6924
+Meta-Epoch | Batch 1300 | Query Loss: 0.6721
+Meta-Epoch | Batch 1305 | Query Loss: 0.6884
+Meta-Epoch | Batch 1310 | Query Loss: 0.7137
+Meta-Epoch | Batch 1315 | Query Loss: 0.6663
+Meta-Epoch | Batch 1320 | Query Loss: 0.6937
+Meta-Epoch | Batch 1325 | Query Loss: 0.7158
+Meta-Epoch | Batch 1330 | Query Loss: 0.7046
+Meta-Epoch | Batch 1335 | Query Loss: 0.6514
+Meta-Epoch | Batch 1340 | Query Loss: 0.6819
+Meta-Epoch | Batch 1345 | Query Loss: 0.6673
+Meta-Epoch | Batch 1350 | Query Loss: 0.6429
+Meta-Epoch | Batch 1355 | Query Loss: 0.6622
+Meta-Epoch | Batch 1360 | Query Loss: 0.6746
+Meta-Epoch | Batch 1365 | Query Loss: 0.6830
+Meta-Epoch | Batch 1370 | Query Loss: 0.6891
+Meta-Epoch | Batch 1375 | Query Loss: 0.7460
+Meta-Epoch | Batch 1380 | Query Loss: 0.6678
+Meta-Epoch | Batch 1385 | Query Loss: 0.6335
+Meta-Epoch | Batch 1390 | Query Loss: 0.6348
+Meta-Epoch | Batch 1395 | Query Loss: 0.7054
+Meta-Epoch | Batch 1400 | Query Loss: 0.6695
+Meta-Epoch | Batch 1405 | Query Loss: 0.6667
+Meta-Epoch | Batch 1410 | Query Loss: 0.6868
+Meta-Epoch | Batch 1415 | Query Loss: 0.6975
+Meta-Epoch | Batch 1420 | Query Loss: 0.7223
+Meta-Epoch | Batch 1425 | Query Loss: 0.6655
+Meta-Epoch | Batch 1430 | Query Loss: 0.6613
+Meta-Epoch | Batch 1435 | Query Loss: 0.6847
+Meta-Epoch | Batch 1440 | Query Loss: 0.6531
+Meta-Epoch | Batch 1445 | Query Loss: 0.6952
+Meta-Epoch | Batch 1450 | Query Loss: 0.7195
+Meta-Epoch | Batch 1455 | Query Loss: 0.6909
+Meta-Epoch | Batch 1460 | Query Loss: 0.6900
+Meta-Epoch | Batch 1465 | Query Loss: 0.6640
+Meta-Epoch | Batch 1470 | Query Loss: 0.7225
+Meta-Epoch | Batch 1475 | Query Loss: 0.6799
+Meta-Epoch | Batch 1480 | Query Loss: 0.6582
+Meta-Epoch | Batch 1485 | Query Loss: 0.6712
+Meta-Epoch | Batch 1490 | Query Loss: 0.6974
+Meta-Epoch | Batch 1495 | Query Loss: 0.6763
+Meta-Epoch | Batch 1500 | Query Loss: 0.6751
+Meta-Epoch | Batch 1505 | Query Loss: 0.6961
+Meta-Epoch | Batch 1510 | Query Loss: 0.6522
+Meta-Epoch | Batch 1515 | Query Loss: 0.6538
+Meta-Epoch | Batch 1520 | Query Loss: 0.6569
+Meta-Epoch | Batch 1525 | Query Loss: 0.6996
+Meta-Epoch | Batch 1530 | Query Loss: 0.6951
+Meta-Epoch | Batch 1535 | Query Loss: 0.6732
+Meta-Epoch | Batch 1540 | Query Loss: 0.6624
+Meta-Epoch | Batch 1545 | Query Loss: 0.6847
+Meta-Epoch | Batch 1550 | Query Loss: 0.6836
+Meta-Epoch | Batch 1555 | Query Loss: 0.7007
+Meta-Epoch | Batch 1560 | Query Loss: 0.6855
+Meta-Epoch | Batch 1565 | Query Loss: 0.6873
+Meta-Epoch | Batch 1570 | Query Loss: 0.6860
+Meta-Epoch | Batch 1575 | Query Loss: 0.6823
+Meta-Epoch | Batch 1580 | Query Loss: 0.7167
+Meta-Epoch | Batch 1585 | Query Loss: 0.7063
+Meta-Epoch | Batch 1590 | Query Loss: 0.6783
+Meta-Epoch | Batch 1595 | Query Loss: 0.6618
+Meta-Epoch | Batch 1600 | Query Loss: 0.6253
+Meta-Epoch | Batch 1605 | Query Loss: 0.6951
+Meta-Epoch | Batch 1610 | Query Loss: 0.6724
+Meta-Epoch | Batch 1615 | Query Loss: 0.6900
+Meta-Epoch | Batch 1620 | Query Loss: 0.6852
+Meta-Epoch | Batch 1625 | Query Loss: 0.6806
+Meta-Epoch | Batch 1630 | Query Loss: 0.6646
+Meta-Epoch | Batch 1635 | Query Loss: 0.7096
+Meta-Epoch | Batch 1640 | Query Loss: 0.6650
+Meta-Epoch | Batch 1645 | Query Loss: 0.6840
+Meta-Epoch | Batch 1650 | Query Loss: 0.7020
+Meta-Epoch | Batch 1655 | Query Loss: 0.6434
+Meta-Epoch | Batch 1660 | Query Loss: 0.6700
+Meta-Epoch | Batch 1665 | Query Loss: 0.6477
+Meta-Epoch | Batch 1670 | Query Loss: 0.7145
+Meta-Epoch | Batch 1675 | Query Loss: 0.6643
+Meta-Epoch | Batch 1680 | Query Loss: 0.7117
+Meta-Epoch | Batch 1685 | Query Loss: 0.6855
+Meta-Epoch | Batch 1690 | Query Loss: 0.6950
+Meta-Epoch | Batch 1695 | Query Loss: 0.6930
+Meta-Epoch | Batch 1700 | Query Loss: 0.7258
+Meta-Epoch | Batch 1705 | Query Loss: 0.6865
+Meta-Epoch | Batch 1710 | Query Loss: 0.7288
+Meta-Epoch | Batch 1715 | Query Loss: 0.7193
+Meta-Epoch | Batch 1720 | Query Loss: 0.7164
+Meta-Epoch | Batch 1725 | Query Loss: 0.6710
+Meta-Epoch | Batch 1730 | Query Loss: 0.6868
+Meta-Epoch | Batch 1735 | Query Loss: 0.6884
+Meta-Epoch | Batch 1740 | Query Loss: 0.6810
+Meta-Epoch | Batch 1745 | Query Loss: 0.6598
+Meta-Epoch | Batch 1750 | Query Loss: 0.6695
+Meta-Epoch | Batch 1755 | Query Loss: 0.6619
+Meta-Epoch | Batch 1760 | Query Loss: 0.6839
+Meta-Epoch | Batch 1765 | Query Loss: 0.6034
+Meta-Epoch | Batch 1770 | Query Loss: 0.6557
+Meta-Epoch | Batch 1775 | Query Loss: 0.6763
+Meta-Epoch | Batch 1780 | Query Loss: 0.6653
+Meta-Epoch | Batch 1785 | Query Loss: 0.6680
+Meta-Epoch | Batch 1790 | Query Loss: 0.6636
+Meta-Epoch | Batch 1795 | Query Loss: 0.6801
+Meta-Epoch | Batch 1800 | Query Loss: 0.6221
+Meta-Epoch | Batch 1805 | Query Loss: 0.7009
+Meta-Epoch | Batch 1810 | Query Loss: 0.6790
+Meta-Epoch | Batch 1815 | Query Loss: 0.6749
+Meta-Epoch | Batch 1820 | Query Loss: 0.6791
+Meta-Epoch | Batch 1825 | Query Loss: 0.6851
+Meta-Epoch | Batch 1830 | Query Loss: 0.6711
+Meta-Epoch | Batch 1835 | Query Loss: 0.6672
+Meta-Epoch | Batch 1840 | Query Loss: 0.7072
+Meta-Epoch | Batch 1845 | Query Loss: 0.6804
+Meta-Epoch | Batch 1850 | Query Loss: 0.6695
+Meta-Epoch | Batch 1855 | Query Loss: 0.6252
+Meta-Epoch | Batch 1860 | Query Loss: 0.6629
+Meta-Epoch | Batch 1865 | Query Loss: 0.6698
+Meta-Epoch | Batch 1870 | Query Loss: 0.6937
+Meta-Epoch | Batch 1875 | Query Loss: 0.6845
+Meta-Epoch | Batch 1880 | Query Loss: 0.6719
+Meta-Epoch | Batch 1885 | Query Loss: 0.7023
+Meta-Epoch | Batch 1890 | Query Loss: 0.6513
+Meta-Epoch | Batch 1895 | Query Loss: 0.7028
+Meta-Epoch | Batch 1900 | Query Loss: 0.6479
+Meta-Epoch | Batch 1905 | Query Loss: 0.6739
+Meta-Epoch | Batch 1910 | Query Loss: 0.6741
+Meta-Epoch | Batch 1915 | Query Loss: 0.6949
+Meta-Epoch | Batch 1920 | Query Loss: 0.6629
+Meta-Epoch | Batch 1925 | Query Loss: 0.7074
+Meta-Epoch | Batch 1930 | Query Loss: 0.6389
+Meta-Epoch | Batch 1935 | Query Loss: 0.7187
+Meta-Epoch | Batch 1940 | Query Loss: 0.6330
+Meta-Epoch | Batch 1945 | Query Loss: 0.6512
+Meta-Epoch | Batch 1950 | Query Loss: 0.6927
+Meta-Epoch | Batch 1955 | Query Loss: 0.6910
+Meta-Epoch | Batch 1960 | Query Loss: 0.6900
+Meta-Epoch | Batch 1965 | Query Loss: 0.6826
+Meta-Epoch | Batch 1970 | Query Loss: 0.6836
+Meta-Epoch | Batch 1975 | Query Loss: 0.7046
+Meta-Epoch | Batch 1980 | Query Loss: 0.6702
+Meta-Epoch | Batch 1985 | Query Loss: 0.7040
+Meta-Epoch | Batch 1990 | Query Loss: 0.6361
+Meta-Epoch | Batch 1995 | Query Loss: 0.6930
+Meta-Epoch | Batch 2000 | Query Loss: 0.6916
+Meta-Epoch | Batch 2005 | Query Loss: 0.6983
+Meta-Epoch | Batch 2010 | Query Loss: 0.6962
+Meta-Epoch | Batch 2015 | Query Loss: 0.6807
+Meta-Epoch | Batch 2020 | Query Loss: 0.7099
+Meta-Epoch | Batch 2025 | Query Loss: 0.6813
+Meta-Epoch | Batch 2030 | Query Loss: 0.6947
+Meta-Epoch | Batch 2035 | Query Loss: 0.7066
+Meta-Epoch | Batch 2040 | Query Loss: 0.6940
+Meta-Epoch | Batch 2045 | Query Loss: 0.7038
+Meta-Epoch | Batch 2050 | Query Loss: 0.6461
+Meta-Epoch | Batch 2055 | Query Loss: 0.6707
+Meta-Epoch | Batch 2060 | Query Loss: 0.6776
+Meta-Epoch | Batch 2065 | Query Loss: 0.6578
+Meta-Epoch | Batch 2070 | Query Loss: 0.6728
+Meta-Epoch | Batch 2075 | Query Loss: 0.6836
+Meta-Epoch | Batch 2080 | Query Loss: 0.6437
+Meta-Epoch | Batch 2085 | Query Loss: 0.6783
+Meta-Epoch | Batch 2090 | Query Loss: 0.6898
+Meta-Epoch | Batch 2095 | Query Loss: 0.6723
+Meta-Epoch | Batch 2100 | Query Loss: 0.7120
+Meta-Epoch | Batch 2105 | Query Loss: 0.6791
+Meta-Epoch | Batch 2110 | Query Loss: 0.6782
+Meta-Epoch | Batch 2115 | Query Loss: 0.6550
+Meta-Epoch | Batch 2120 | Query Loss: 0.6810
+Meta-Epoch | Batch 2125 | Query Loss: 0.6368
+Meta-Epoch | Batch 2130 | Query Loss: 0.6889
+Meta-Epoch | Batch 2135 | Query Loss: 0.6922
+Meta-Epoch | Batch 2140 | Query Loss: 0.6975
+Meta-Epoch | Batch 2145 | Query Loss: 0.6318
+Meta-Epoch | Batch 2150 | Query Loss: 0.7109
+Meta-Epoch | Batch 2155 | Query Loss: 0.6439
+Meta-Epoch | Batch 2160 | Query Loss: 0.6845
+Meta-Epoch | Batch 2165 | Query Loss: 0.6803
+Meta-Epoch | Batch 2170 | Query Loss: 0.6176
+Meta-Epoch | Batch 2175 | Query Loss: 0.6553
+Meta-Epoch | Batch 2180 | Query Loss: 0.6838
+Meta-Epoch | Batch 2185 | Query Loss: 0.7036
+Meta-Epoch | Batch 2190 | Query Loss: 0.7101
+Meta-Epoch | Batch 2195 | Query Loss: 0.6908
+Meta-Epoch | Batch 2200 | Query Loss: 0.6439
+Meta-Epoch | Batch 2205 | Query Loss: 0.6975
+Meta-Epoch | Batch 2210 | Query Loss: 0.6829
+Meta-Epoch | Batch 2215 | Query Loss: 0.6382
+Meta-Epoch | Batch 2220 | Query Loss: 0.6701
+Meta-Epoch | Batch 2225 | Query Loss: 0.6904
+Meta-Epoch | Batch 2230 | Query Loss: 0.6867
+Meta-Epoch | Batch 2235 | Query Loss: 0.6871
+Meta-Epoch | Batch 2240 | Query Loss: 0.7056
+Meta-Epoch | Batch 2245 | Query Loss: 0.7069
+Meta-Epoch | Batch 2250 | Query Loss: 0.6876
+Meta-Epoch | Batch 2255 | Query Loss: 0.6409
+Meta-Epoch | Batch 2260 | Query Loss: 0.6289
+Meta-Epoch | Batch 2265 | Query Loss: 0.6935
+Meta-Epoch | Batch 2270 | Query Loss: 0.6897
+Meta-Epoch | Batch 2275 | Query Loss: 0.6913
+Meta-Epoch | Batch 2280 | Query Loss: 0.6882
+Meta-Epoch | Batch 2285 | Query Loss: 0.6645
+Meta-Epoch | Batch 2290 | Query Loss: 0.6755
+Meta-Epoch | Batch 2295 | Query Loss: 0.6826
+Meta-Epoch | Batch 2300 | Query Loss: 0.6664
+Meta-Epoch | Batch 2305 | Query Loss: 0.6382
+Meta-Epoch | Batch 2310 | Query Loss: 0.6691
+Meta-Epoch | Batch 2315 | Query Loss: 0.6111
+Meta-Epoch | Batch 2320 | Query Loss: 0.6997
+Meta-Epoch | Batch 2325 | Query Loss: 0.6684
+Meta-Epoch | Batch 2330 | Query Loss: 0.6838
+Meta-Epoch | Batch 2335 | Query Loss: 0.6827
+Meta-Epoch | Batch 2340 | Query Loss: 0.6686
+Meta-Epoch | Batch 2345 | Query Loss: 0.7007
+Meta-Epoch | Batch 2350 | Query Loss: 0.6297
+Meta-Epoch | Batch 2355 | Query Loss: 0.6656
+Meta-Epoch | Batch 2360 | Query Loss: 0.6761
+Meta-Epoch | Batch 2365 | Query Loss: 0.6705
+Meta-Epoch | Batch 2370 | Query Loss: 0.6626
+Meta-Epoch | Batch 2375 | Query Loss: 0.6922
+Meta-Epoch | Batch 2380 | Query Loss: 0.6640
+Meta-Epoch | Batch 2385 | Query Loss: 0.6657
+Meta-Epoch | Batch 2390 | Query Loss: 0.7091
+Meta-Epoch | Batch 2395 | Query Loss: 0.6782
+Meta-Epoch | Batch 2400 | Query Loss: 0.6730
+Meta-Epoch | Batch 2405 | Query Loss: 0.6749
+Meta-Epoch | Batch 2410 | Query Loss: 0.6684
+Meta-Epoch | Batch 2415 | Query Loss: 0.6919
+Meta-Epoch | Batch 2420 | Query Loss: 0.7013
+Meta-Epoch | Batch 2425 | Query Loss: 0.6596
+Meta-Epoch | Batch 2430 | Query Loss: 0.6879
+Meta-Epoch | Batch 2435 | Query Loss: 0.6668
+Meta-Epoch | Batch 2440 | Query Loss: 0.7190
+Meta-Epoch | Batch 2445 | Query Loss: 0.6886
+Meta-Epoch | Batch 2450 | Query Loss: 0.6543
+Meta-Epoch | Batch 2455 | Query Loss: 0.6982
+Meta-Epoch | Batch 2460 | Query Loss: 0.6856
+Meta-Epoch | Batch 2465 | Query Loss: 0.6858
+Meta-Epoch | Batch 2470 | Query Loss: 0.6838
+Meta-Epoch | Batch 2475 | Query Loss: 0.6843
+Meta-Epoch | Batch 2480 | Query Loss: 0.6737
+Meta-Epoch | Batch 2485 | Query Loss: 0.6158
+Meta-Epoch | Batch 2490 | Query Loss: 0.6744
+Meta-Epoch | Batch 2495 | Query Loss: 0.6905
+Meta-Epoch | Batch 2500 | Query Loss: 0.6174
+Meta-Epoch | Batch 2505 | Query Loss: 0.7007
+Meta-Epoch | Batch 2510 | Query Loss: 0.6679
+Meta-Epoch | Batch 2515 | Query Loss: 0.6394
+Meta-Epoch | Batch 2520 | Query Loss: 0.6247
+Meta-Epoch | Batch 2525 | Query Loss: 0.6367
+Meta-Epoch | Batch 2530 | Query Loss: 0.6636
+Meta-Epoch | Batch 2535 | Query Loss: 0.6576
+Meta-Epoch | Batch 2540 | Query Loss: 0.6633
+Meta-Epoch | Batch 2545 | Query Loss: 0.6905
+Meta-Epoch | Batch 2550 | Query Loss: 0.6633
+Meta-Epoch | Batch 2555 | Query Loss: 0.6849
+Meta-Epoch | Batch 2560 | Query Loss: 0.6457
+Meta-Epoch | Batch 2565 | Query Loss: 0.6811
+Meta-Epoch | Batch 2570 | Query Loss: 0.7002
+Meta-Epoch | Batch 2575 | Query Loss: 0.6359
+Meta-Epoch | Batch 2580 | Query Loss: 0.6746
+Meta-Epoch | Batch 2585 | Query Loss: 0.6679
+Meta-Epoch | Batch 2590 | Query Loss: 0.6763
+Meta-Epoch | Batch 2595 | Query Loss: 0.6778
+Meta-Epoch | Batch 2600 | Query Loss: 0.6733
+Meta-Epoch | Batch 2605 | Query Loss: 0.7131
+Meta-Epoch | Batch 2610 | Query Loss: 0.6411
+Meta-Epoch | Batch 2615 | Query Loss: 0.6318
+Meta-Epoch | Batch 2620 | Query Loss: 0.6524
+Meta-Epoch | Batch 2625 | Query Loss: 0.6459
+Meta-Epoch | Batch 2630 | Query Loss: 0.6926
+Meta-Epoch | Batch 2635 | Query Loss: 0.7150
+Meta-Epoch | Batch 2640 | Query Loss: 0.6780
+Meta-Epoch | Batch 2645 | Query Loss: 0.6740
+Meta-Epoch | Batch 2650 | Query Loss: 0.7033
+Meta-Epoch | Batch 2655 | Query Loss: 0.6885
+Meta-Epoch | Batch 2660 | Query Loss: 0.7072
+Meta-Epoch | Batch 2665 | Query Loss: 0.6833
+Meta-Epoch | Batch 2670 | Query Loss: 0.6487
+Meta-Epoch | Batch 2675 | Query Loss: 0.6337
+Meta-Epoch | Batch 2680 | Query Loss: 0.6387
+Meta-Epoch | Batch 2685 | Query Loss: 0.6388
+Meta-Epoch | Batch 2690 | Query Loss: 0.7184
+Meta-Epoch | Batch 2695 | Query Loss: 0.6361
+Meta-Epoch | Batch 2700 | Query Loss: 0.7247
+Meta-Epoch | Batch 2705 | Query Loss: 0.6447
+Meta-Epoch | Batch 2710 | Query Loss: 0.7117
+Meta-Epoch | Batch 2715 | Query Loss: 0.6825
+Meta-Epoch | Batch 2720 | Query Loss: 0.6698
+2026-01-05 16:16:19,842 | INFO |   Meta Loss: 0.6789 (Steps: 5)
+2026-01-05 16:16:19,842 | INFO | Epoch 1 | Meta Loss: 0.6789
+2026-01-05 16:16:19,848 | INFO | DEBUG: Pre-Scan Test DataLoader for OOB IDs...
+2026-01-05 16:16:21,817 | INFO | DEBUG: Max Test Item ID: 9456 | Model Emb Size: 9469
+2026-01-05 16:16:22,969 | WARNING | OOB Source User IDs detected! Max: 11115, Limit: 11094. Clamping...
+2026-01-05 16:16:23,093 | WARNING | OOB Source User IDs detected! Max: 11141, Limit: 11094. Clamping...
+2026-01-05 16:16:23,218 | WARNING | OOB Source User IDs detected! Max: 11166, Limit: 11094. Clamping...
+2026-01-05 16:16:23,343 | WARNING | OOB Source User IDs detected! Max: 11192, Limit: 11094. Clamping...
+2026-01-05 16:16:23,468 | WARNING | OOB Source User IDs detected! Max: 11218, Limit: 11094. Clamping...
+2026-01-05 16:16:23,593 | WARNING | OOB Source User IDs detected! Max: 11243, Limit: 11094. Clamping...
+2026-01-05 16:16:23,718 | WARNING | OOB Source User IDs detected! Max: 11269, Limit: 11094. Clamping...
+2026-01-05 16:16:23,842 | WARNING | OOB Source User IDs detected! Max: 11295, Limit: 11094. Clamping...
+2026-01-05 16:16:23,965 | WARNING | OOB Source User IDs detected! Max: 11322, Limit: 11094. Clamping...
+2026-01-05 16:16:24,089 | WARNING | OOB Source User IDs detected! Max: 11348, Limit: 11094. Clamping...
+2026-01-05 16:16:24,212 | WARNING | OOB Source User IDs detected! Max: 11374, Limit: 11094. Clamping...
+2026-01-05 16:16:24,310 | WARNING | OOB Source User IDs detected! Max: 11392, Limit: 11094. Clamping...
+2026-01-05 16:16:24,315 | INFO |   Eval Results:
+2026-01-05 16:16:24,315 | INFO |     HR@10: 0.1597 | NDCG@10: 0.1189
+2026-01-05 16:16:24,315 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.1189
+2026-01-05 16:16:24,316 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 16:16:24,316 | INFO | Epoch 1 | HR@10: 0.1597 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2026-01-05 16:16:24,316 | INFO |     HR@10: 0.1597 | NDCG@10: 0.1189
+2026-01-05 16:16:24,316 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 16:16:24,316 | INFO | Epoch 1 | HR@10: 0.1597 | NDCG@10: 0.1189 | Cold_HR@10: 0.0000
+2026-01-05 16:16:24,316 | INFO |     HR@20: 0.2693 | NDCG@20: 0.1464
+2026-01-05 16:16:24,316 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.1464
+2026-01-05 16:16:24,316 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 16:16:24,316 | INFO | Epoch 1 | HR@20: 0.2693 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2026-01-05 16:16:24,317 | INFO |     HR@20: 0.2693 | NDCG@20: 0.1464
+2026-01-05 16:16:24,317 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 16:16:24,317 | INFO | Epoch 1 | HR@20: 0.2693 | NDCG@20: 0.1464 | Cold_HR@20: 0.0000
+2026-01-05 16:16:24,928 | INFO |   New Best Model Saved! HR@10: 0.1597
+2026-01-05 16:16:24,928 | INFO | 
+Epoch 2/5
+Epoch 1 | Batch 0 | Loss: 2.8166 | Rec: 2.7590 | Orth: 0.0132 | Prop[Min:0.0101, Mean:0.4311, Max:0.9993]
+Epoch 1 | Batch 10 | Loss: 2.2607 | Rec: 2.2035 | Orth: 0.0109 | Prop[Min:0.0129, Mean:0.4459, Max:0.9997]
+Epoch 1 | Batch 20 | Loss: 1.7201 | Rec: 1.6644 | Orth: 0.0117 | Prop[Min:0.0177, Mean:0.4700, Max:0.9998]
+Epoch 1 | Batch 30 | Loss: 1.4015 | Rec: 1.3471 | Orth: 0.0100 | Prop[Min:0.0133, Mean:0.4274, Max:0.9996]
+Epoch 1 | Batch 40 | Loss: 1.4472 | Rec: 1.3928 | Orth: 0.0084 | Prop[Min:0.0281, Mean:0.4454, Max:0.9996]
+Epoch 1 | Batch 50 | Loss: 0.8858 | Rec: 0.8315 | Orth: 0.0076 | Prop[Min:0.0079, Mean:0.4747, Max:0.9996]
+Epoch 1 | Batch 60 | Loss: 1.0463 | Rec: 0.9918 | Orth: 0.0079 | Prop[Min:0.0113, Mean:0.4357, Max:0.9999]
+Epoch 1 | Batch 70 | Loss: 0.6290 | Rec: 0.5742 | Orth: 0.0086 | Prop[Min:0.0119, Mean:0.4612, Max:0.9997]
+2026-01-05 16:17:07,837 | INFO |   Train Loss: 1.4221 | Time: 42.91s | Peak Mem: 1635.04 MB
+2026-01-05 16:17:07,838 | INFO | Epoch 2 | Train Loss: 1.4221 | Time: 42.91s
+Meta-Epoch | Batch 0 | Query Loss: 0.9060
+Meta-Epoch | Batch 5 | Query Loss: 3.1233
+Meta-Epoch | Batch 10 | Query Loss: 2.6103
+Meta-Epoch | Batch 15 | Query Loss: 0.2927
+Meta-Epoch | Batch 20 | Query Loss: 2.8076
+Meta-Epoch | Batch 25 | Query Loss: 2.8740
+Meta-Epoch | Batch 30 | Query Loss: 3.1133
+Meta-Epoch | Batch 35 | Query Loss: 1.2614
+Meta-Epoch | Batch 40 | Query Loss: 1.1306
+Meta-Epoch | Batch 45 | Query Loss: 2.5288
+Meta-Epoch | Batch 50 | Query Loss: 3.8394
+Meta-Epoch | Batch 55 | Query Loss: 2.5039
+Meta-Epoch | Batch 60 | Query Loss: 5.2135
+Meta-Epoch | Batch 65 | Query Loss: 3.9164
+Meta-Epoch | Batch 70 | Query Loss: 2.0670
+Meta-Epoch | Batch 75 | Query Loss: 6.2931
+Meta-Epoch | Batch 80 | Query Loss: 0.0660
+Meta-Epoch | Batch 85 | Query Loss: 0.7874
+Meta-Epoch | Batch 90 | Query Loss: 0.0869
+Meta-Epoch | Batch 95 | Query Loss: 1.2378
+Meta-Epoch | Batch 100 | Query Loss: 0.0404
+Meta-Epoch | Batch 105 | Query Loss: 0.4686
+Meta-Epoch | Batch 110 | Query Loss: 3.8845
+Meta-Epoch | Batch 115 | Query Loss: 0.1577
+Meta-Epoch | Batch 120 | Query Loss: 2.6378
+Meta-Epoch | Batch 125 | Query Loss: 2.5005
+Meta-Epoch | Batch 130 | Query Loss: 2.5610
+Meta-Epoch | Batch 135 | Query Loss: 0.6396
+Meta-Epoch | Batch 140 | Query Loss: 4.5828
+Meta-Epoch | Batch 145 | Query Loss: 0.5034
+Meta-Epoch | Batch 150 | Query Loss: 0.9071
+Meta-Epoch | Batch 155 | Query Loss: 2.5628
+Meta-Epoch | Batch 160 | Query Loss: 1.3781
+Meta-Epoch | Batch 165 | Query Loss: 0.6741
+Meta-Epoch | Batch 170 | Query Loss: 0.1372
+Meta-Epoch | Batch 175 | Query Loss: 0.3798
+Meta-Epoch | Batch 180 | Query Loss: 0.0871
+Meta-Epoch | Batch 185 | Query Loss: 0.0224
+Meta-Epoch | Batch 190 | Query Loss: 0.1501
+Meta-Epoch | Batch 195 | Query Loss: 0.2062
+Meta-Epoch | Batch 200 | Query Loss: 0.6067
+Meta-Epoch | Batch 205 | Query Loss: 0.1246
+Meta-Epoch | Batch 210 | Query Loss: 2.8795
+Meta-Epoch | Batch 215 | Query Loss: 0.0011
+Meta-Epoch | Batch 220 | Query Loss: 0.8636
+Meta-Epoch | Batch 225 | Query Loss: 2.6678
+Meta-Epoch | Batch 230 | Query Loss: 3.0417
+Meta-Epoch | Batch 235 | Query Loss: 0.5078
+Meta-Epoch | Batch 240 | Query Loss: 0.3196
+Meta-Epoch | Batch 245 | Query Loss: 1.7716
+Meta-Epoch | Batch 250 | Query Loss: 2.5110
+Meta-Epoch | Batch 255 | Query Loss: 0.6371
+Meta-Epoch | Batch 260 | Query Loss: 0.1635
+Meta-Epoch | Batch 265 | Query Loss: 0.0000
+Meta-Epoch | Batch 270 | Query Loss: 0.0051
+Meta-Epoch | Batch 275 | Query Loss: 3.4245
+Meta-Epoch | Batch 280 | Query Loss: 0.1850
+Meta-Epoch | Batch 285 | Query Loss: 0.2563
+Meta-Epoch | Batch 290 | Query Loss: 1.3481
+Meta-Epoch | Batch 295 | Query Loss: 0.1884
+Meta-Epoch | Batch 300 | Query Loss: 0.0816
+Meta-Epoch | Batch 305 | Query Loss: 0.8131
+Meta-Epoch | Batch 310 | Query Loss: 0.8368
+Meta-Epoch | Batch 315 | Query Loss: 0.4082
+Meta-Epoch | Batch 320 | Query Loss: 0.8425
+Meta-Epoch | Batch 325 | Query Loss: 0.0883
+Meta-Epoch | Batch 330 | Query Loss: 1.0389
+Meta-Epoch | Batch 335 | Query Loss: 2.5032
+Meta-Epoch | Batch 340 | Query Loss: 0.4401
+Meta-Epoch | Batch 345 | Query Loss: 0.7640
+Meta-Epoch | Batch 350 | Query Loss: 0.2482
+Meta-Epoch | Batch 355 | Query Loss: 0.0792
+Meta-Epoch | Batch 360 | Query Loss: 0.4775
+Meta-Epoch | Batch 365 | Query Loss: 1.1744
+Meta-Epoch | Batch 370 | Query Loss: 0.0020
+Meta-Epoch | Batch 375 | Query Loss: 1.6753
+Meta-Epoch | Batch 380 | Query Loss: 0.3665
+Meta-Epoch | Batch 385 | Query Loss: 0.1674
+Meta-Epoch | Batch 390 | Query Loss: 2.6146
+Meta-Epoch | Batch 395 | Query Loss: 0.1899
+Meta-Epoch | Batch 400 | Query Loss: 5.4160
+Meta-Epoch | Batch 405 | Query Loss: 5.0676
+Meta-Epoch | Batch 410 | Query Loss: 1.3791
+Meta-Epoch | Batch 415 | Query Loss: 0.1631
+Meta-Epoch | Batch 420 | Query Loss: 0.0000
+Meta-Epoch | Batch 425 | Query Loss: 0.0332
+Meta-Epoch | Batch 430 | Query Loss: 0.4986
+Meta-Epoch | Batch 435 | Query Loss: 1.3086
+Meta-Epoch | Batch 440 | Query Loss: 2.5231
+Meta-Epoch | Batch 445 | Query Loss: 0.1173
+Meta-Epoch | Batch 450 | Query Loss: 0.2505
+Meta-Epoch | Batch 455 | Query Loss: 0.0004
+Meta-Epoch | Batch 460 | Query Loss: 0.5795
+Meta-Epoch | Batch 465 | Query Loss: 0.0197
+Meta-Epoch | Batch 470 | Query Loss: 0.0174
+Meta-Epoch | Batch 475 | Query Loss: 2.5087
+Meta-Epoch | Batch 480 | Query Loss: 0.0033
+Meta-Epoch | Batch 485 | Query Loss: 0.4710
+Meta-Epoch | Batch 490 | Query Loss: 0.2821
+Meta-Epoch | Batch 495 | Query Loss: 0.2164
+Meta-Epoch | Batch 500 | Query Loss: 2.0932
+Meta-Epoch | Batch 505 | Query Loss: 0.5484
+Meta-Epoch | Batch 510 | Query Loss: 0.2381
+Meta-Epoch | Batch 515 | Query Loss: 0.4817
+Meta-Epoch | Batch 520 | Query Loss: 0.5893
+Meta-Epoch | Batch 525 | Query Loss: 0.2952
+Meta-Epoch | Batch 530 | Query Loss: 0.0030
+Meta-Epoch | Batch 535 | Query Loss: 0.3601
+Meta-Epoch | Batch 540 | Query Loss: 2.7445
+Meta-Epoch | Batch 545 | Query Loss: 2.1785
+Meta-Epoch | Batch 550 | Query Loss: 0.3491
+Meta-Epoch | Batch 555 | Query Loss: 0.3839
+Meta-Epoch | Batch 560 | Query Loss: 2.7359
+Meta-Epoch | Batch 565 | Query Loss: 0.3588
+Meta-Epoch | Batch 570 | Query Loss: 1.4253
+Meta-Epoch | Batch 575 | Query Loss: 0.2407
+Meta-Epoch | Batch 580 | Query Loss: 1.7123
+Meta-Epoch | Batch 585 | Query Loss: 2.5794
+Meta-Epoch | Batch 590 | Query Loss: 0.0570
+Meta-Epoch | Batch 595 | Query Loss: 0.8199
+Meta-Epoch | Batch 600 | Query Loss: 3.7877
+Meta-Epoch | Batch 605 | Query Loss: 0.4035
+Meta-Epoch | Batch 610 | Query Loss: 0.2879
+Meta-Epoch | Batch 615 | Query Loss: 2.5010
+Meta-Epoch | Batch 620 | Query Loss: 2.5978
+Meta-Epoch | Batch 625 | Query Loss: 0.1531
+Meta-Epoch | Batch 630 | Query Loss: 0.2820
+Meta-Epoch | Batch 635 | Query Loss: 0.9426
+Meta-Epoch | Batch 640 | Query Loss: 2.5002
+Meta-Epoch | Batch 645 | Query Loss: 0.1874
+Meta-Epoch | Batch 650 | Query Loss: 1.0872
+Meta-Epoch | Batch 655 | Query Loss: 0.1997
+Meta-Epoch | Batch 660 | Query Loss: 0.5361
+Meta-Epoch | Batch 665 | Query Loss: 0.5039
+Meta-Epoch | Batch 670 | Query Loss: 0.5850
+Meta-Epoch | Batch 675 | Query Loss: 0.3802
+Meta-Epoch | Batch 680 | Query Loss: 0.3252
+Meta-Epoch | Batch 685 | Query Loss: 0.9274
+Meta-Epoch | Batch 690 | Query Loss: 0.3231
+Meta-Epoch | Batch 695 | Query Loss: 3.6323
+Meta-Epoch | Batch 700 | Query Loss: 0.6856
+Meta-Epoch | Batch 705 | Query Loss: 0.0397
+Meta-Epoch | Batch 710 | Query Loss: 0.0260
+Meta-Epoch | Batch 715 | Query Loss: 0.0128
+Meta-Epoch | Batch 720 | Query Loss: 1.0046
+Meta-Epoch | Batch 725 | Query Loss: 2.5036
+Meta-Epoch | Batch 730 | Query Loss: 2.4991
+Meta-Epoch | Batch 735 | Query Loss: 0.2002
+Meta-Epoch | Batch 740 | Query Loss: 0.1561
+Meta-Epoch | Batch 745 | Query Loss: 1.2513
+Meta-Epoch | Batch 750 | Query Loss: 0.2201
+Meta-Epoch | Batch 755 | Query Loss: 0.1909
+Meta-Epoch | Batch 760 | Query Loss: 0.6798
+Meta-Epoch | Batch 765 | Query Loss: 0.1830
+Meta-Epoch | Batch 770 | Query Loss: 0.4550
+Meta-Epoch | Batch 775 | Query Loss: 1.6742
+Meta-Epoch | Batch 780 | Query Loss: 0.4764
+Meta-Epoch | Batch 785 | Query Loss: 1.0397
+Meta-Epoch | Batch 790 | Query Loss: 2.5023
+Meta-Epoch | Batch 795 | Query Loss: 2.5738
+Meta-Epoch | Batch 800 | Query Loss: 2.5153
+Meta-Epoch | Batch 805 | Query Loss: 0.2402
+Meta-Epoch | Batch 810 | Query Loss: 0.0283
+Meta-Epoch | Batch 815 | Query Loss: 1.9404
+Meta-Epoch | Batch 820 | Query Loss: 0.3780
+Meta-Epoch | Batch 825 | Query Loss: 4.0129
+Meta-Epoch | Batch 830 | Query Loss: 3.3468
+Meta-Epoch | Batch 835 | Query Loss: 0.0916
+Meta-Epoch | Batch 840 | Query Loss: 0.3800
+Meta-Epoch | Batch 845 | Query Loss: 0.0024
+Meta-Epoch | Batch 850 | Query Loss: 0.2618
+Meta-Epoch | Batch 855 | Query Loss: 0.4958
+Meta-Epoch | Batch 860 | Query Loss: 0.0588
+Meta-Epoch | Batch 865 | Query Loss: 0.1813
+Meta-Epoch | Batch 870 | Query Loss: 0.2038
+Meta-Epoch | Batch 875 | Query Loss: 0.4282
+Meta-Epoch | Batch 880 | Query Loss: 0.9791
+Meta-Epoch | Batch 885 | Query Loss: 2.0009
+Meta-Epoch | Batch 890 | Query Loss: 1.9524
+Meta-Epoch | Batch 895 | Query Loss: 0.4353
+Meta-Epoch | Batch 900 | Query Loss: 0.0000
+Meta-Epoch | Batch 905 | Query Loss: 2.6048
+Meta-Epoch | Batch 910 | Query Loss: 2.1902
+Meta-Epoch | Batch 915 | Query Loss: 0.5057
+Meta-Epoch | Batch 920 | Query Loss: 0.8830
+Meta-Epoch | Batch 925 | Query Loss: 2.5005
+Meta-Epoch | Batch 930 | Query Loss: 0.2622
+Meta-Epoch | Batch 935 | Query Loss: 1.3890
+Meta-Epoch | Batch 940 | Query Loss: 0.0762
+Meta-Epoch | Batch 945 | Query Loss: 0.6532
+Meta-Epoch | Batch 950 | Query Loss: 1.0930
+Meta-Epoch | Batch 955 | Query Loss: 0.1252
+Meta-Epoch | Batch 960 | Query Loss: 0.1325
+Meta-Epoch | Batch 965 | Query Loss: 0.9851
+Meta-Epoch | Batch 970 | Query Loss: 2.5961
+Meta-Epoch | Batch 975 | Query Loss: 2.6741
+Meta-Epoch | Batch 980 | Query Loss: 0.0051
+Meta-Epoch | Batch 985 | Query Loss: 0.7793
+Meta-Epoch | Batch 990 | Query Loss: 0.0001
+Meta-Epoch | Batch 995 | Query Loss: 1.9483
+Meta-Epoch | Batch 1000 | Query Loss: 1.0948
+Meta-Epoch | Batch 1005 | Query Loss: 0.2112
+Meta-Epoch | Batch 1010 | Query Loss: 0.0040
+Meta-Epoch | Batch 1015 | Query Loss: 0.3944
+Meta-Epoch | Batch 1020 | Query Loss: 0.0629
+Meta-Epoch | Batch 1025 | Query Loss: 0.0438
+Meta-Epoch | Batch 1030 | Query Loss: 1.4484
+Meta-Epoch | Batch 1035 | Query Loss: 0.5611
+Meta-Epoch | Batch 1040 | Query Loss: 1.4944
+Meta-Epoch | Batch 1045 | Query Loss: 2.5410
+Meta-Epoch | Batch 1050 | Query Loss: 0.0005
+Meta-Epoch | Batch 1055 | Query Loss: 1.8632
+Meta-Epoch | Batch 1060 | Query Loss: 0.8055
+Meta-Epoch | Batch 1065 | Query Loss: 0.4139
+Meta-Epoch | Batch 1070 | Query Loss: 0.0124
+Meta-Epoch | Batch 1075 | Query Loss: 0.2214
+Meta-Epoch | Batch 1080 | Query Loss: 0.7061
+Meta-Epoch | Batch 1085 | Query Loss: 0.0744
+Meta-Epoch | Batch 1090 | Query Loss: 0.6487
+Meta-Epoch | Batch 1095 | Query Loss: 3.9388
+Meta-Epoch | Batch 1100 | Query Loss: 2.5118
+Meta-Epoch | Batch 1105 | Query Loss: 3.4547
+Meta-Epoch | Batch 1110 | Query Loss: 2.1100
+Meta-Epoch | Batch 1115 | Query Loss: 2.5008
+Meta-Epoch | Batch 1120 | Query Loss: 0.3838
+Meta-Epoch | Batch 1125 | Query Loss: 2.7994
+Meta-Epoch | Batch 1130 | Query Loss: 0.0669
+Meta-Epoch | Batch 1135 | Query Loss: 0.0001
+Meta-Epoch | Batch 1140 | Query Loss: 2.3530
+Meta-Epoch | Batch 1145 | Query Loss: 4.5892
+Meta-Epoch | Batch 1150 | Query Loss: 2.8756
+Meta-Epoch | Batch 1155 | Query Loss: 2.5001
+Meta-Epoch | Batch 1160 | Query Loss: 0.6240
+Meta-Epoch | Batch 1165 | Query Loss: 2.2621
+Meta-Epoch | Batch 1170 | Query Loss: 2.0762
+Meta-Epoch | Batch 1175 | Query Loss: 0.0896
+Meta-Epoch | Batch 1180 | Query Loss: 0.5051
+Meta-Epoch | Batch 1185 | Query Loss: 0.3917
+Meta-Epoch | Batch 1190 | Query Loss: 0.0022
+Meta-Epoch | Batch 1195 | Query Loss: 0.6241
+Meta-Epoch | Batch 1200 | Query Loss: 4.7959
+Meta-Epoch | Batch 1205 | Query Loss: 1.6284
+Meta-Epoch | Batch 1210 | Query Loss: 0.0020
+Meta-Epoch | Batch 1215 | Query Loss: 2.7455
+Meta-Epoch | Batch 1220 | Query Loss: 0.3940
+Meta-Epoch | Batch 1225 | Query Loss: 0.9549
+Meta-Epoch | Batch 1230 | Query Loss: 5.1677
+Meta-Epoch | Batch 1235 | Query Loss: 0.0012
+Meta-Epoch | Batch 1240 | Query Loss: 0.4814
+Meta-Epoch | Batch 1245 | Query Loss: 0.1714
+Meta-Epoch | Batch 1250 | Query Loss: 0.0003
+Meta-Epoch | Batch 1255 | Query Loss: 0.4032
+Meta-Epoch | Batch 1260 | Query Loss: 0.5092
+Meta-Epoch | Batch 1265 | Query Loss: 2.7092
+Meta-Epoch | Batch 1270 | Query Loss: 3.1278
+Meta-Epoch | Batch 1275 | Query Loss: 0.9254
+Meta-Epoch | Batch 1280 | Query Loss: 2.0914
+Meta-Epoch | Batch 1285 | Query Loss: 0.2501
+Meta-Epoch | Batch 1290 | Query Loss: 0.4542
+Meta-Epoch | Batch 1295 | Query Loss: 0.7622
+Meta-Epoch | Batch 1300 | Query Loss: 0.3853
+Meta-Epoch | Batch 1305 | Query Loss: 0.6006
+Meta-Epoch | Batch 1310 | Query Loss: 1.0412
+Meta-Epoch | Batch 1315 | Query Loss: 0.7063
+Meta-Epoch | Batch 1320 | Query Loss: 1.7556
+Meta-Epoch | Batch 1325 | Query Loss: 1.6985
+Meta-Epoch | Batch 1330 | Query Loss: 0.5093
+Meta-Epoch | Batch 1335 | Query Loss: 0.7377
+Meta-Epoch | Batch 1340 | Query Loss: 1.0054
+Meta-Epoch | Batch 1345 | Query Loss: 0.0660
+Meta-Epoch | Batch 1350 | Query Loss: 0.6462
+Meta-Epoch | Batch 1355 | Query Loss: 3.0021
+Meta-Epoch | Batch 1360 | Query Loss: 0.4720
+Meta-Epoch | Batch 1365 | Query Loss: 0.0473
+Meta-Epoch | Batch 1370 | Query Loss: 0.3449
+Meta-Epoch | Batch 1375 | Query Loss: 3.3094
+Meta-Epoch | Batch 1380 | Query Loss: 0.2771
+Meta-Epoch | Batch 1385 | Query Loss: 1.7246
+Meta-Epoch | Batch 1390 | Query Loss: 0.0977
+Meta-Epoch | Batch 1395 | Query Loss: 0.4175
+Meta-Epoch | Batch 1400 | Query Loss: 0.8430
+Meta-Epoch | Batch 1405 | Query Loss: 1.6831
+Meta-Epoch | Batch 1410 | Query Loss: 0.0804
+Meta-Epoch | Batch 1415 | Query Loss: 0.1500
+Meta-Epoch | Batch 1420 | Query Loss: 0.2197
+Meta-Epoch | Batch 1425 | Query Loss: 0.3204
+Meta-Epoch | Batch 1430 | Query Loss: 0.0067
+Meta-Epoch | Batch 1435 | Query Loss: 0.0000
+Meta-Epoch | Batch 1440 | Query Loss: 0.1091
+Meta-Epoch | Batch 1445 | Query Loss: 0.3229
+Meta-Epoch | Batch 1450 | Query Loss: 2.8325
+Meta-Epoch | Batch 1455 | Query Loss: 2.0431
+Meta-Epoch | Batch 1460 | Query Loss: 0.1394
+Meta-Epoch | Batch 1465 | Query Loss: 2.3279
+Meta-Epoch | Batch 1470 | Query Loss: 1.4079
+Meta-Epoch | Batch 1475 | Query Loss: 1.2515
+Meta-Epoch | Batch 1480 | Query Loss: 0.4112
+Meta-Epoch | Batch 1485 | Query Loss: 2.5436
+Meta-Epoch | Batch 1490 | Query Loss: 0.1512
+Meta-Epoch | Batch 1495 | Query Loss: 2.9869
+Meta-Epoch | Batch 1500 | Query Loss: 0.1276
+Meta-Epoch | Batch 1505 | Query Loss: 0.7335
+Meta-Epoch | Batch 1510 | Query Loss: 0.0367
+Meta-Epoch | Batch 1515 | Query Loss: 0.5571
+Meta-Epoch | Batch 1520 | Query Loss: 0.4812
+Meta-Epoch | Batch 1525 | Query Loss: 0.0321
+Meta-Epoch | Batch 1530 | Query Loss: 1.5427
+Meta-Epoch | Batch 1535 | Query Loss: 2.8389
+Meta-Epoch | Batch 1540 | Query Loss: 2.5375
+Meta-Epoch | Batch 1545 | Query Loss: 0.3701
+Meta-Epoch | Batch 1550 | Query Loss: 0.2736
+Meta-Epoch | Batch 1555 | Query Loss: 0.6757
+Meta-Epoch | Batch 1560 | Query Loss: 0.0010
+Meta-Epoch | Batch 1565 | Query Loss: 2.1708
+Meta-Epoch | Batch 1570 | Query Loss: 0.1868
+Meta-Epoch | Batch 1575 | Query Loss: 5.1683
+Meta-Epoch | Batch 1580 | Query Loss: 0.3382
+Meta-Epoch | Batch 1585 | Query Loss: 1.4418
+Meta-Epoch | Batch 1590 | Query Loss: 0.0368
+Meta-Epoch | Batch 1595 | Query Loss: 1.5759
+Meta-Epoch | Batch 1600 | Query Loss: 2.5001
+Meta-Epoch | Batch 1605 | Query Loss: 0.1006
+Meta-Epoch | Batch 1610 | Query Loss: 2.8631
+Meta-Epoch | Batch 1615 | Query Loss: 1.1396
+Meta-Epoch | Batch 1620 | Query Loss: 0.4424
+Meta-Epoch | Batch 1625 | Query Loss: 1.2837
+Meta-Epoch | Batch 1630 | Query Loss: 2.4649
+Meta-Epoch | Batch 1635 | Query Loss: 0.0332
+Meta-Epoch | Batch 1640 | Query Loss: 0.8311
+Meta-Epoch | Batch 1645 | Query Loss: 0.3086
+Meta-Epoch | Batch 1650 | Query Loss: 1.5256
+Meta-Epoch | Batch 1655 | Query Loss: 2.0506
+Meta-Epoch | Batch 1660 | Query Loss: 0.4730
+Meta-Epoch | Batch 1665 | Query Loss: 2.5461
+Meta-Epoch | Batch 1670 | Query Loss: 0.0011
+Meta-Epoch | Batch 1675 | Query Loss: 1.2477
+Meta-Epoch | Batch 1680 | Query Loss: 1.4248
+Meta-Epoch | Batch 1685 | Query Loss: 0.2385
+Meta-Epoch | Batch 1690 | Query Loss: 2.5005
+Meta-Epoch | Batch 1695 | Query Loss: 0.0035
+Meta-Epoch | Batch 1700 | Query Loss: 0.2465
+Meta-Epoch | Batch 1705 | Query Loss: 1.9842
+Meta-Epoch | Batch 1710 | Query Loss: 7.1532
+Meta-Epoch | Batch 1715 | Query Loss: 0.0879
+Meta-Epoch | Batch 1720 | Query Loss: 1.6609
+Meta-Epoch | Batch 1725 | Query Loss: 1.9858
+Meta-Epoch | Batch 1730 | Query Loss: 4.2822
+Meta-Epoch | Batch 1735 | Query Loss: 2.5028
+Meta-Epoch | Batch 1740 | Query Loss: 1.4218
+Meta-Epoch | Batch 1745 | Query Loss: 3.2015
+Meta-Epoch | Batch 1750 | Query Loss: 0.2054
+Meta-Epoch | Batch 1755 | Query Loss: 0.0025
+Meta-Epoch | Batch 1760 | Query Loss: 0.2246
+Meta-Epoch | Batch 1765 | Query Loss: 0.1373
+Meta-Epoch | Batch 1770 | Query Loss: 0.1547
+Meta-Epoch | Batch 1775 | Query Loss: 0.1645
+Meta-Epoch | Batch 1780 | Query Loss: 2.5055
+Meta-Epoch | Batch 1785 | Query Loss: 2.5913
+Meta-Epoch | Batch 1790 | Query Loss: 0.2184
+Meta-Epoch | Batch 1795 | Query Loss: 2.1373
+Meta-Epoch | Batch 1800 | Query Loss: 0.1547
+Meta-Epoch | Batch 1805 | Query Loss: 2.9458
+Meta-Epoch | Batch 1810 | Query Loss: 3.3632
+Meta-Epoch | Batch 1815 | Query Loss: 2.3178
+Meta-Epoch | Batch 1820 | Query Loss: 3.7936
+Meta-Epoch | Batch 1825 | Query Loss: 0.0263
+Meta-Epoch | Batch 1830 | Query Loss: 3.5146
+Meta-Epoch | Batch 1835 | Query Loss: 0.2720
+Meta-Epoch | Batch 1840 | Query Loss: 0.0932
+Meta-Epoch | Batch 1845 | Query Loss: 0.0767
+Meta-Epoch | Batch 1850 | Query Loss: 4.1084
+Meta-Epoch | Batch 1855 | Query Loss: 2.5265
+Meta-Epoch | Batch 1860 | Query Loss: 3.1624
+Meta-Epoch | Batch 1865 | Query Loss: 1.4435
+Meta-Epoch | Batch 1870 | Query Loss: 0.2072
+Meta-Epoch | Batch 1875 | Query Loss: 2.7607
+Meta-Epoch | Batch 1880 | Query Loss: 0.1805
+Meta-Epoch | Batch 1885 | Query Loss: 1.7263
+Meta-Epoch | Batch 1890 | Query Loss: 1.4012
+Meta-Epoch | Batch 1895 | Query Loss: 0.1778
+Meta-Epoch | Batch 1900 | Query Loss: 2.6740
+Meta-Epoch | Batch 1905 | Query Loss: 1.8431
+Meta-Epoch | Batch 1910 | Query Loss: 0.6080
+Meta-Epoch | Batch 1915 | Query Loss: 3.1243
+Meta-Epoch | Batch 1920 | Query Loss: 0.1952
+Meta-Epoch | Batch 1925 | Query Loss: 2.5932
+Meta-Epoch | Batch 1930 | Query Loss: 0.1559
+Meta-Epoch | Batch 1935 | Query Loss: 3.0347
+Meta-Epoch | Batch 1940 | Query Loss: 0.0000
+Meta-Epoch | Batch 1945 | Query Loss: 0.2502
+Meta-Epoch | Batch 1950 | Query Loss: 2.7157
+Meta-Epoch | Batch 1955 | Query Loss: 1.4515
+Meta-Epoch | Batch 1960 | Query Loss: 2.8320
+Meta-Epoch | Batch 1965 | Query Loss: 0.2498
+Meta-Epoch | Batch 1970 | Query Loss: 0.0020
+Meta-Epoch | Batch 1975 | Query Loss: 1.3986
+Meta-Epoch | Batch 1980 | Query Loss: 2.3330
+Meta-Epoch | Batch 1985 | Query Loss: 0.3232
+Meta-Epoch | Batch 1990 | Query Loss: 0.1553
+Meta-Epoch | Batch 1995 | Query Loss: 2.6046
+Meta-Epoch | Batch 2000 | Query Loss: 2.7151
+Meta-Epoch | Batch 2005 | Query Loss: 0.2150
+Meta-Epoch | Batch 2010 | Query Loss: 1.0010
+Meta-Epoch | Batch 2015 | Query Loss: 2.8110
+Meta-Epoch | Batch 2020 | Query Loss: 0.1214
+Meta-Epoch | Batch 2025 | Query Loss: 0.6875
+Meta-Epoch | Batch 2030 | Query Loss: 0.0727
+Meta-Epoch | Batch 2035 | Query Loss: 0.3968
+Meta-Epoch | Batch 2040 | Query Loss: 0.3474
+Meta-Epoch | Batch 2045 | Query Loss: 0.1483
+Meta-Epoch | Batch 2050 | Query Loss: 0.0220
+Meta-Epoch | Batch 2055 | Query Loss: 0.2994
+Meta-Epoch | Batch 2060 | Query Loss: 0.2054
+Meta-Epoch | Batch 2065 | Query Loss: 0.1773
+Meta-Epoch | Batch 2070 | Query Loss: 0.2647
+Meta-Epoch | Batch 2075 | Query Loss: 2.7189
+Meta-Epoch | Batch 2080 | Query Loss: 1.8492
+Meta-Epoch | Batch 2085 | Query Loss: 0.0709
+Meta-Epoch | Batch 2090 | Query Loss: 4.7998
+Meta-Epoch | Batch 2095 | Query Loss: 0.3222
+Meta-Epoch | Batch 2100 | Query Loss: 0.3013
+Meta-Epoch | Batch 2105 | Query Loss: 2.7972
+Meta-Epoch | Batch 2110 | Query Loss: 0.4653
+Meta-Epoch | Batch 2115 | Query Loss: 0.9591
+Meta-Epoch | Batch 2120 | Query Loss: 0.8848
+Meta-Epoch | Batch 2125 | Query Loss: 1.3757
+Meta-Epoch | Batch 2130 | Query Loss: 0.8091
+Meta-Epoch | Batch 2135 | Query Loss: 0.0551
+Meta-Epoch | Batch 2140 | Query Loss: 0.8229
+Meta-Epoch | Batch 2145 | Query Loss: 0.0462
+Meta-Epoch | Batch 2150 | Query Loss: 0.7331
+Meta-Epoch | Batch 2155 | Query Loss: 0.3898
+Meta-Epoch | Batch 2160 | Query Loss: 1.1217
+Meta-Epoch | Batch 2165 | Query Loss: 0.7361
+Meta-Epoch | Batch 2170 | Query Loss: 0.3067
+Meta-Epoch | Batch 2175 | Query Loss: 3.3165
+Meta-Epoch | Batch 2180 | Query Loss: 2.7304
+Meta-Epoch | Batch 2185 | Query Loss: 0.1228
+Meta-Epoch | Batch 2190 | Query Loss: 0.8308
+Meta-Epoch | Batch 2195 | Query Loss: 0.2346
+Meta-Epoch | Batch 2200 | Query Loss: 3.2177
+Meta-Epoch | Batch 2205 | Query Loss: 0.0305
+Meta-Epoch | Batch 2210 | Query Loss: 0.8166
+Meta-Epoch | Batch 2215 | Query Loss: 0.8698
+Meta-Epoch | Batch 2220 | Query Loss: 0.5659
+Meta-Epoch | Batch 2225 | Query Loss: 0.2567
+Meta-Epoch | Batch 2230 | Query Loss: 0.5211
+Meta-Epoch | Batch 2235 | Query Loss: 0.1487
+Meta-Epoch | Batch 2240 | Query Loss: 3.1397
+Meta-Epoch | Batch 2245 | Query Loss: 0.3452
+Meta-Epoch | Batch 2250 | Query Loss: 1.0437
+Meta-Epoch | Batch 2255 | Query Loss: 0.1023
+Meta-Epoch | Batch 2260 | Query Loss: 0.0539
+Meta-Epoch | Batch 2265 | Query Loss: 0.5272
+Meta-Epoch | Batch 2270 | Query Loss: 1.9752
+Meta-Epoch | Batch 2275 | Query Loss: 0.0009
+Meta-Epoch | Batch 2280 | Query Loss: 0.3161
+Meta-Epoch | Batch 2285 | Query Loss: 0.0051
+Meta-Epoch | Batch 2290 | Query Loss: 1.2314
+Meta-Epoch | Batch 2295 | Query Loss: 0.0023
+Meta-Epoch | Batch 2300 | Query Loss: 0.4303
+Meta-Epoch | Batch 2305 | Query Loss: 0.4621
+Meta-Epoch | Batch 2310 | Query Loss: 1.6648
+Meta-Epoch | Batch 2315 | Query Loss: 1.4656
+Meta-Epoch | Batch 2320 | Query Loss: 0.2023
+Meta-Epoch | Batch 2325 | Query Loss: 2.5469
+Meta-Epoch | Batch 2330 | Query Loss: 0.3903
+Meta-Epoch | Batch 2335 | Query Loss: 0.1295
+Meta-Epoch | Batch 2340 | Query Loss: 0.1741
+Meta-Epoch | Batch 2345 | Query Loss: 0.2058
+Meta-Epoch | Batch 2350 | Query Loss: 2.0303
+Meta-Epoch | Batch 2355 | Query Loss: 0.0061
+Meta-Epoch | Batch 2360 | Query Loss: 0.3811
+Meta-Epoch | Batch 2365 | Query Loss: 1.5024
+Meta-Epoch | Batch 2370 | Query Loss: 2.8928
+Meta-Epoch | Batch 2375 | Query Loss: 0.2081
+Meta-Epoch | Batch 2380 | Query Loss: 2.8405
+Meta-Epoch | Batch 2385 | Query Loss: 1.2749
+Meta-Epoch | Batch 2390 | Query Loss: 0.1223
+Meta-Epoch | Batch 2395 | Query Loss: 0.0153
+Meta-Epoch | Batch 2400 | Query Loss: 2.0418
+Meta-Epoch | Batch 2405 | Query Loss: 2.9941
+Meta-Epoch | Batch 2410 | Query Loss: 1.6636
+Meta-Epoch | Batch 2415 | Query Loss: 1.0179
+Meta-Epoch | Batch 2420 | Query Loss: 1.9427
+Meta-Epoch | Batch 2425 | Query Loss: 0.3030
+Meta-Epoch | Batch 2430 | Query Loss: 0.0521
+Meta-Epoch | Batch 2435 | Query Loss: 0.1493
+Meta-Epoch | Batch 2440 | Query Loss: 0.3879
+Meta-Epoch | Batch 2445 | Query Loss: 0.1585
+Meta-Epoch | Batch 2450 | Query Loss: 1.1214
+Meta-Epoch | Batch 2455 | Query Loss: 2.7720
+Meta-Epoch | Batch 2460 | Query Loss: 0.2080
+Meta-Epoch | Batch 2465 | Query Loss: 0.1446
+Meta-Epoch | Batch 2470 | Query Loss: 0.7967
+Meta-Epoch | Batch 2475 | Query Loss: 2.7817
+Meta-Epoch | Batch 2480 | Query Loss: 0.8416
+Meta-Epoch | Batch 2485 | Query Loss: 4.0367
+Meta-Epoch | Batch 2490 | Query Loss: 2.8297
+Meta-Epoch | Batch 2495 | Query Loss: 0.1441
+Meta-Epoch | Batch 2500 | Query Loss: 1.6901
+Meta-Epoch | Batch 2505 | Query Loss: 2.1229
+Meta-Epoch | Batch 2510 | Query Loss: 0.2403
+Meta-Epoch | Batch 2515 | Query Loss: 0.1165
+Meta-Epoch | Batch 2520 | Query Loss: 0.1665
+Meta-Epoch | Batch 2525 | Query Loss: 2.0095
+Meta-Epoch | Batch 2530 | Query Loss: 0.9368
+Meta-Epoch | Batch 2535 | Query Loss: 1.0673
+Meta-Epoch | Batch 2540 | Query Loss: 0.0145
+Meta-Epoch | Batch 2545 | Query Loss: 5.0662
+Meta-Epoch | Batch 2550 | Query Loss: 0.0058
+Meta-Epoch | Batch 2555 | Query Loss: 0.0192
+Meta-Epoch | Batch 2560 | Query Loss: 0.3378
+Meta-Epoch | Batch 2565 | Query Loss: 0.2037
+Meta-Epoch | Batch 2570 | Query Loss: 2.6707
+Meta-Epoch | Batch 2575 | Query Loss: 0.9150
+Meta-Epoch | Batch 2580 | Query Loss: 0.2904
+Meta-Epoch | Batch 2585 | Query Loss: 0.7457
+Meta-Epoch | Batch 2590 | Query Loss: 2.4761
+Meta-Epoch | Batch 2595 | Query Loss: 0.6342
+Meta-Epoch | Batch 2600 | Query Loss: 0.0136
+Meta-Epoch | Batch 2605 | Query Loss: 2.5678
+Meta-Epoch | Batch 2610 | Query Loss: 1.6713
+Meta-Epoch | Batch 2615 | Query Loss: 2.5000
+Meta-Epoch | Batch 2620 | Query Loss: 3.8986
+Meta-Epoch | Batch 2625 | Query Loss: 0.0211
+Meta-Epoch | Batch 2630 | Query Loss: 5.0022
+Meta-Epoch | Batch 2635 | Query Loss: 0.2072
+Meta-Epoch | Batch 2640 | Query Loss: 0.4790
+Meta-Epoch | Batch 2645 | Query Loss: 0.0333
+Meta-Epoch | Batch 2650 | Query Loss: 0.3435
+Meta-Epoch | Batch 2655 | Query Loss: 0.0597
+Meta-Epoch | Batch 2660 | Query Loss: 0.4086
+Meta-Epoch | Batch 2665 | Query Loss: 0.0664
+Meta-Epoch | Batch 2670 | Query Loss: 5.8545
+Meta-Epoch | Batch 2675 | Query Loss: 2.5148
+Meta-Epoch | Batch 2680 | Query Loss: 0.1508
+Meta-Epoch | Batch 2685 | Query Loss: 1.6223
+Meta-Epoch | Batch 2690 | Query Loss: 0.0132
+Meta-Epoch | Batch 2695 | Query Loss: 0.6367
+Meta-Epoch | Batch 2700 | Query Loss: 0.0001
+Meta-Epoch | Batch 2705 | Query Loss: 0.1933
+Meta-Epoch | Batch 2710 | Query Loss: 1.8996
+Meta-Epoch | Batch 2715 | Query Loss: 1.8501
+Meta-Epoch | Batch 2720 | Query Loss: 0.7428
+2026-01-05 16:42:47,206 | INFO |   Meta Loss: 1.2046 (Steps: 5)
+2026-01-05 16:42:47,206 | INFO | Epoch 2 | Meta Loss: 1.2046
+2026-01-05 16:42:47,212 | INFO | DEBUG: Pre-Scan Test DataLoader for OOB IDs...
+2026-01-05 16:42:49,309 | INFO | DEBUG: Max Test Item ID: 9456 | Model Emb Size: 9469
+2026-01-05 16:42:50,492 | WARNING | OOB Source User IDs detected! Max: 11115, Limit: 11094. Clamping...
+2026-01-05 16:42:50,623 | WARNING | OOB Source User IDs detected! Max: 11141, Limit: 11094. Clamping...
+2026-01-05 16:42:50,765 | WARNING | OOB Source User IDs detected! Max: 11166, Limit: 11094. Clamping...
+2026-01-05 16:42:50,899 | WARNING | OOB Source User IDs detected! Max: 11192, Limit: 11094. Clamping...
+2026-01-05 16:42:51,031 | WARNING | OOB Source User IDs detected! Max: 11218, Limit: 11094. Clamping...
+2026-01-05 16:42:51,163 | WARNING | OOB Source User IDs detected! Max: 11243, Limit: 11094. Clamping...
+2026-01-05 16:42:51,292 | WARNING | OOB Source User IDs detected! Max: 11269, Limit: 11094. Clamping...
+2026-01-05 16:42:51,421 | WARNING | OOB Source User IDs detected! Max: 11295, Limit: 11094. Clamping...
+2026-01-05 16:42:51,556 | WARNING | OOB Source User IDs detected! Max: 11322, Limit: 11094. Clamping...
+2026-01-05 16:42:51,685 | WARNING | OOB Source User IDs detected! Max: 11348, Limit: 11094. Clamping...
+2026-01-05 16:42:51,816 | WARNING | OOB Source User IDs detected! Max: 11374, Limit: 11094. Clamping...
+2026-01-05 16:42:51,921 | WARNING | OOB Source User IDs detected! Max: 11392, Limit: 11094. Clamping...
+2026-01-05 16:42:51,926 | INFO |   Eval Results:
+2026-01-05 16:42:51,926 | INFO |     HR@10: 0.1651 | NDCG@10: 0.1219
+2026-01-05 16:42:51,927 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.1219
+2026-01-05 16:42:51,927 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 16:42:51,927 | INFO | Epoch 2 | HR@10: 0.1651 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2026-01-05 16:42:51,927 | INFO |     HR@10: 0.1651 | NDCG@10: 0.1219
+2026-01-05 16:42:51,927 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 16:42:51,927 | INFO | Epoch 2 | HR@10: 0.1651 | NDCG@10: 0.1219 | Cold_HR@10: 0.0000
+2026-01-05 16:42:51,927 | INFO |     HR@20: 0.2678 | NDCG@20: 0.1475
+2026-01-05 16:42:51,927 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.1475
+2026-01-05 16:42:51,928 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 16:42:51,928 | INFO | Epoch 2 | HR@20: 0.2678 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2026-01-05 16:42:51,928 | INFO |     HR@20: 0.2678 | NDCG@20: 0.1475
+2026-01-05 16:42:51,928 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 16:42:51,928 | INFO | Epoch 2 | HR@20: 0.2678 | NDCG@20: 0.1475 | Cold_HR@20: 0.0000
+2026-01-05 16:42:52,539 | INFO |   New Best Model Saved! HR@10: 0.1651
+2026-01-05 16:42:52,539 | INFO | 
+Epoch 3/5
+Epoch 2 | Batch 0 | Loss: 4.0137 | Rec: 3.9527 | Orth: 0.0074 | Prop[Min:0.0341, Mean:0.4817, Max:0.9997]
+Epoch 2 | Batch 10 | Loss: 1.7963 | Rec: 1.7382 | Orth: 0.0121 | Prop[Min:0.0088, Mean:0.4350, Max:0.9994]
+Epoch 2 | Batch 20 | Loss: 1.0852 | Rec: 1.0289 | Orth: 0.0124 | Prop[Min:0.0130, Mean:0.4407, Max:0.9996]
+Epoch 2 | Batch 30 | Loss: 0.6890 | Rec: 0.6336 | Orth: 0.0128 | Prop[Min:0.0177, Mean:0.4630, Max:0.9997]
+Epoch 2 | Batch 40 | Loss: 0.5867 | Rec: 0.5313 | Orth: 0.0133 | Prop[Min:0.0092, Mean:0.4445, Max:0.9997]
+Epoch 2 | Batch 50 | Loss: 0.5786 | Rec: 0.5242 | Orth: 0.0162 | Prop[Min:0.0089, Mean:0.4527, Max:0.9998]
+Epoch 2 | Batch 60 | Loss: 0.6763 | Rec: 0.6210 | Orth: 0.0164 | Prop[Min:0.0136, Mean:0.4362, Max:0.9997]
+Epoch 2 | Batch 70 | Loss: 0.6476 | Rec: 0.5929 | Orth: 0.0160 | Prop[Min:0.0184, Mean:0.4556, Max:0.9996]
+2026-01-05 16:43:38,331 | INFO |   Train Loss: 1.0490 | Time: 45.79s | Peak Mem: 1635.04 MB
+2026-01-05 16:43:38,332 | INFO | Epoch 3 | Train Loss: 1.0490 | Time: 45.79s
+Meta-Epoch | Batch 0 | Query Loss: 0.4642
+Meta-Epoch | Batch 5 | Query Loss: 2.8147
+Meta-Epoch | Batch 10 | Query Loss: 0.0150
+Meta-Epoch | Batch 15 | Query Loss: 1.4568
+Meta-Epoch | Batch 20 | Query Loss: 3.0182
+Meta-Epoch | Batch 25 | Query Loss: 0.5145
+Meta-Epoch | Batch 30 | Query Loss: 2.6766
+Meta-Epoch | Batch 35 | Query Loss: 2.5000
+Meta-Epoch | Batch 40 | Query Loss: 0.0615
+Meta-Epoch | Batch 45 | Query Loss: 2.4494
+Meta-Epoch | Batch 50 | Query Loss: 5.0562
+Meta-Epoch | Batch 55 | Query Loss: 2.3291
+Meta-Epoch | Batch 60 | Query Loss: 2.5000
+Meta-Epoch | Batch 65 | Query Loss: 0.2270
+Meta-Epoch | Batch 70 | Query Loss: 5.5022
+Meta-Epoch | Batch 75 | Query Loss: 1.3239
+Meta-Epoch | Batch 80 | Query Loss: 0.0000
+Meta-Epoch | Batch 85 | Query Loss: 0.0001
+Meta-Epoch | Batch 90 | Query Loss: 0.0000
+Meta-Epoch | Batch 95 | Query Loss: 1.6525
+Meta-Epoch | Batch 100 | Query Loss: 4.0436
+Meta-Epoch | Batch 105 | Query Loss: 4.0290
+Meta-Epoch | Batch 110 | Query Loss: 2.1865
+Meta-Epoch | Batch 115 | Query Loss: 2.5000
+Meta-Epoch | Batch 120 | Query Loss: 4.7934
+Meta-Epoch | Batch 125 | Query Loss: 4.0544
+Meta-Epoch | Batch 130 | Query Loss: 0.1715
+Meta-Epoch | Batch 135 | Query Loss: 0.0099
+Meta-Epoch | Batch 140 | Query Loss: 2.5001
+Meta-Epoch | Batch 145 | Query Loss: 1.3441
+Meta-Epoch | Batch 150 | Query Loss: 0.0232
+Meta-Epoch | Batch 155 | Query Loss: 0.0112
+Meta-Epoch | Batch 160 | Query Loss: 1.9775
+Meta-Epoch | Batch 165 | Query Loss: 6.8002
+Meta-Epoch | Batch 170 | Query Loss: 0.8560
+Meta-Epoch | Batch 175 | Query Loss: 2.5000
+Meta-Epoch | Batch 180 | Query Loss: 3.3289
+Meta-Epoch | Batch 185 | Query Loss: 3.3812
+Meta-Epoch | Batch 190 | Query Loss: 0.5568
+Meta-Epoch | Batch 195 | Query Loss: 2.5008
+Meta-Epoch | Batch 200 | Query Loss: 0.0019
+Meta-Epoch | Batch 205 | Query Loss: 1.0312
+Meta-Epoch | Batch 210 | Query Loss: 2.5292
+Meta-Epoch | Batch 215 | Query Loss: 0.1211
+Meta-Epoch | Batch 220 | Query Loss: 0.3405
+Meta-Epoch | Batch 225 | Query Loss: 0.9268
+Meta-Epoch | Batch 230 | Query Loss: 5.0000
+Meta-Epoch | Batch 235 | Query Loss: 0.0236
+Meta-Epoch | Batch 240 | Query Loss: 5.0000
+Meta-Epoch | Batch 245 | Query Loss: 2.5000
+Meta-Epoch | Batch 250 | Query Loss: 0.0345
+Meta-Epoch | Batch 255 | Query Loss: 1.0585
+Meta-Epoch | Batch 260 | Query Loss: 0.1544
+Meta-Epoch | Batch 265 | Query Loss: 3.2931
+Meta-Epoch | Batch 270 | Query Loss: 4.6327
+Meta-Epoch | Batch 275 | Query Loss: 5.6931
+Meta-Epoch | Batch 280 | Query Loss: 2.9058
+Meta-Epoch | Batch 285 | Query Loss: 5.0368
+Meta-Epoch | Batch 290 | Query Loss: 1.1461
+Meta-Epoch | Batch 295 | Query Loss: 3.0793
+Meta-Epoch | Batch 300 | Query Loss: 3.5640
+Meta-Epoch | Batch 305 | Query Loss: 3.9415
+Meta-Epoch | Batch 310 | Query Loss: 1.7460
+Meta-Epoch | Batch 315 | Query Loss: 0.5376
+Meta-Epoch | Batch 320 | Query Loss: 2.6117
+Meta-Epoch | Batch 325 | Query Loss: 6.5512
+Meta-Epoch | Batch 330 | Query Loss: 5.0001
+Meta-Epoch | Batch 335 | Query Loss: 2.5272
+Meta-Epoch | Batch 340 | Query Loss: 0.0166
+Meta-Epoch | Batch 345 | Query Loss: 2.5000
+Meta-Epoch | Batch 350 | Query Loss: 3.3742
+Meta-Epoch | Batch 355 | Query Loss: 2.7485
+Meta-Epoch | Batch 360 | Query Loss: 3.2857
+Meta-Epoch | Batch 365 | Query Loss: 3.1493
+Meta-Epoch | Batch 370 | Query Loss: 2.2103
+Meta-Epoch | Batch 375 | Query Loss: 2.5000
+Meta-Epoch | Batch 380 | Query Loss: 0.0238
+Meta-Epoch | Batch 385 | Query Loss: 0.4956
+Meta-Epoch | Batch 390 | Query Loss: 2.5016
+Meta-Epoch | Batch 395 | Query Loss: 0.1225
+Meta-Epoch | Batch 400 | Query Loss: 0.0003
+Meta-Epoch | Batch 405 | Query Loss: 2.0195
+Meta-Epoch | Batch 410 | Query Loss: 6.0161
+Meta-Epoch | Batch 415 | Query Loss: 2.6418
+Meta-Epoch | Batch 420 | Query Loss: 2.5000
+Meta-Epoch | Batch 425 | Query Loss: 3.9207
+Meta-Epoch | Batch 430 | Query Loss: 0.0066
+Meta-Epoch | Batch 435 | Query Loss: 2.5143
+Meta-Epoch | Batch 440 | Query Loss: 1.0445
+Meta-Epoch | Batch 445 | Query Loss: 0.0080
+Meta-Epoch | Batch 450 | Query Loss: 0.0682
+Meta-Epoch | Batch 455 | Query Loss: 2.5000
+Meta-Epoch | Batch 460 | Query Loss: 2.5043
+Meta-Epoch | Batch 465 | Query Loss: 2.5003
+Meta-Epoch | Batch 470 | Query Loss: 2.5655
+Meta-Epoch | Batch 475 | Query Loss: 5.5676
+Meta-Epoch | Batch 480 | Query Loss: 2.5254
+Meta-Epoch | Batch 485 | Query Loss: 0.9565
+Meta-Epoch | Batch 490 | Query Loss: 0.6788
+Meta-Epoch | Batch 495 | Query Loss: 0.0011
+Meta-Epoch | Batch 500 | Query Loss: 2.6427
+Meta-Epoch | Batch 505 | Query Loss: 1.2506
+Meta-Epoch | Batch 510 | Query Loss: 1.1361
+Meta-Epoch | Batch 515 | Query Loss: 1.2453
+Meta-Epoch | Batch 520 | Query Loss: 2.5870
+Meta-Epoch | Batch 525 | Query Loss: 1.2286
+Meta-Epoch | Batch 530 | Query Loss: 2.5001
+Meta-Epoch | Batch 535 | Query Loss: 0.0428
+Meta-Epoch | Batch 540 | Query Loss: 0.7878
+Meta-Epoch | Batch 545 | Query Loss: 1.4081
+Meta-Epoch | Batch 550 | Query Loss: 3.3147
+Meta-Epoch | Batch 555 | Query Loss: 4.1815
+Meta-Epoch | Batch 560 | Query Loss: 7.5000
+Meta-Epoch | Batch 565 | Query Loss: 2.5001
+Meta-Epoch | Batch 570 | Query Loss: 2.5000
+Meta-Epoch | Batch 575 | Query Loss: 0.1980
+Meta-Epoch | Batch 580 | Query Loss: 4.2363
+Meta-Epoch | Batch 585 | Query Loss: 5.0017
+Meta-Epoch | Batch 590 | Query Loss: 0.5770
+Meta-Epoch | Batch 595 | Query Loss: 0.0000
+Meta-Epoch | Batch 600 | Query Loss: 2.6769
+Meta-Epoch | Batch 605 | Query Loss: 2.5967
+Meta-Epoch | Batch 610 | Query Loss: 1.9831
+Meta-Epoch | Batch 615 | Query Loss: 2.5000
+Meta-Epoch | Batch 620 | Query Loss: 0.1464
+Meta-Epoch | Batch 625 | Query Loss: 2.5099
+Meta-Epoch | Batch 630 | Query Loss: 2.0040
+Meta-Epoch | Batch 635 | Query Loss: 0.0768
+Meta-Epoch | Batch 640 | Query Loss: 0.0000
+Meta-Epoch | Batch 645 | Query Loss: 2.5000
+Meta-Epoch | Batch 650 | Query Loss: 2.1294
+Meta-Epoch | Batch 655 | Query Loss: 4.5091
+Meta-Epoch | Batch 660 | Query Loss: 0.4639
+Meta-Epoch | Batch 665 | Query Loss: 5.0000
+Meta-Epoch | Batch 670 | Query Loss: 3.3957
+Meta-Epoch | Batch 675 | Query Loss: 4.6602
+Meta-Epoch | Batch 680 | Query Loss: 2.5031
+Meta-Epoch | Batch 685 | Query Loss: 0.0000
+Meta-Epoch | Batch 690 | Query Loss: 1.1224
+Meta-Epoch | Batch 695 | Query Loss: 0.7673
+Meta-Epoch | Batch 700 | Query Loss: 1.0045
+Meta-Epoch | Batch 705 | Query Loss: 2.5087
+Meta-Epoch | Batch 710 | Query Loss: 2.5000
+Meta-Epoch | Batch 715 | Query Loss: 0.0001
+Meta-Epoch | Batch 720 | Query Loss: 2.5767
+Meta-Epoch | Batch 725 | Query Loss: 0.0035
+Meta-Epoch | Batch 730 | Query Loss: 2.8164
+Meta-Epoch | Batch 735 | Query Loss: 3.0668
+Meta-Epoch | Batch 740 | Query Loss: 3.6003
+Meta-Epoch | Batch 745 | Query Loss: 3.1957
+Meta-Epoch | Batch 750 | Query Loss: 5.0156
+Meta-Epoch | Batch 755 | Query Loss: 3.1121
+Meta-Epoch | Batch 760 | Query Loss: 0.5007
+Meta-Epoch | Batch 765 | Query Loss: 2.6267
+Meta-Epoch | Batch 770 | Query Loss: 4.8210
+Meta-Epoch | Batch 775 | Query Loss: 0.5530
+Meta-Epoch | Batch 780 | Query Loss: 3.2495
+Meta-Epoch | Batch 785 | Query Loss: 0.5463
+Meta-Epoch | Batch 790 | Query Loss: 0.7184
+Meta-Epoch | Batch 795 | Query Loss: 2.2688
+Meta-Epoch | Batch 800 | Query Loss: 0.4555
+Meta-Epoch | Batch 805 | Query Loss: 2.5495
+Meta-Epoch | Batch 810 | Query Loss: 2.5074
+Meta-Epoch | Batch 815 | Query Loss: 0.0019
+Meta-Epoch | Batch 820 | Query Loss: 2.2995
+Meta-Epoch | Batch 825 | Query Loss: 0.0017
+Meta-Epoch | Batch 830 | Query Loss: 1.7103
+Meta-Epoch | Batch 835 | Query Loss: 2.5000
+Meta-Epoch | Batch 840 | Query Loss: 2.1277
+Meta-Epoch | Batch 845 | Query Loss: 0.7541
+Meta-Epoch | Batch 850 | Query Loss: 2.5037
+Meta-Epoch | Batch 855 | Query Loss: 2.5000
+Meta-Epoch | Batch 860 | Query Loss: 0.4943
+Meta-Epoch | Batch 865 | Query Loss: 2.6175
+Meta-Epoch | Batch 870 | Query Loss: 2.5000
+Meta-Epoch | Batch 875 | Query Loss: 4.0511
+Meta-Epoch | Batch 880 | Query Loss: 2.5000
+Meta-Epoch | Batch 885 | Query Loss: 0.0238
+Meta-Epoch | Batch 890 | Query Loss: 3.3261
+Meta-Epoch | Batch 895 | Query Loss: 0.5713
+Meta-Epoch | Batch 900 | Query Loss: 1.2999
+Meta-Epoch | Batch 905 | Query Loss: 2.5000
+Meta-Epoch | Batch 910 | Query Loss: 0.2307
+Meta-Epoch | Batch 915 | Query Loss: 0.0048
+Meta-Epoch | Batch 920 | Query Loss: 1.8484
+Meta-Epoch | Batch 925 | Query Loss: 1.9151
+Meta-Epoch | Batch 930 | Query Loss: 0.0001
+Meta-Epoch | Batch 935 | Query Loss: 5.0000
+Meta-Epoch | Batch 940 | Query Loss: 2.3524
+Meta-Epoch | Batch 945 | Query Loss: 2.4159
+Meta-Epoch | Batch 950 | Query Loss: 2.6063
+Meta-Epoch | Batch 955 | Query Loss: 2.5001
+Meta-Epoch | Batch 960 | Query Loss: 3.7799
+Meta-Epoch | Batch 965 | Query Loss: 0.3375
+Meta-Epoch | Batch 970 | Query Loss: 2.5540
+Meta-Epoch | Batch 975 | Query Loss: 0.0007
+Meta-Epoch | Batch 980 | Query Loss: 0.0001
+Meta-Epoch | Batch 985 | Query Loss: 2.5001
+Meta-Epoch | Batch 990 | Query Loss: 0.0047
+Meta-Epoch | Batch 995 | Query Loss: 0.0081
+Meta-Epoch | Batch 1000 | Query Loss: 0.0004
+Meta-Epoch | Batch 1005 | Query Loss: 0.9082
+Meta-Epoch | Batch 1010 | Query Loss: 2.7157
+Meta-Epoch | Batch 1015 | Query Loss: 0.6358
+Meta-Epoch | Batch 1020 | Query Loss: 2.5746
+Meta-Epoch | Batch 1025 | Query Loss: 2.5008
+Meta-Epoch | Batch 1030 | Query Loss: 5.0000
+Meta-Epoch | Batch 1035 | Query Loss: 0.5216
+Meta-Epoch | Batch 1040 | Query Loss: 2.5000
+Meta-Epoch | Batch 1045 | Query Loss: 0.1171
+Meta-Epoch | Batch 1050 | Query Loss: 2.5401
+Meta-Epoch | Batch 1055 | Query Loss: 0.2328
+Meta-Epoch | Batch 1060 | Query Loss: 0.0000
+Meta-Epoch | Batch 1065 | Query Loss: 0.2287
+Meta-Epoch | Batch 1070 | Query Loss: 0.0065
+Meta-Epoch | Batch 1075 | Query Loss: 2.5001
+Meta-Epoch | Batch 1080 | Query Loss: 0.0103
+Meta-Epoch | Batch 1085 | Query Loss: 3.1640
+Meta-Epoch | Batch 1090 | Query Loss: 5.0000
+Meta-Epoch | Batch 1095 | Query Loss: 2.5000
+Meta-Epoch | Batch 1100 | Query Loss: 3.4802
+Meta-Epoch | Batch 1105 | Query Loss: 0.0826
+Meta-Epoch | Batch 1110 | Query Loss: 0.7764
+Meta-Epoch | Batch 1115 | Query Loss: 1.2914
+Meta-Epoch | Batch 1120 | Query Loss: 5.2681
+Meta-Epoch | Batch 1125 | Query Loss: 4.7728
+Meta-Epoch | Batch 1130 | Query Loss: 4.2970
+Meta-Epoch | Batch 1135 | Query Loss: 0.8746
+Meta-Epoch | Batch 1140 | Query Loss: 5.0338
+Meta-Epoch | Batch 1145 | Query Loss: 1.1176
+Meta-Epoch | Batch 1150 | Query Loss: 0.0470
+Meta-Epoch | Batch 1155 | Query Loss: 0.9424
+Meta-Epoch | Batch 1160 | Query Loss: 0.6636
+Meta-Epoch | Batch 1165 | Query Loss: 0.2836
+Meta-Epoch | Batch 1170 | Query Loss: 0.0000
+Meta-Epoch | Batch 1175 | Query Loss: 0.0010
+Meta-Epoch | Batch 1180 | Query Loss: 0.6799
+Meta-Epoch | Batch 1185 | Query Loss: 0.7406
+Meta-Epoch | Batch 1190 | Query Loss: 0.5036
+Meta-Epoch | Batch 1195 | Query Loss: 3.7047
+Meta-Epoch | Batch 1200 | Query Loss: 0.0820
+Meta-Epoch | Batch 1205 | Query Loss: 4.9181
+Meta-Epoch | Batch 1210 | Query Loss: 0.7667
+Meta-Epoch | Batch 1215 | Query Loss: 2.7404
+Meta-Epoch | Batch 1220 | Query Loss: 0.3161
+Meta-Epoch | Batch 1225 | Query Loss: 2.2723
+Meta-Epoch | Batch 1230 | Query Loss: 1.1148
+Meta-Epoch | Batch 1235 | Query Loss: 3.4723
+Meta-Epoch | Batch 1240 | Query Loss: 1.4149
+Meta-Epoch | Batch 1245 | Query Loss: 0.3629
+Meta-Epoch | Batch 1250 | Query Loss: 0.1677
+Meta-Epoch | Batch 1255 | Query Loss: 2.4553
+Meta-Epoch | Batch 1260 | Query Loss: 2.5000
+Meta-Epoch | Batch 1265 | Query Loss: 1.2661
+Meta-Epoch | Batch 1270 | Query Loss: 3.3571
+Meta-Epoch | Batch 1275 | Query Loss: 2.5357
+Meta-Epoch | Batch 1280 | Query Loss: 2.2867
+Meta-Epoch | Batch 1285 | Query Loss: 5.1547
+Meta-Epoch | Batch 1290 | Query Loss: 2.5000
+Meta-Epoch | Batch 1295 | Query Loss: 0.1573
+Meta-Epoch | Batch 1300 | Query Loss: 3.3803
+Meta-Epoch | Batch 1305 | Query Loss: 0.0146
+Meta-Epoch | Batch 1310 | Query Loss: 1.3378
+Meta-Epoch | Batch 1315 | Query Loss: 4.0024
+Meta-Epoch | Batch 1320 | Query Loss: 0.0010
+Meta-Epoch | Batch 1325 | Query Loss: 4.8997
+Meta-Epoch | Batch 1330 | Query Loss: 2.7542
+Meta-Epoch | Batch 1335 | Query Loss: 2.5025
+Meta-Epoch | Batch 1340 | Query Loss: 0.2329
+Meta-Epoch | Batch 1345 | Query Loss: 1.1112
+Meta-Epoch | Batch 1350 | Query Loss: 3.9001
+Meta-Epoch | Batch 1355 | Query Loss: 0.1951
+Meta-Epoch | Batch 1360 | Query Loss: 0.2562
+Meta-Epoch | Batch 1365 | Query Loss: 0.0001
+Meta-Epoch | Batch 1370 | Query Loss: 2.5007
+Meta-Epoch | Batch 1375 | Query Loss: 1.1958
+Meta-Epoch | Batch 1380 | Query Loss: 7.5000
+Meta-Epoch | Batch 1385 | Query Loss: 0.0000
+Meta-Epoch | Batch 1390 | Query Loss: 4.2863
+Meta-Epoch | Batch 1395 | Query Loss: 0.0021
+Meta-Epoch | Batch 1400 | Query Loss: 4.4544
+Meta-Epoch | Batch 1405 | Query Loss: 1.3354
+Meta-Epoch | Batch 1410 | Query Loss: 0.9652
+Meta-Epoch | Batch 1415 | Query Loss: 1.2005
+Meta-Epoch | Batch 1420 | Query Loss: 5.0007
+Meta-Epoch | Batch 1425 | Query Loss: 4.0378
+Meta-Epoch | Batch 1430 | Query Loss: 0.0242
+Meta-Epoch | Batch 1435 | Query Loss: 0.0001
+Meta-Epoch | Batch 1440 | Query Loss: 2.5000
+Meta-Epoch | Batch 1445 | Query Loss: 0.2021
+Meta-Epoch | Batch 1450 | Query Loss: 0.0002
+Meta-Epoch | Batch 1455 | Query Loss: 5.0000
+Meta-Epoch | Batch 1460 | Query Loss: 1.6544
+Meta-Epoch | Batch 1465 | Query Loss: 1.8612
+Meta-Epoch | Batch 1470 | Query Loss: 2.5000
+Meta-Epoch | Batch 1475 | Query Loss: 2.0518
+Meta-Epoch | Batch 1480 | Query Loss: 0.5146
+Meta-Epoch | Batch 1485 | Query Loss: 2.5000
+Meta-Epoch | Batch 1490 | Query Loss: 5.0051
+Meta-Epoch | Batch 1495 | Query Loss: 2.5000
+Meta-Epoch | Batch 1500 | Query Loss: 3.3504
+Meta-Epoch | Batch 1505 | Query Loss: 4.0777
+Meta-Epoch | Batch 1510 | Query Loss: 5.0102
+Meta-Epoch | Batch 1515 | Query Loss: 0.0000
+Meta-Epoch | Batch 1520 | Query Loss: 2.5139
+Meta-Epoch | Batch 1525 | Query Loss: 3.9929
+Meta-Epoch | Batch 1530 | Query Loss: 0.0257
+Meta-Epoch | Batch 1535 | Query Loss: 2.5057
+Meta-Epoch | Batch 1540 | Query Loss: 0.0216
+Meta-Epoch | Batch 1545 | Query Loss: 0.4951
+Meta-Epoch | Batch 1550 | Query Loss: 2.9047
+Meta-Epoch | Batch 1555 | Query Loss: 0.0298
+Meta-Epoch | Batch 1560 | Query Loss: 2.5654
+Meta-Epoch | Batch 1565 | Query Loss: 7.5001
+Meta-Epoch | Batch 1570 | Query Loss: 0.0001
+Meta-Epoch | Batch 1575 | Query Loss: 3.4215
+Meta-Epoch | Batch 1580 | Query Loss: 0.3249
+Meta-Epoch | Batch 1585 | Query Loss: 1.1021
+Meta-Epoch | Batch 1590 | Query Loss: 5.0000
+Meta-Epoch | Batch 1595 | Query Loss: 2.3038
+Meta-Epoch | Batch 1600 | Query Loss: 0.1472
+Meta-Epoch | Batch 1605 | Query Loss: 2.5418
+Meta-Epoch | Batch 1610 | Query Loss: 2.5016
+Meta-Epoch | Batch 1615 | Query Loss: 1.5258
+Meta-Epoch | Batch 1620 | Query Loss: 2.5024
+Meta-Epoch | Batch 1625 | Query Loss: 0.0000
+Meta-Epoch | Batch 1630 | Query Loss: 2.5085
+Meta-Epoch | Batch 1635 | Query Loss: 2.5045
+Meta-Epoch | Batch 1640 | Query Loss: 3.0190
+Meta-Epoch | Batch 1645 | Query Loss: 0.0028
+Meta-Epoch | Batch 1650 | Query Loss: 0.2203
+Meta-Epoch | Batch 1655 | Query Loss: 0.0352
+Meta-Epoch | Batch 1660 | Query Loss: 2.6615
+Meta-Epoch | Batch 1665 | Query Loss: 0.0751
+Meta-Epoch | Batch 1670 | Query Loss: 2.7694
+Meta-Epoch | Batch 1675 | Query Loss: 4.1571
+Meta-Epoch | Batch 1680 | Query Loss: 5.0058
+Meta-Epoch | Batch 1685 | Query Loss: 5.0166
+Meta-Epoch | Batch 1690 | Query Loss: 0.0956
+Meta-Epoch | Batch 1695 | Query Loss: 3.5002
+Meta-Epoch | Batch 1700 | Query Loss: 5.0037
+Meta-Epoch | Batch 1705 | Query Loss: 0.0150
+Meta-Epoch | Batch 1710 | Query Loss: 2.2754
+Meta-Epoch | Batch 1715 | Query Loss: 2.3778
+Meta-Epoch | Batch 1720 | Query Loss: 4.4876
+Meta-Epoch | Batch 1725 | Query Loss: 2.8007
+Meta-Epoch | Batch 1730 | Query Loss: 2.5031
+Meta-Epoch | Batch 1735 | Query Loss: 2.0661
+Meta-Epoch | Batch 1740 | Query Loss: 1.8384
+Meta-Epoch | Batch 1745 | Query Loss: 2.6582
+Meta-Epoch | Batch 1750 | Query Loss: 5.0000
+Meta-Epoch | Batch 1755 | Query Loss: 7.7678
+Meta-Epoch | Batch 1760 | Query Loss: 0.0003
+Meta-Epoch | Batch 1765 | Query Loss: 0.9755
+Meta-Epoch | Batch 1770 | Query Loss: 0.9392
+Meta-Epoch | Batch 1775 | Query Loss: 3.0663
+Meta-Epoch | Batch 1780 | Query Loss: 2.5023
+Meta-Epoch | Batch 1785 | Query Loss: 1.1724
+Meta-Epoch | Batch 1790 | Query Loss: 0.0002
+Meta-Epoch | Batch 1795 | Query Loss: 2.9364
+Meta-Epoch | Batch 1800 | Query Loss: 2.1410
+Meta-Epoch | Batch 1805 | Query Loss: 0.0187
+Meta-Epoch | Batch 1810 | Query Loss: 2.3538
+Meta-Epoch | Batch 1815 | Query Loss: 0.0752
+Meta-Epoch | Batch 1820 | Query Loss: 2.5000
+Meta-Epoch | Batch 1825 | Query Loss: 0.0000
+Meta-Epoch | Batch 1830 | Query Loss: 0.0520
+Meta-Epoch | Batch 1835 | Query Loss: 2.5023
+Meta-Epoch | Batch 1840 | Query Loss: 2.5332
+Meta-Epoch | Batch 1845 | Query Loss: 0.3300
+Meta-Epoch | Batch 1850 | Query Loss: 3.6669
+Meta-Epoch | Batch 1855 | Query Loss: 2.7555
+Meta-Epoch | Batch 1860 | Query Loss: 0.0000
+Meta-Epoch | Batch 1865 | Query Loss: 0.8064
+Meta-Epoch | Batch 1870 | Query Loss: 0.1264
+Meta-Epoch | Batch 1875 | Query Loss: 4.7098
+Meta-Epoch | Batch 1880 | Query Loss: 2.6309
+Meta-Epoch | Batch 1885 | Query Loss: 3.3515
+Meta-Epoch | Batch 1890 | Query Loss: 0.0001
+Meta-Epoch | Batch 1895 | Query Loss: 0.0001
+Meta-Epoch | Batch 1900 | Query Loss: 0.4008
+Meta-Epoch | Batch 1905 | Query Loss: 1.0725
+Meta-Epoch | Batch 1910 | Query Loss: 0.0000
+Meta-Epoch | Batch 1915 | Query Loss: 2.5000
+Meta-Epoch | Batch 1920 | Query Loss: 0.0435
+Meta-Epoch | Batch 1925 | Query Loss: 1.4074
+Meta-Epoch | Batch 1930 | Query Loss: 1.5836
+Meta-Epoch | Batch 1935 | Query Loss: 3.6182
+Meta-Epoch | Batch 1940 | Query Loss: 3.3868
+Meta-Epoch | Batch 1945 | Query Loss: 2.5001
+Meta-Epoch | Batch 1950 | Query Loss: 7.5000
+Meta-Epoch | Batch 1955 | Query Loss: 0.1784
+Meta-Epoch | Batch 1960 | Query Loss: 4.3621
+Meta-Epoch | Batch 1965 | Query Loss: 3.0745
+Meta-Epoch | Batch 1970 | Query Loss: 5.0000
+Meta-Epoch | Batch 1975 | Query Loss: 0.0001
+Meta-Epoch | Batch 1980 | Query Loss: 2.1510
+Meta-Epoch | Batch 1985 | Query Loss: 4.2949
+Meta-Epoch | Batch 1990 | Query Loss: 4.0721
+Meta-Epoch | Batch 1995 | Query Loss: 0.3837
+Meta-Epoch | Batch 2000 | Query Loss: 0.4504
+Meta-Epoch | Batch 2005 | Query Loss: 4.2428
+Meta-Epoch | Batch 2010 | Query Loss: 0.1551
+Meta-Epoch | Batch 2015 | Query Loss: 0.3563
+Meta-Epoch | Batch 2020 | Query Loss: 3.2087
+Meta-Epoch | Batch 2025 | Query Loss: 0.0000
+Meta-Epoch | Batch 2030 | Query Loss: 3.7355
+Meta-Epoch | Batch 2035 | Query Loss: 0.0182
+Meta-Epoch | Batch 2040 | Query Loss: 7.5718
+Meta-Epoch | Batch 2045 | Query Loss: 1.5585
+Meta-Epoch | Batch 2050 | Query Loss: 4.2718
+Meta-Epoch | Batch 2055 | Query Loss: 6.9017
+Meta-Epoch | Batch 2060 | Query Loss: 1.3891
+Meta-Epoch | Batch 2065 | Query Loss: 3.4701
+Meta-Epoch | Batch 2070 | Query Loss: 3.3182
+Meta-Epoch | Batch 2075 | Query Loss: 3.0384
+Meta-Epoch | Batch 2080 | Query Loss: 3.3756
+Meta-Epoch | Batch 2085 | Query Loss: 2.5000
+Meta-Epoch | Batch 2090 | Query Loss: 2.8796
+Meta-Epoch | Batch 2095 | Query Loss: 3.1296
+Meta-Epoch | Batch 2100 | Query Loss: 2.5001
+Meta-Epoch | Batch 2105 | Query Loss: 2.6310
+Meta-Epoch | Batch 2110 | Query Loss: 2.5000
+Meta-Epoch | Batch 2115 | Query Loss: 0.4460
+Meta-Epoch | Batch 2120 | Query Loss: 2.5000
+Meta-Epoch | Batch 2125 | Query Loss: 2.6138
+Meta-Epoch | Batch 2130 | Query Loss: 2.6325
+Meta-Epoch | Batch 2135 | Query Loss: 0.0002
+Meta-Epoch | Batch 2140 | Query Loss: 2.2135
+Meta-Epoch | Batch 2145 | Query Loss: 0.0001
+Meta-Epoch | Batch 2150 | Query Loss: 2.5276
+Meta-Epoch | Batch 2155 | Query Loss: 2.5398
+Meta-Epoch | Batch 2160 | Query Loss: 0.0034
+Meta-Epoch | Batch 2165 | Query Loss: 2.5007
+Meta-Epoch | Batch 2170 | Query Loss: 2.5248
+Meta-Epoch | Batch 2175 | Query Loss: 2.5000
+Meta-Epoch | Batch 2180 | Query Loss: 2.5028
+Meta-Epoch | Batch 2185 | Query Loss: 3.3973
+Meta-Epoch | Batch 2190 | Query Loss: 0.0000
+Meta-Epoch | Batch 2195 | Query Loss: 2.6310
+Meta-Epoch | Batch 2200 | Query Loss: 2.5000
+Meta-Epoch | Batch 2205 | Query Loss: 1.2995
+Meta-Epoch | Batch 2210 | Query Loss: 0.0002
+Meta-Epoch | Batch 2215 | Query Loss: 0.0092
+Meta-Epoch | Batch 2220 | Query Loss: 7.2777
+Meta-Epoch | Batch 2225 | Query Loss: 0.0003
+Meta-Epoch | Batch 2230 | Query Loss: 6.6396
+Meta-Epoch | Batch 2235 | Query Loss: 5.0205
+Meta-Epoch | Batch 2240 | Query Loss: 0.8046
+Meta-Epoch | Batch 2245 | Query Loss: 0.0056
+Meta-Epoch | Batch 2250 | Query Loss: 0.0581
+Meta-Epoch | Batch 2255 | Query Loss: 2.5382
+Meta-Epoch | Batch 2260 | Query Loss: 2.5003
+Meta-Epoch | Batch 2265 | Query Loss: 2.5076
+Meta-Epoch | Batch 2270 | Query Loss: 1.4086
+Meta-Epoch | Batch 2275 | Query Loss: 2.4469
+Meta-Epoch | Batch 2280 | Query Loss: 2.5653
+Meta-Epoch | Batch 2285 | Query Loss: 2.6409
+Meta-Epoch | Batch 2290 | Query Loss: 0.7297
+Meta-Epoch | Batch 2295 | Query Loss: 2.5091
+Meta-Epoch | Batch 2300 | Query Loss: 5.0000
+Meta-Epoch | Batch 2305 | Query Loss: 2.5000
+Meta-Epoch | Batch 2310 | Query Loss: 0.9070
+Meta-Epoch | Batch 2315 | Query Loss: 4.9642
+Meta-Epoch | Batch 2320 | Query Loss: 2.7663
+Meta-Epoch | Batch 2325 | Query Loss: 2.8799
+Meta-Epoch | Batch 2330 | Query Loss: 0.3689
+Meta-Epoch | Batch 2335 | Query Loss: 2.5000
+Meta-Epoch | Batch 2340 | Query Loss: 2.5000
+Meta-Epoch | Batch 2345 | Query Loss: 0.0002
+Meta-Epoch | Batch 2350 | Query Loss: 1.1521
+Meta-Epoch | Batch 2355 | Query Loss: 2.7640
+Meta-Epoch | Batch 2360 | Query Loss: 5.0003
+Meta-Epoch | Batch 2365 | Query Loss: 3.8162
+Meta-Epoch | Batch 2370 | Query Loss: 0.1101
+Meta-Epoch | Batch 2375 | Query Loss: 0.1758
+Meta-Epoch | Batch 2380 | Query Loss: 0.6113
+Meta-Epoch | Batch 2385 | Query Loss: 4.0198
+Meta-Epoch | Batch 2390 | Query Loss: 2.5214
+Meta-Epoch | Batch 2395 | Query Loss: 0.0041
+Meta-Epoch | Batch 2400 | Query Loss: 3.2364
+Meta-Epoch | Batch 2405 | Query Loss: 3.6409
+Meta-Epoch | Batch 2410 | Query Loss: 3.2295
+Meta-Epoch | Batch 2415 | Query Loss: 0.4383
+Meta-Epoch | Batch 2420 | Query Loss: 0.8547
+Meta-Epoch | Batch 2425 | Query Loss: 4.3679
+Meta-Epoch | Batch 2430 | Query Loss: 2.5000
+Meta-Epoch | Batch 2435 | Query Loss: 4.8887
+Meta-Epoch | Batch 2440 | Query Loss: 2.6636
+Meta-Epoch | Batch 2445 | Query Loss: 2.5000
+Meta-Epoch | Batch 2450 | Query Loss: 0.6344
+Meta-Epoch | Batch 2455 | Query Loss: 5.0000
+Meta-Epoch | Batch 2460 | Query Loss: 0.2607
+Meta-Epoch | Batch 2465 | Query Loss: 2.5332
+Meta-Epoch | Batch 2470 | Query Loss: 0.0000
+Meta-Epoch | Batch 2475 | Query Loss: 5.0122
+Meta-Epoch | Batch 2480 | Query Loss: 2.6425
+Meta-Epoch | Batch 2485 | Query Loss: 7.5144
+Meta-Epoch | Batch 2490 | Query Loss: 2.6923
+Meta-Epoch | Batch 2495 | Query Loss: 2.5847
+Meta-Epoch | Batch 2500 | Query Loss: 2.2902
+Meta-Epoch | Batch 2505 | Query Loss: 1.3760
+Meta-Epoch | Batch 2510 | Query Loss: 0.4220
+Meta-Epoch | Batch 2515 | Query Loss: 3.4096
+Meta-Epoch | Batch 2520 | Query Loss: 4.1501
+Meta-Epoch | Batch 2525 | Query Loss: 0.3544
+Meta-Epoch | Batch 2530 | Query Loss: 1.0047
+Meta-Epoch | Batch 2535 | Query Loss: 2.5000
+Meta-Epoch | Batch 2540 | Query Loss: 2.8360
+Meta-Epoch | Batch 2545 | Query Loss: 2.5082
+Meta-Epoch | Batch 2550 | Query Loss: 4.3702
+Meta-Epoch | Batch 2555 | Query Loss: 0.0139
+Meta-Epoch | Batch 2560 | Query Loss: 4.1289
+Meta-Epoch | Batch 2565 | Query Loss: 2.7314
+Meta-Epoch | Batch 2570 | Query Loss: 1.0756
+Meta-Epoch | Batch 2575 | Query Loss: 3.9589
+Meta-Epoch | Batch 2580 | Query Loss: 2.6634
+Meta-Epoch | Batch 2585 | Query Loss: 0.1994
+Meta-Epoch | Batch 2590 | Query Loss: 0.0022
+Meta-Epoch | Batch 2595 | Query Loss: 1.0631
+Meta-Epoch | Batch 2600 | Query Loss: 0.0055
+Meta-Epoch | Batch 2605 | Query Loss: 0.3426
+Meta-Epoch | Batch 2610 | Query Loss: 0.0020
+Meta-Epoch | Batch 2615 | Query Loss: 0.7540
+Meta-Epoch | Batch 2620 | Query Loss: 5.7623
+Meta-Epoch | Batch 2625 | Query Loss: 2.6745
+Meta-Epoch | Batch 2630 | Query Loss: 0.0003
+Meta-Epoch | Batch 2635 | Query Loss: 2.9729
+Meta-Epoch | Batch 2640 | Query Loss: 1.6814
+Meta-Epoch | Batch 2645 | Query Loss: 5.2973
+Meta-Epoch | Batch 2650 | Query Loss: 3.3920
+Meta-Epoch | Batch 2655 | Query Loss: 1.7738
+Meta-Epoch | Batch 2660 | Query Loss: 0.0000
+Meta-Epoch | Batch 2665 | Query Loss: 2.5000
+Meta-Epoch | Batch 2670 | Query Loss: 0.0000
+Meta-Epoch | Batch 2675 | Query Loss: 0.3687
+Meta-Epoch | Batch 2680 | Query Loss: 0.1380
+Meta-Epoch | Batch 2685 | Query Loss: 3.7500
+Meta-Epoch | Batch 2690 | Query Loss: 2.5000
+Meta-Epoch | Batch 2695 | Query Loss: 3.2872
+Meta-Epoch | Batch 2700 | Query Loss: 2.5515
+Meta-Epoch | Batch 2705 | Query Loss: 0.0365
+Meta-Epoch | Batch 2710 | Query Loss: 4.1564
+Meta-Epoch | Batch 2715 | Query Loss: 2.9752
+Meta-Epoch | Batch 2720 | Query Loss: 0.0044
+2026-01-05 17:08:24,027 | INFO |   Meta Loss: 2.1282 (Steps: 5)
+2026-01-05 17:08:24,028 | INFO | Epoch 3 | Meta Loss: 2.1282
+2026-01-05 17:08:24,033 | INFO | DEBUG: Pre-Scan Test DataLoader for OOB IDs...
+2026-01-05 17:08:25,991 | INFO | DEBUG: Max Test Item ID: 9456 | Model Emb Size: 9469
+2026-01-05 17:08:27,100 | WARNING | OOB Source User IDs detected! Max: 11115, Limit: 11094. Clamping...
+2026-01-05 17:08:27,226 | WARNING | OOB Source User IDs detected! Max: 11141, Limit: 11094. Clamping...
+2026-01-05 17:08:27,350 | WARNING | OOB Source User IDs detected! Max: 11166, Limit: 11094. Clamping...
+2026-01-05 17:08:27,473 | WARNING | OOB Source User IDs detected! Max: 11192, Limit: 11094. Clamping...
+2026-01-05 17:08:27,596 | WARNING | OOB Source User IDs detected! Max: 11218, Limit: 11094. Clamping...
+2026-01-05 17:08:27,720 | WARNING | OOB Source User IDs detected! Max: 11243, Limit: 11094. Clamping...
+2026-01-05 17:08:27,844 | WARNING | OOB Source User IDs detected! Max: 11269, Limit: 11094. Clamping...
+2026-01-05 17:08:27,979 | WARNING | OOB Source User IDs detected! Max: 11295, Limit: 11094. Clamping...
+2026-01-05 17:08:28,124 | WARNING | OOB Source User IDs detected! Max: 11322, Limit: 11094. Clamping...
+2026-01-05 17:08:28,252 | WARNING | OOB Source User IDs detected! Max: 11348, Limit: 11094. Clamping...
+2026-01-05 17:08:28,384 | WARNING | OOB Source User IDs detected! Max: 11374, Limit: 11094. Clamping...
+2026-01-05 17:08:28,490 | WARNING | OOB Source User IDs detected! Max: 11392, Limit: 11094. Clamping...
+2026-01-05 17:08:28,497 | INFO |   Eval Results:
+2026-01-05 17:08:28,498 | INFO |     HR@10: 0.1585 | NDCG@10: 0.1182
+2026-01-05 17:08:28,498 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.1182
+2026-01-05 17:08:28,498 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 17:08:28,498 | INFO | Epoch 3 | HR@10: 0.1585 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2026-01-05 17:08:28,498 | INFO |     HR@10: 0.1585 | NDCG@10: 0.1182
+2026-01-05 17:08:28,498 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 17:08:28,499 | INFO | Epoch 3 | HR@10: 0.1585 | NDCG@10: 0.1182 | Cold_HR@10: 0.0000
+2026-01-05 17:08:28,499 | INFO |     HR@20: 0.2733 | NDCG@20: 0.1468
+2026-01-05 17:08:28,499 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.1468
+2026-01-05 17:08:28,499 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 17:08:28,499 | INFO | Epoch 3 | HR@20: 0.2733 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2026-01-05 17:08:28,499 | INFO |     HR@20: 0.2733 | NDCG@20: 0.1468
+2026-01-05 17:08:28,499 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 17:08:28,500 | INFO | Epoch 3 | HR@20: 0.2733 | NDCG@20: 0.1468 | Cold_HR@20: 0.0000
+2026-01-05 17:08:28,500 | INFO | 
+Epoch 4/5
+Epoch 3 | Batch 0 | Loss: 19.5381 | Rec: 19.4823 | Orth: 0.0092 | Prop[Min:0.0137, Mean:0.4468, Max:0.9997]
+Epoch 3 | Batch 10 | Loss: 12.4543 | Rec: 12.3984 | Orth: 0.0100 | Prop[Min:0.0108, Mean:0.4699, Max:0.9996]
+Epoch 3 | Batch 20 | Loss: 14.9374 | Rec: 14.8816 | Orth: 0.0107 | Prop[Min:0.0163, Mean:0.4392, Max:0.9998]
+Epoch 3 | Batch 30 | Loss: 13.6954 | Rec: 13.6396 | Orth: 0.0096 | Prop[Min:0.0134, Mean:0.4863, Max:0.9996]
+Epoch 3 | Batch 40 | Loss: 14.5747 | Rec: 14.5188 | Orth: 0.0106 | Prop[Min:0.0155, Mean:0.4652, Max:0.9997]
+Epoch 3 | Batch 50 | Loss: 13.7112 | Rec: 13.6552 | Orth: 0.0111 | Prop[Min:0.0216, Mean:0.4559, Max:0.9997]
+Epoch 3 | Batch 60 | Loss: 15.8388 | Rec: 15.7832 | Orth: 0.0102 | Prop[Min:0.0047, Mean:0.4266, Max:0.9996]
+Epoch 3 | Batch 70 | Loss: 17.1002 | Rec: 17.0445 | Orth: 0.0113 | Prop[Min:0.0078, Mean:0.4256, Max:0.9997]
+2026-01-05 17:09:11,057 | INFO |   Train Loss: 15.7056 | Time: 42.56s | Peak Mem: 1635.04 MB
+2026-01-05 17:09:11,057 | INFO | Epoch 4 | Train Loss: 15.7056 | Time: 42.56s
+Meta-Epoch | Batch 0 | Query Loss: 3.4841
+Meta-Epoch | Batch 5 | Query Loss: 1.5793
+Meta-Epoch | Batch 10 | Query Loss: 0.0729
+Meta-Epoch | Batch 15 | Query Loss: 2.5053
+Meta-Epoch | Batch 20 | Query Loss: 1.6009
+Meta-Epoch | Batch 25 | Query Loss: 1.7791
+Meta-Epoch | Batch 30 | Query Loss: 2.5110
+Meta-Epoch | Batch 35 | Query Loss: 0.0115
+Meta-Epoch | Batch 40 | Query Loss: 5.0000
+Meta-Epoch | Batch 45 | Query Loss: 4.4834
+Meta-Epoch | Batch 50 | Query Loss: 0.1180
+Meta-Epoch | Batch 55 | Query Loss: 0.5327
+Meta-Epoch | Batch 60 | Query Loss: 2.5074
+Meta-Epoch | Batch 65 | Query Loss: 2.5000
+Meta-Epoch | Batch 70 | Query Loss: 2.5001
+Meta-Epoch | Batch 75 | Query Loss: 3.5630
+Meta-Epoch | Batch 80 | Query Loss: 2.5680
+Meta-Epoch | Batch 85 | Query Loss: 0.0018
+Meta-Epoch | Batch 90 | Query Loss: 0.0000
+Meta-Epoch | Batch 95 | Query Loss: 2.5011
+Meta-Epoch | Batch 100 | Query Loss: 0.0002
+Meta-Epoch | Batch 105 | Query Loss: 3.6479
+Meta-Epoch | Batch 110 | Query Loss: 0.1083
+Meta-Epoch | Batch 115 | Query Loss: 2.5000
+Meta-Epoch | Batch 120 | Query Loss: 0.0000
+Meta-Epoch | Batch 125 | Query Loss: 2.7749
+Meta-Epoch | Batch 130 | Query Loss: 1.2663
+Meta-Epoch | Batch 135 | Query Loss: 5.0016
+Meta-Epoch | Batch 140 | Query Loss: 6.3181
+Meta-Epoch | Batch 145 | Query Loss: 0.0009
+Meta-Epoch | Batch 150 | Query Loss: 0.5231
+Meta-Epoch | Batch 155 | Query Loss: 2.6476
+Meta-Epoch | Batch 160 | Query Loss: 1.3735
+Meta-Epoch | Batch 165 | Query Loss: 7.5619
+Meta-Epoch | Batch 170 | Query Loss: 0.0001
+Meta-Epoch | Batch 175 | Query Loss: 0.5666
+Meta-Epoch | Batch 180 | Query Loss: 0.1115
+Meta-Epoch | Batch 185 | Query Loss: 0.3072
+Meta-Epoch | Batch 190 | Query Loss: 2.5062
+Meta-Epoch | Batch 195 | Query Loss: 0.4581
+Meta-Epoch | Batch 200 | Query Loss: 2.5032
+Meta-Epoch | Batch 205 | Query Loss: 2.5202
+Meta-Epoch | Batch 210 | Query Loss: 5.0000
+Meta-Epoch | Batch 215 | Query Loss: 0.6322
+Meta-Epoch | Batch 220 | Query Loss: 2.0337
+Meta-Epoch | Batch 225 | Query Loss: 0.2159
+Meta-Epoch | Batch 230 | Query Loss: 2.3160
+Meta-Epoch | Batch 235 | Query Loss: 0.2998
+Meta-Epoch | Batch 240 | Query Loss: 2.9037
+Meta-Epoch | Batch 245 | Query Loss: 0.0756
+Meta-Epoch | Batch 250 | Query Loss: 1.6215
+Meta-Epoch | Batch 255 | Query Loss: 1.8439
+Meta-Epoch | Batch 260 | Query Loss: 2.1326
+Meta-Epoch | Batch 265 | Query Loss: 0.0568
+Meta-Epoch | Batch 270 | Query Loss: 0.7165
+Meta-Epoch | Batch 275 | Query Loss: 3.2396
+Meta-Epoch | Batch 280 | Query Loss: 2.5060
+Meta-Epoch | Batch 285 | Query Loss: 2.5001
+Meta-Epoch | Batch 290 | Query Loss: 0.1880
+Meta-Epoch | Batch 295 | Query Loss: 5.1751
+Meta-Epoch | Batch 300 | Query Loss: 3.8954
+Meta-Epoch | Batch 305 | Query Loss: 1.5996
+Meta-Epoch | Batch 310 | Query Loss: 2.5000
+Meta-Epoch | Batch 315 | Query Loss: 0.1110
+Meta-Epoch | Batch 320 | Query Loss: 4.3686
+Meta-Epoch | Batch 325 | Query Loss: 2.7220
+Meta-Epoch | Batch 330 | Query Loss: 2.3056
+Meta-Epoch | Batch 335 | Query Loss: 2.5121
+Meta-Epoch | Batch 340 | Query Loss: 4.8851
+Meta-Epoch | Batch 345 | Query Loss: 0.9850
+Meta-Epoch | Batch 350 | Query Loss: 2.0635
+Meta-Epoch | Batch 355 | Query Loss: 0.7717
+Meta-Epoch | Batch 360 | Query Loss: 2.5040
+Meta-Epoch | Batch 365 | Query Loss: 0.0005
+Meta-Epoch | Batch 370 | Query Loss: 1.4584
+Meta-Epoch | Batch 375 | Query Loss: 0.1344
+Meta-Epoch | Batch 380 | Query Loss: 0.1257
+Meta-Epoch | Batch 385 | Query Loss: 2.5885
+Meta-Epoch | Batch 390 | Query Loss: 0.0002
+Meta-Epoch | Batch 395 | Query Loss: 2.5066
+Meta-Epoch | Batch 400 | Query Loss: 2.7248
+Meta-Epoch | Batch 405 | Query Loss: 3.6114
+Meta-Epoch | Batch 410 | Query Loss: 1.4071
+Meta-Epoch | Batch 415 | Query Loss: 2.8142
+Meta-Epoch | Batch 420 | Query Loss: 1.6042
+Meta-Epoch | Batch 425 | Query Loss: 1.5135
+Meta-Epoch | Batch 430 | Query Loss: 2.3303
+Meta-Epoch | Batch 435 | Query Loss: 0.0209
+Meta-Epoch | Batch 440 | Query Loss: 0.0013
+Meta-Epoch | Batch 445 | Query Loss: 1.2828
+Meta-Epoch | Batch 450 | Query Loss: 0.0005
+Meta-Epoch | Batch 455 | Query Loss: 2.1373
+Meta-Epoch | Batch 460 | Query Loss: 0.2194
+Meta-Epoch | Batch 465 | Query Loss: 5.0003
+Meta-Epoch | Batch 470 | Query Loss: 2.3695
+Meta-Epoch | Batch 475 | Query Loss: 2.5001
+Meta-Epoch | Batch 480 | Query Loss: 0.5488
+Meta-Epoch | Batch 485 | Query Loss: 0.0000
+Meta-Epoch | Batch 490 | Query Loss: 0.5724
+Meta-Epoch | Batch 495 | Query Loss: 0.0000
+Meta-Epoch | Batch 500 | Query Loss: 0.0013
+Meta-Epoch | Batch 505 | Query Loss: 5.3022
+Meta-Epoch | Batch 510 | Query Loss: 1.3776
+Meta-Epoch | Batch 515 | Query Loss: 0.2697
+Meta-Epoch | Batch 520 | Query Loss: 2.5625
+Meta-Epoch | Batch 525 | Query Loss: 0.8232
+Meta-Epoch | Batch 530 | Query Loss: 1.3686
+Meta-Epoch | Batch 535 | Query Loss: 1.3500
+Meta-Epoch | Batch 540 | Query Loss: 1.5447
+Meta-Epoch | Batch 545 | Query Loss: 2.0734
+Meta-Epoch | Batch 550 | Query Loss: 2.5957
+Meta-Epoch | Batch 555 | Query Loss: 4.4533
+Meta-Epoch | Batch 560 | Query Loss: 2.5001
+Meta-Epoch | Batch 565 | Query Loss: 3.1624
+Meta-Epoch | Batch 570 | Query Loss: 3.7677
+Meta-Epoch | Batch 575 | Query Loss: 2.4693
+Meta-Epoch | Batch 580 | Query Loss: 7.2187
+Meta-Epoch | Batch 585 | Query Loss: 0.1408
+Meta-Epoch | Batch 590 | Query Loss: 0.0198
+Meta-Epoch | Batch 595 | Query Loss: 0.0486
+Meta-Epoch | Batch 600 | Query Loss: 2.5239
+Meta-Epoch | Batch 605 | Query Loss: 3.4333
+Meta-Epoch | Batch 610 | Query Loss: 0.0022
+Meta-Epoch | Batch 615 | Query Loss: 2.9492
+Meta-Epoch | Batch 620 | Query Loss: 0.1943
+Meta-Epoch | Batch 625 | Query Loss: 0.6360
+Meta-Epoch | Batch 630 | Query Loss: 1.7014
+Meta-Epoch | Batch 635 | Query Loss: 0.4439
+Meta-Epoch | Batch 640 | Query Loss: 1.4017
+Meta-Epoch | Batch 645 | Query Loss: 0.0809
+Meta-Epoch | Batch 650 | Query Loss: 1.2935
+Meta-Epoch | Batch 655 | Query Loss: 2.9900
+Meta-Epoch | Batch 660 | Query Loss: 2.5407
+Meta-Epoch | Batch 665 | Query Loss: 1.8484
+Meta-Epoch | Batch 670 | Query Loss: 2.6102
+Meta-Epoch | Batch 675 | Query Loss: 5.0004
+Meta-Epoch | Batch 680 | Query Loss: 4.9634
+Meta-Epoch | Batch 685 | Query Loss: 0.0021
+Meta-Epoch | Batch 690 | Query Loss: 2.5060
+Meta-Epoch | Batch 695 | Query Loss: 0.7871
+Meta-Epoch | Batch 700 | Query Loss: 1.5903
+Meta-Epoch | Batch 705 | Query Loss: 0.3532
+Meta-Epoch | Batch 710 | Query Loss: 0.0022
+Meta-Epoch | Batch 715 | Query Loss: 4.0874
+Meta-Epoch | Batch 720 | Query Loss: 2.5021
+Meta-Epoch | Batch 725 | Query Loss: 3.8566
+Meta-Epoch | Batch 730 | Query Loss: 4.4625
+Meta-Epoch | Batch 735 | Query Loss: 0.2761
+Meta-Epoch | Batch 740 | Query Loss: 2.5902
+Meta-Epoch | Batch 745 | Query Loss: 0.0072
+Meta-Epoch | Batch 750 | Query Loss: 0.2987
+Meta-Epoch | Batch 755 | Query Loss: 5.0868
+Meta-Epoch | Batch 760 | Query Loss: 2.3937
+Meta-Epoch | Batch 765 | Query Loss: 2.5009
+Meta-Epoch | Batch 770 | Query Loss: 3.1094
+Meta-Epoch | Batch 775 | Query Loss: 0.2637
+Meta-Epoch | Batch 780 | Query Loss: 7.8221
+Meta-Epoch | Batch 785 | Query Loss: 2.5189
+Meta-Epoch | Batch 790 | Query Loss: 0.0137
+Meta-Epoch | Batch 795 | Query Loss: 0.0673
+Meta-Epoch | Batch 800 | Query Loss: 2.5001
+Meta-Epoch | Batch 805 | Query Loss: 5.4706
+Meta-Epoch | Batch 810 | Query Loss: 2.5006
+Meta-Epoch | Batch 815 | Query Loss: 7.5000
+Meta-Epoch | Batch 820 | Query Loss: 0.1049
+Meta-Epoch | Batch 825 | Query Loss: 0.0680
+Meta-Epoch | Batch 830 | Query Loss: 1.3329
+Meta-Epoch | Batch 835 | Query Loss: 5.0006
+Meta-Epoch | Batch 840 | Query Loss: 1.2614
+Meta-Epoch | Batch 845 | Query Loss: 1.1334
+Meta-Epoch | Batch 850 | Query Loss: 2.5524
+Meta-Epoch | Batch 855 | Query Loss: 3.1000
+Meta-Epoch | Batch 860 | Query Loss: 2.5272
+Meta-Epoch | Batch 865 | Query Loss: 6.0830
+Meta-Epoch | Batch 870 | Query Loss: 1.6247
+Meta-Epoch | Batch 875 | Query Loss: 0.0443
+Meta-Epoch | Batch 880 | Query Loss: 0.2565
+Meta-Epoch | Batch 885 | Query Loss: 2.5189
+Meta-Epoch | Batch 890 | Query Loss: 5.0299
+Meta-Epoch | Batch 895 | Query Loss: 0.4944
+Meta-Epoch | Batch 900 | Query Loss: 2.5861
+Meta-Epoch | Batch 905 | Query Loss: 2.5042
+Meta-Epoch | Batch 910 | Query Loss: 0.2104
+Meta-Epoch | Batch 915 | Query Loss: 1.4574
+Meta-Epoch | Batch 920 | Query Loss: 0.6596
+Meta-Epoch | Batch 925 | Query Loss: 0.0009
+Meta-Epoch | Batch 930 | Query Loss: 5.9761
+Meta-Epoch | Batch 935 | Query Loss: 2.5236
+Meta-Epoch | Batch 940 | Query Loss: 1.1493
+Meta-Epoch | Batch 945 | Query Loss: 2.7709
+Meta-Epoch | Batch 950 | Query Loss: 7.0505
+Meta-Epoch | Batch 955 | Query Loss: 0.0000
+Meta-Epoch | Batch 960 | Query Loss: 0.0898
+Meta-Epoch | Batch 965 | Query Loss: 4.2483
+Meta-Epoch | Batch 970 | Query Loss: 2.5044
+Meta-Epoch | Batch 975 | Query Loss: 4.7565
+Meta-Epoch | Batch 980 | Query Loss: 5.0000
+Meta-Epoch | Batch 985 | Query Loss: 0.0078
+Meta-Epoch | Batch 990 | Query Loss: 0.0000
+Meta-Epoch | Batch 995 | Query Loss: 0.0000
+Meta-Epoch | Batch 1000 | Query Loss: 3.8208
+Meta-Epoch | Batch 1005 | Query Loss: 0.0281
+Meta-Epoch | Batch 1010 | Query Loss: 2.7060
+Meta-Epoch | Batch 1015 | Query Loss: 3.7027
+Meta-Epoch | Batch 1020 | Query Loss: 0.0000
+Meta-Epoch | Batch 1025 | Query Loss: 2.6315
+Meta-Epoch | Batch 1030 | Query Loss: 2.1522
+Meta-Epoch | Batch 1035 | Query Loss: 2.5001
+Meta-Epoch | Batch 1040 | Query Loss: 0.0001
+Meta-Epoch | Batch 1045 | Query Loss: 0.7820
+Meta-Epoch | Batch 1050 | Query Loss: 0.0896
+Meta-Epoch | Batch 1055 | Query Loss: 0.0136
+Meta-Epoch | Batch 1060 | Query Loss: 2.8475
+Meta-Epoch | Batch 1065 | Query Loss: 2.5012
+Meta-Epoch | Batch 1070 | Query Loss: 2.5000
+Meta-Epoch | Batch 1075 | Query Loss: 0.0186
+Meta-Epoch | Batch 1080 | Query Loss: 7.5000
+Meta-Epoch | Batch 1085 | Query Loss: 2.5014
+Meta-Epoch | Batch 1090 | Query Loss: 0.1645
+Meta-Epoch | Batch 1095 | Query Loss: 2.5008
+Meta-Epoch | Batch 1100 | Query Loss: 1.2569
+Meta-Epoch | Batch 1105 | Query Loss: 1.0464
+Meta-Epoch | Batch 1110 | Query Loss: 5.0010
+Meta-Epoch | Batch 1115 | Query Loss: 3.2658
+Meta-Epoch | Batch 1120 | Query Loss: 4.9324
+Meta-Epoch | Batch 1125 | Query Loss: 3.7602
+Meta-Epoch | Batch 1130 | Query Loss: 0.2733
+Meta-Epoch | Batch 1135 | Query Loss: 0.5524
+Meta-Epoch | Batch 1140 | Query Loss: 0.1348
+Meta-Epoch | Batch 1145 | Query Loss: 3.5643
+Meta-Epoch | Batch 1150 | Query Loss: 0.0250
+Meta-Epoch | Batch 1155 | Query Loss: 2.6553
+Meta-Epoch | Batch 1160 | Query Loss: 0.0001
+Meta-Epoch | Batch 1165 | Query Loss: 4.2064
+Meta-Epoch | Batch 1170 | Query Loss: 2.5086
+Meta-Epoch | Batch 1175 | Query Loss: 2.6366
+Meta-Epoch | Batch 1180 | Query Loss: 2.5004
+Meta-Epoch | Batch 1185 | Query Loss: 1.0152
+Meta-Epoch | Batch 1190 | Query Loss: 0.9224
+Meta-Epoch | Batch 1195 | Query Loss: 0.0333
+Meta-Epoch | Batch 1200 | Query Loss: 4.1374
+Meta-Epoch | Batch 1205 | Query Loss: 0.8267
+Meta-Epoch | Batch 1210 | Query Loss: 0.0327
+Meta-Epoch | Batch 1215 | Query Loss: 0.4097
+Meta-Epoch | Batch 1220 | Query Loss: 4.5010
+Meta-Epoch | Batch 1225 | Query Loss: 2.9868
+Meta-Epoch | Batch 1230 | Query Loss: 2.5113
+Meta-Epoch | Batch 1235 | Query Loss: 3.3105
+Meta-Epoch | Batch 1240 | Query Loss: 4.1496
+Meta-Epoch | Batch 1245 | Query Loss: 0.3842
+Meta-Epoch | Batch 1250 | Query Loss: 1.2908
+Meta-Epoch | Batch 1255 | Query Loss: 2.5048
+Meta-Epoch | Batch 1260 | Query Loss: 2.5028
+Meta-Epoch | Batch 1265 | Query Loss: 5.0000
+Meta-Epoch | Batch 1270 | Query Loss: 2.5076
+Meta-Epoch | Batch 1275 | Query Loss: 0.0312
+Meta-Epoch | Batch 1280 | Query Loss: 0.6931
+Meta-Epoch | Batch 1285 | Query Loss: 3.0137
+Meta-Epoch | Batch 1290 | Query Loss: 2.5032
+Meta-Epoch | Batch 1295 | Query Loss: 0.0000
+Meta-Epoch | Batch 1300 | Query Loss: 2.7450
+Meta-Epoch | Batch 1305 | Query Loss: 2.5000
+Meta-Epoch | Batch 1310 | Query Loss: 1.9245
+Meta-Epoch | Batch 1315 | Query Loss: 1.0123
+Meta-Epoch | Batch 1320 | Query Loss: 2.5171
+Meta-Epoch | Batch 1325 | Query Loss: 0.1303
+Meta-Epoch | Batch 1330 | Query Loss: 0.4295
+Meta-Epoch | Batch 1335 | Query Loss: 0.0027
+Meta-Epoch | Batch 1340 | Query Loss: 2.5008
+Meta-Epoch | Batch 1345 | Query Loss: 3.6946
+Meta-Epoch | Batch 1350 | Query Loss: 2.9377
+Meta-Epoch | Batch 1355 | Query Loss: 4.0332
+Meta-Epoch | Batch 1360 | Query Loss: 4.8439
+Meta-Epoch | Batch 1365 | Query Loss: 2.5001
+Meta-Epoch | Batch 1370 | Query Loss: 2.8656
+Meta-Epoch | Batch 1375 | Query Loss: 5.0002
+Meta-Epoch | Batch 1380 | Query Loss: 5.0000
+Meta-Epoch | Batch 1385 | Query Loss: 2.1873
+Meta-Epoch | Batch 1390 | Query Loss: 2.5112
+Meta-Epoch | Batch 1395 | Query Loss: 5.0676
+Meta-Epoch | Batch 1400 | Query Loss: 3.5052
+Meta-Epoch | Batch 1405 | Query Loss: 2.0858
+Meta-Epoch | Batch 1410 | Query Loss: 0.0328
+Meta-Epoch | Batch 1415 | Query Loss: 0.3958
+Meta-Epoch | Batch 1420 | Query Loss: 2.5002
+Meta-Epoch | Batch 1425 | Query Loss: 7.5000
+Meta-Epoch | Batch 1430 | Query Loss: 2.5152
+Meta-Epoch | Batch 1435 | Query Loss: 0.0000
+Meta-Epoch | Batch 1440 | Query Loss: 2.6654
+Meta-Epoch | Batch 1445 | Query Loss: 5.3490
+Meta-Epoch | Batch 1450 | Query Loss: 0.5429
+Meta-Epoch | Batch 1455 | Query Loss: 0.0001
+Meta-Epoch | Batch 1460 | Query Loss: 1.3806
+Meta-Epoch | Batch 1465 | Query Loss: 2.5000
+Meta-Epoch | Batch 1470 | Query Loss: 5.0000
+Meta-Epoch | Batch 1475 | Query Loss: 1.8450
+Meta-Epoch | Batch 1480 | Query Loss: 6.4437
+Meta-Epoch | Batch 1485 | Query Loss: 0.4160
+Meta-Epoch | Batch 1490 | Query Loss: 1.8575
+Meta-Epoch | Batch 1495 | Query Loss: 5.2541
+Meta-Epoch | Batch 1500 | Query Loss: 2.7264
+Meta-Epoch | Batch 1505 | Query Loss: 0.0144
+Meta-Epoch | Batch 1510 | Query Loss: 0.0002
+Meta-Epoch | Batch 1515 | Query Loss: 0.0396
+Meta-Epoch | Batch 1520 | Query Loss: 3.8107
+Meta-Epoch | Batch 1525 | Query Loss: 7.5000
+Meta-Epoch | Batch 1530 | Query Loss: 3.1605
+Meta-Epoch | Batch 1535 | Query Loss: 2.7173
+Meta-Epoch | Batch 1540 | Query Loss: 2.5006
+Meta-Epoch | Batch 1545 | Query Loss: 0.0131
+Meta-Epoch | Batch 1550 | Query Loss: 2.6639
+Meta-Epoch | Batch 1555 | Query Loss: 3.7089
+Meta-Epoch | Batch 1560 | Query Loss: 0.9082
+Meta-Epoch | Batch 1565 | Query Loss: 2.1847
+Meta-Epoch | Batch 1570 | Query Loss: 2.5014
+Meta-Epoch | Batch 1575 | Query Loss: 0.1467
+Meta-Epoch | Batch 1580 | Query Loss: 2.5004
+Meta-Epoch | Batch 1585 | Query Loss: 2.5000
+Meta-Epoch | Batch 1590 | Query Loss: 2.5034
+Meta-Epoch | Batch 1595 | Query Loss: 0.0000
+Meta-Epoch | Batch 1600 | Query Loss: 2.5000
+Meta-Epoch | Batch 1605 | Query Loss: 2.5004
+Meta-Epoch | Batch 1610 | Query Loss: 0.0000
+Meta-Epoch | Batch 1615 | Query Loss: 2.6450
+Meta-Epoch | Batch 1620 | Query Loss: 2.6625
+Meta-Epoch | Batch 1625 | Query Loss: 4.0030
+Meta-Epoch | Batch 1630 | Query Loss: 0.1258
+Meta-Epoch | Batch 1635 | Query Loss: 2.5003
+Meta-Epoch | Batch 1640 | Query Loss: 1.8026
+Meta-Epoch | Batch 1645 | Query Loss: 2.5683
+Meta-Epoch | Batch 1650 | Query Loss: 1.8341
+Meta-Epoch | Batch 1655 | Query Loss: 7.5000
+Meta-Epoch | Batch 1660 | Query Loss: 4.3096
+Meta-Epoch | Batch 1665 | Query Loss: 5.0000
+Meta-Epoch | Batch 1670 | Query Loss: 2.5160
+Meta-Epoch | Batch 1675 | Query Loss: 3.3183
+Meta-Epoch | Batch 1680 | Query Loss: 0.0000
+Meta-Epoch | Batch 1685 | Query Loss: 0.0000
+Meta-Epoch | Batch 1690 | Query Loss: 0.1237
+Meta-Epoch | Batch 1695 | Query Loss: 1.8662
+Meta-Epoch | Batch 1700 | Query Loss: 5.0018
+Meta-Epoch | Batch 1705 | Query Loss: 0.0047
+Meta-Epoch | Batch 1710 | Query Loss: 1.6618
+Meta-Epoch | Batch 1715 | Query Loss: 7.5016
+Meta-Epoch | Batch 1720 | Query Loss: 0.0263
+Meta-Epoch | Batch 1725 | Query Loss: 0.0543
+Meta-Epoch | Batch 1730 | Query Loss: 5.0610
+Meta-Epoch | Batch 1735 | Query Loss: 0.4801
+Meta-Epoch | Batch 1740 | Query Loss: 2.5001
+Meta-Epoch | Batch 1745 | Query Loss: 2.5027
+Meta-Epoch | Batch 1750 | Query Loss: 3.9389
+Meta-Epoch | Batch 1755 | Query Loss: 0.1198
+Meta-Epoch | Batch 1760 | Query Loss: 0.1080
+Meta-Epoch | Batch 1765 | Query Loss: 3.0873
+Meta-Epoch | Batch 1770 | Query Loss: 0.3034
+Meta-Epoch | Batch 1775 | Query Loss: 2.5768
+Meta-Epoch | Batch 1780 | Query Loss: 7.2819
+Meta-Epoch | Batch 1785 | Query Loss: 0.5401
+Meta-Epoch | Batch 1790 | Query Loss: 2.5000
+Meta-Epoch | Batch 1795 | Query Loss: 0.6954
+Meta-Epoch | Batch 1800 | Query Loss: 2.5030
+Meta-Epoch | Batch 1805 | Query Loss: 4.3951
+Meta-Epoch | Batch 1810 | Query Loss: 0.2879
+Meta-Epoch | Batch 1815 | Query Loss: 0.0447
+Meta-Epoch | Batch 1820 | Query Loss: 0.0009
+Meta-Epoch | Batch 1825 | Query Loss: 2.5081
+Meta-Epoch | Batch 1830 | Query Loss: 1.6110
+Meta-Epoch | Batch 1835 | Query Loss: 4.0901
+Meta-Epoch | Batch 1840 | Query Loss: 3.9150
+Meta-Epoch | Batch 1845 | Query Loss: 2.7241
+Meta-Epoch | Batch 1850 | Query Loss: 5.0000
+Meta-Epoch | Batch 1855 | Query Loss: 0.0502
+Meta-Epoch | Batch 1860 | Query Loss: 2.5015
+Meta-Epoch | Batch 1865 | Query Loss: 2.4925
+Meta-Epoch | Batch 1870 | Query Loss: 2.5001
+Meta-Epoch | Batch 1875 | Query Loss: 0.3157
+Meta-Epoch | Batch 1880 | Query Loss: 5.0001
+Meta-Epoch | Batch 1885 | Query Loss: 2.5204
+Meta-Epoch | Batch 1890 | Query Loss: 4.4594
+Meta-Epoch | Batch 1895 | Query Loss: 1.2863
+Meta-Epoch | Batch 1900 | Query Loss: 0.6258
+Meta-Epoch | Batch 1905 | Query Loss: 0.1334
+Meta-Epoch | Batch 1910 | Query Loss: 2.5353
+Meta-Epoch | Batch 1915 | Query Loss: 6.6303
+Meta-Epoch | Batch 1920 | Query Loss: 2.5004
+Meta-Epoch | Batch 1925 | Query Loss: 1.2577
+Meta-Epoch | Batch 1930 | Query Loss: 2.6498
+Meta-Epoch | Batch 1935 | Query Loss: 2.3754
+Meta-Epoch | Batch 1940 | Query Loss: 1.5274
+Meta-Epoch | Batch 1945 | Query Loss: 1.4221
+Meta-Epoch | Batch 1950 | Query Loss: 0.0636
+Meta-Epoch | Batch 1955 | Query Loss: 0.1383
+Meta-Epoch | Batch 1960 | Query Loss: 0.2900
+Meta-Epoch | Batch 1965 | Query Loss: 0.0000
+Meta-Epoch | Batch 1970 | Query Loss: 7.3934
+Meta-Epoch | Batch 1975 | Query Loss: 5.3683
+Meta-Epoch | Batch 1980 | Query Loss: 5.0000
+Meta-Epoch | Batch 1985 | Query Loss: 2.8166
+Meta-Epoch | Batch 1990 | Query Loss: 0.1616
+Meta-Epoch | Batch 1995 | Query Loss: 2.5179
+Meta-Epoch | Batch 2000 | Query Loss: 0.1649
+Meta-Epoch | Batch 2005 | Query Loss: 2.8520
+Meta-Epoch | Batch 2010 | Query Loss: 2.5523
+Meta-Epoch | Batch 2015 | Query Loss: 0.2980
+Meta-Epoch | Batch 2020 | Query Loss: 0.0364
+Meta-Epoch | Batch 2025 | Query Loss: 1.3377
+Meta-Epoch | Batch 2030 | Query Loss: 2.5021
+Meta-Epoch | Batch 2035 | Query Loss: 3.7180
+Meta-Epoch | Batch 2040 | Query Loss: 0.0061
+Meta-Epoch | Batch 2045 | Query Loss: 4.0904
+Meta-Epoch | Batch 2050 | Query Loss: 0.0027
+Meta-Epoch | Batch 2055 | Query Loss: 0.1145
+Meta-Epoch | Batch 2060 | Query Loss: 0.0710
+Meta-Epoch | Batch 2065 | Query Loss: 2.2293
+Meta-Epoch | Batch 2070 | Query Loss: 0.2216
+Meta-Epoch | Batch 2075 | Query Loss: 5.5597
+Meta-Epoch | Batch 2080 | Query Loss: 1.3673
+Meta-Epoch | Batch 2085 | Query Loss: 0.8483
+Meta-Epoch | Batch 2090 | Query Loss: 0.0164
+Meta-Epoch | Batch 2095 | Query Loss: 2.6557
+Meta-Epoch | Batch 2100 | Query Loss: 0.0007
+Meta-Epoch | Batch 2105 | Query Loss: 3.4799
+Meta-Epoch | Batch 2110 | Query Loss: 0.5346
+Meta-Epoch | Batch 2115 | Query Loss: 2.8951
+Meta-Epoch | Batch 2120 | Query Loss: 4.5890
+Meta-Epoch | Batch 2125 | Query Loss: 1.0298
+Meta-Epoch | Batch 2130 | Query Loss: 0.0273
+Meta-Epoch | Batch 2135 | Query Loss: 2.2344
+Meta-Epoch | Batch 2140 | Query Loss: 0.0031
+Meta-Epoch | Batch 2145 | Query Loss: 4.5583
+Meta-Epoch | Batch 2150 | Query Loss: 0.1713
+Meta-Epoch | Batch 2155 | Query Loss: 3.5554
+Meta-Epoch | Batch 2160 | Query Loss: 0.2744
+Meta-Epoch | Batch 2165 | Query Loss: 0.4561
+Meta-Epoch | Batch 2170 | Query Loss: 5.0000
+Meta-Epoch | Batch 2175 | Query Loss: 2.6078
+Meta-Epoch | Batch 2180 | Query Loss: 5.0000
+Meta-Epoch | Batch 2185 | Query Loss: 0.8320
+Meta-Epoch | Batch 2190 | Query Loss: 2.8977
+Meta-Epoch | Batch 2195 | Query Loss: 2.5995
+Meta-Epoch | Batch 2200 | Query Loss: 5.0000
+Meta-Epoch | Batch 2205 | Query Loss: 1.1828
+Meta-Epoch | Batch 2210 | Query Loss: 3.1849
+Meta-Epoch | Batch 2215 | Query Loss: 2.1665
+Meta-Epoch | Batch 2220 | Query Loss: 7.2147
+Meta-Epoch | Batch 2225 | Query Loss: 1.5849
+Meta-Epoch | Batch 2230 | Query Loss: 0.0148
+Meta-Epoch | Batch 2235 | Query Loss: 0.0073
+Meta-Epoch | Batch 2240 | Query Loss: 2.3558
+Meta-Epoch | Batch 2245 | Query Loss: 0.5228
+Meta-Epoch | Batch 2250 | Query Loss: 2.7320
+Meta-Epoch | Batch 2255 | Query Loss: 3.1310
+Meta-Epoch | Batch 2260 | Query Loss: 0.7278
+Meta-Epoch | Batch 2265 | Query Loss: 0.5077
+Meta-Epoch | Batch 2270 | Query Loss: 0.0366
+Meta-Epoch | Batch 2275 | Query Loss: 2.6263
+Meta-Epoch | Batch 2280 | Query Loss: 5.0000
+Meta-Epoch | Batch 2285 | Query Loss: 0.0006
+Meta-Epoch | Batch 2290 | Query Loss: 1.8392
+Meta-Epoch | Batch 2295 | Query Loss: 4.6512
+Meta-Epoch | Batch 2300 | Query Loss: 0.0039
+Meta-Epoch | Batch 2305 | Query Loss: 2.5000
+Meta-Epoch | Batch 2310 | Query Loss: 2.4234
+Meta-Epoch | Batch 2315 | Query Loss: 1.2554
+Meta-Epoch | Batch 2320 | Query Loss: 5.0001
+Meta-Epoch | Batch 2325 | Query Loss: 2.5113
+Meta-Epoch | Batch 2330 | Query Loss: 2.5000
+Meta-Epoch | Batch 2335 | Query Loss: 0.0004
+Meta-Epoch | Batch 2340 | Query Loss: 0.6922
+Meta-Epoch | Batch 2345 | Query Loss: 0.0964
+Meta-Epoch | Batch 2350 | Query Loss: 0.1405
+Meta-Epoch | Batch 2355 | Query Loss: 0.0251
+Meta-Epoch | Batch 2360 | Query Loss: 2.5000
+Meta-Epoch | Batch 2365 | Query Loss: 2.5000
+Meta-Epoch | Batch 2370 | Query Loss: 2.5013
+Meta-Epoch | Batch 2375 | Query Loss: 0.0342
+Meta-Epoch | Batch 2380 | Query Loss: 0.2154
+Meta-Epoch | Batch 2385 | Query Loss: 2.8257
+Meta-Epoch | Batch 2390 | Query Loss: 3.1057
+Meta-Epoch | Batch 2395 | Query Loss: 0.0000
+Meta-Epoch | Batch 2400 | Query Loss: 0.7980
+Meta-Epoch | Batch 2405 | Query Loss: 4.0078
+Meta-Epoch | Batch 2410 | Query Loss: 5.0000
+Meta-Epoch | Batch 2415 | Query Loss: 1.1840
+Meta-Epoch | Batch 2420 | Query Loss: 3.5241
+Meta-Epoch | Batch 2425 | Query Loss: 0.6211
+Meta-Epoch | Batch 2430 | Query Loss: 2.3893
+Meta-Epoch | Batch 2435 | Query Loss: 1.8257
+Meta-Epoch | Batch 2440 | Query Loss: 2.5690
+Meta-Epoch | Batch 2445 | Query Loss: 0.3251
+Meta-Epoch | Batch 2450 | Query Loss: 0.0192
+Meta-Epoch | Batch 2455 | Query Loss: 5.7185
+Meta-Epoch | Batch 2460 | Query Loss: 0.0001
+Meta-Epoch | Batch 2465 | Query Loss: 0.4481
+Meta-Epoch | Batch 2470 | Query Loss: 2.2055
+Meta-Epoch | Batch 2475 | Query Loss: 0.4898
+Meta-Epoch | Batch 2480 | Query Loss: 2.5072
+Meta-Epoch | Batch 2485 | Query Loss: 2.6686
+Meta-Epoch | Batch 2490 | Query Loss: 0.0000
+Meta-Epoch | Batch 2495 | Query Loss: 2.5049
+Meta-Epoch | Batch 2500 | Query Loss: 0.5780
+Meta-Epoch | Batch 2505 | Query Loss: 2.5002
+Meta-Epoch | Batch 2510 | Query Loss: 1.5461
+Meta-Epoch | Batch 2515 | Query Loss: 0.0001
+Meta-Epoch | Batch 2520 | Query Loss: 2.9415
+Meta-Epoch | Batch 2525 | Query Loss: 0.0000
+Meta-Epoch | Batch 2530 | Query Loss: 0.0545
+Meta-Epoch | Batch 2535 | Query Loss: 0.2799
+Meta-Epoch | Batch 2540 | Query Loss: 2.5161
+Meta-Epoch | Batch 2545 | Query Loss: 0.0000
+Meta-Epoch | Batch 2550 | Query Loss: 0.8721
+Meta-Epoch | Batch 2555 | Query Loss: 2.9843
+Meta-Epoch | Batch 2560 | Query Loss: 0.0038
+Meta-Epoch | Batch 2565 | Query Loss: 0.0048
+Meta-Epoch | Batch 2570 | Query Loss: 3.0735
+Meta-Epoch | Batch 2575 | Query Loss: 2.5750
+Meta-Epoch | Batch 2580 | Query Loss: 2.3822
+Meta-Epoch | Batch 2585 | Query Loss: 0.0081
+Meta-Epoch | Batch 2590 | Query Loss: 2.5002
+Meta-Epoch | Batch 2595 | Query Loss: 0.7388
+Meta-Epoch | Batch 2600 | Query Loss: 3.5904
+Meta-Epoch | Batch 2605 | Query Loss: 2.4872
+Meta-Epoch | Batch 2610 | Query Loss: 2.5484
+Meta-Epoch | Batch 2615 | Query Loss: 2.4232
+Meta-Epoch | Batch 2620 | Query Loss: 2.5694
+Meta-Epoch | Batch 2625 | Query Loss: 3.1113
+Meta-Epoch | Batch 2630 | Query Loss: 0.0001
+Meta-Epoch | Batch 2635 | Query Loss: 2.5087
+Meta-Epoch | Batch 2640 | Query Loss: 1.4053
+Meta-Epoch | Batch 2645 | Query Loss: 2.0272
+Meta-Epoch | Batch 2650 | Query Loss: 3.0375
+Meta-Epoch | Batch 2655 | Query Loss: 3.4830
+Meta-Epoch | Batch 2660 | Query Loss: 2.5354
+Meta-Epoch | Batch 2665 | Query Loss: 1.2904
+Meta-Epoch | Batch 2670 | Query Loss: 0.0000
+Meta-Epoch | Batch 2675 | Query Loss: 0.2656
+Meta-Epoch | Batch 2680 | Query Loss: 6.0711
+Meta-Epoch | Batch 2685 | Query Loss: 0.9786
+Meta-Epoch | Batch 2690 | Query Loss: 0.1172
+Meta-Epoch | Batch 2695 | Query Loss: 3.6071
+Meta-Epoch | Batch 2700 | Query Loss: 5.1541
+Meta-Epoch | Batch 2705 | Query Loss: 2.5001
+Meta-Epoch | Batch 2710 | Query Loss: 0.1989
+Meta-Epoch | Batch 2715 | Query Loss: 3.3782
+Meta-Epoch | Batch 2720 | Query Loss: 0.9552
+2026-01-05 17:33:22,420 | INFO |   Meta Loss: 2.0960 (Steps: 5)
+2026-01-05 17:33:22,421 | INFO | Epoch 4 | Meta Loss: 2.0960
+2026-01-05 17:33:22,426 | INFO | DEBUG: Pre-Scan Test DataLoader for OOB IDs...
+2026-01-05 17:33:24,390 | INFO | DEBUG: Max Test Item ID: 9456 | Model Emb Size: 9469
+2026-01-05 17:33:25,503 | WARNING | OOB Source User IDs detected! Max: 11115, Limit: 11094. Clamping...
+2026-01-05 17:33:25,628 | WARNING | OOB Source User IDs detected! Max: 11141, Limit: 11094. Clamping...
+2026-01-05 17:33:25,752 | WARNING | OOB Source User IDs detected! Max: 11166, Limit: 11094. Clamping...
+2026-01-05 17:33:25,876 | WARNING | OOB Source User IDs detected! Max: 11192, Limit: 11094. Clamping...
+2026-01-05 17:33:26,000 | WARNING | OOB Source User IDs detected! Max: 11218, Limit: 11094. Clamping...
+2026-01-05 17:33:26,122 | WARNING | OOB Source User IDs detected! Max: 11243, Limit: 11094. Clamping...
+2026-01-05 17:33:26,248 | WARNING | OOB Source User IDs detected! Max: 11269, Limit: 11094. Clamping...
+2026-01-05 17:33:26,373 | WARNING | OOB Source User IDs detected! Max: 11295, Limit: 11094. Clamping...
+2026-01-05 17:33:26,497 | WARNING | OOB Source User IDs detected! Max: 11322, Limit: 11094. Clamping...
+2026-01-05 17:33:26,621 | WARNING | OOB Source User IDs detected! Max: 11348, Limit: 11094. Clamping...
+2026-01-05 17:33:26,747 | WARNING | OOB Source User IDs detected! Max: 11374, Limit: 11094. Clamping...
+2026-01-05 17:33:26,845 | WARNING | OOB Source User IDs detected! Max: 11392, Limit: 11094. Clamping...
+2026-01-05 17:33:26,850 | INFO |   Eval Results:
+2026-01-05 17:33:26,850 | INFO |     HR@10: 0.0038 | NDCG@10: 0.0027
+2026-01-05 17:33:26,851 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.0027
+2026-01-05 17:33:26,851 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 17:33:26,851 | INFO | Epoch 4 | HR@10: 0.0038 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2026-01-05 17:33:26,851 | INFO |     HR@10: 0.0038 | NDCG@10: 0.0027
+2026-01-05 17:33:26,851 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 17:33:26,851 | INFO | Epoch 4 | HR@10: 0.0038 | NDCG@10: 0.0027 | Cold_HR@10: 0.0000
+2026-01-05 17:33:26,851 | INFO |     HR@20: 0.0748 | NDCG@20: 0.0198
+2026-01-05 17:33:26,851 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.0198
+2026-01-05 17:33:26,851 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 17:33:26,852 | INFO | Epoch 4 | HR@20: 0.0748 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2026-01-05 17:33:26,852 | INFO |     HR@20: 0.0748 | NDCG@20: 0.0198
+2026-01-05 17:33:26,852 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 17:33:26,852 | INFO | Epoch 4 | HR@20: 0.0748 | NDCG@20: 0.0198 | Cold_HR@20: 0.0000
+2026-01-05 17:33:26,852 | INFO | 
+Epoch 5/5
+Epoch 4 | Batch 0 | Loss: 17.4480 | Rec: 17.3851 | Orth: 0.0092 | Prop[Min:0.0142, Mean:0.4635, Max:0.9997]
+Epoch 4 | Batch 10 | Loss: 10.7844 | Rec: 10.7191 | Orth: 0.0114 | Prop[Min:0.0107, Mean:0.4367, Max:0.9997]
+Epoch 4 | Batch 20 | Loss: 1.9801 | Rec: 1.9175 | Orth: 0.0115 | Prop[Min:0.0136, Mean:0.4159, Max:0.9997]
+Epoch 4 | Batch 30 | Loss: 1.1537 | Rec: 1.0949 | Orth: 0.0078 | Prop[Min:0.0047, Mean:0.4942, Max:0.9997]
+Epoch 4 | Batch 40 | Loss: 0.8017 | Rec: 0.7455 | Orth: 0.0074 | Prop[Min:0.0200, Mean:0.4512, Max:0.9995]
+Epoch 4 | Batch 50 | Loss: 0.7919 | Rec: 0.7372 | Orth: 0.0062 | Prop[Min:0.0141, Mean:0.4851, Max:0.9994]
+Epoch 4 | Batch 60 | Loss: 0.6358 | Rec: 0.5814 | Orth: 0.0055 | Prop[Min:0.0074, Mean:0.4618, Max:0.9994]
+Epoch 4 | Batch 70 | Loss: 0.6846 | Rec: 0.6299 | Orth: 0.0053 | Prop[Min:0.0125, Mean:0.4496, Max:0.9996]
+2026-01-05 17:34:09,468 | INFO |   Train Loss: 3.0911 | Time: 42.62s | Peak Mem: 1635.04 MB
+2026-01-05 17:34:09,468 | INFO | Epoch 5 | Train Loss: 3.0911 | Time: 42.62s
+Meta-Epoch | Batch 0 | Query Loss: 0.0006
+Meta-Epoch | Batch 5 | Query Loss: 0.0000
+Meta-Epoch | Batch 10 | Query Loss: 0.8216
+Meta-Epoch | Batch 15 | Query Loss: 3.1564
+Meta-Epoch | Batch 20 | Query Loss: 0.5592
+Meta-Epoch | Batch 25 | Query Loss: 0.2402
+Meta-Epoch | Batch 30 | Query Loss: 0.0573
+Meta-Epoch | Batch 35 | Query Loss: 2.5006
+Meta-Epoch | Batch 40 | Query Loss: 0.1960
+Meta-Epoch | Batch 45 | Query Loss: 2.6453
+Meta-Epoch | Batch 50 | Query Loss: 0.0385
+Meta-Epoch | Batch 55 | Query Loss: 0.2670
+Meta-Epoch | Batch 60 | Query Loss: 0.9356
+Meta-Epoch | Batch 65 | Query Loss: 2.8073
+Meta-Epoch | Batch 70 | Query Loss: 5.0000
+Meta-Epoch | Batch 75 | Query Loss: 2.5000
+Meta-Epoch | Batch 80 | Query Loss: 1.0411
+Meta-Epoch | Batch 85 | Query Loss: 5.8532
+Meta-Epoch | Batch 90 | Query Loss: 2.5000
+Meta-Epoch | Batch 95 | Query Loss: 0.1844
+Meta-Epoch | Batch 100 | Query Loss: 0.3156
+Meta-Epoch | Batch 105 | Query Loss: 2.0083
+Meta-Epoch | Batch 110 | Query Loss: 3.5182
+Meta-Epoch | Batch 115 | Query Loss: 1.0628
+Meta-Epoch | Batch 120 | Query Loss: 0.5240
+Meta-Epoch | Batch 125 | Query Loss: 0.2856
+Meta-Epoch | Batch 130 | Query Loss: 0.2738
+Meta-Epoch | Batch 135 | Query Loss: 2.7323
+Meta-Epoch | Batch 140 | Query Loss: 1.0333
+Meta-Epoch | Batch 145 | Query Loss: 0.6621
+Meta-Epoch | Batch 150 | Query Loss: 2.3710
+Meta-Epoch | Batch 155 | Query Loss: 0.0000
+Meta-Epoch | Batch 160 | Query Loss: 0.2084
+Meta-Epoch | Batch 165 | Query Loss: 0.0988
+Meta-Epoch | Batch 170 | Query Loss: 0.0077
+Meta-Epoch | Batch 175 | Query Loss: 2.5002
+Meta-Epoch | Batch 180 | Query Loss: 2.8445
+Meta-Epoch | Batch 185 | Query Loss: 2.5009
+Meta-Epoch | Batch 190 | Query Loss: 0.0988
+Meta-Epoch | Batch 195 | Query Loss: 0.1930
+Meta-Epoch | Batch 200 | Query Loss: 1.7464
+Meta-Epoch | Batch 205 | Query Loss: 1.6707
+Meta-Epoch | Batch 210 | Query Loss: 5.8115
+Meta-Epoch | Batch 215 | Query Loss: 0.0192
+Meta-Epoch | Batch 220 | Query Loss: 0.0209
+Meta-Epoch | Batch 225 | Query Loss: 2.7227
+Meta-Epoch | Batch 230 | Query Loss: 0.8204
+Meta-Epoch | Batch 235 | Query Loss: 2.1812
+Meta-Epoch | Batch 240 | Query Loss: 0.6007
+Meta-Epoch | Batch 245 | Query Loss: 3.1771
+Meta-Epoch | Batch 250 | Query Loss: 2.8750
+Meta-Epoch | Batch 255 | Query Loss: 0.0584
+Meta-Epoch | Batch 260 | Query Loss: 0.4455
+Meta-Epoch | Batch 265 | Query Loss: 1.7306
+Meta-Epoch | Batch 270 | Query Loss: 3.7710
+Meta-Epoch | Batch 275 | Query Loss: 4.9837
+Meta-Epoch | Batch 280 | Query Loss: 5.0000
+Meta-Epoch | Batch 285 | Query Loss: 1.1717
+Meta-Epoch | Batch 290 | Query Loss: 0.8190
+Meta-Epoch | Batch 295 | Query Loss: 5.0000
+Meta-Epoch | Batch 300 | Query Loss: 1.3695
+Meta-Epoch | Batch 305 | Query Loss: 0.2886
+Meta-Epoch | Batch 310 | Query Loss: 2.5126
+Meta-Epoch | Batch 315 | Query Loss: 0.2182
+Meta-Epoch | Batch 320 | Query Loss: 0.0915
+Meta-Epoch | Batch 325 | Query Loss: 2.5330
+Meta-Epoch | Batch 330 | Query Loss: 0.7175
+Meta-Epoch | Batch 335 | Query Loss: 0.4419
+Meta-Epoch | Batch 340 | Query Loss: 2.5034
+Meta-Epoch | Batch 345 | Query Loss: 0.3706
+Meta-Epoch | Batch 350 | Query Loss: 2.5467
+Meta-Epoch | Batch 355 | Query Loss: 0.9230
+Meta-Epoch | Batch 360 | Query Loss: 2.9138
+Meta-Epoch | Batch 365 | Query Loss: 3.1122
+Meta-Epoch | Batch 370 | Query Loss: 0.3881
+Meta-Epoch | Batch 375 | Query Loss: 2.3184
+Meta-Epoch | Batch 380 | Query Loss: 2.3187
+Meta-Epoch | Batch 385 | Query Loss: 0.8083
+Meta-Epoch | Batch 390 | Query Loss: 2.5172
+Meta-Epoch | Batch 395 | Query Loss: 2.5846
+Meta-Epoch | Batch 400 | Query Loss: 1.8913
+Meta-Epoch | Batch 405 | Query Loss: 2.8345
+Meta-Epoch | Batch 410 | Query Loss: 1.6116
+Meta-Epoch | Batch 415 | Query Loss: 3.9330
+Meta-Epoch | Batch 420 | Query Loss: 2.6023
+Meta-Epoch | Batch 425 | Query Loss: 0.0070
+Meta-Epoch | Batch 430 | Query Loss: 2.6231
+Meta-Epoch | Batch 435 | Query Loss: 2.2152
+Meta-Epoch | Batch 440 | Query Loss: 0.0405
+Meta-Epoch | Batch 445 | Query Loss: 1.2461
+Meta-Epoch | Batch 450 | Query Loss: 1.7316
+Meta-Epoch | Batch 455 | Query Loss: 4.9794
+Meta-Epoch | Batch 460 | Query Loss: 0.0008
+Meta-Epoch | Batch 465 | Query Loss: 2.6593
+Meta-Epoch | Batch 470 | Query Loss: 0.0000
+Meta-Epoch | Batch 475 | Query Loss: 2.5002
+Meta-Epoch | Batch 480 | Query Loss: 2.4902
+Meta-Epoch | Batch 485 | Query Loss: 0.5524
+Meta-Epoch | Batch 490 | Query Loss: 2.4239
+Meta-Epoch | Batch 495 | Query Loss: 0.2930
+Meta-Epoch | Batch 500 | Query Loss: 2.5000
+Meta-Epoch | Batch 505 | Query Loss: 0.2169
+Meta-Epoch | Batch 510 | Query Loss: 1.2749
+Meta-Epoch | Batch 515 | Query Loss: 0.0841
+Meta-Epoch | Batch 520 | Query Loss: 0.0498
+Meta-Epoch | Batch 525 | Query Loss: 0.0178
+Meta-Epoch | Batch 530 | Query Loss: 5.0468
+Meta-Epoch | Batch 535 | Query Loss: 0.0195
+Meta-Epoch | Batch 540 | Query Loss: 2.5017
+Meta-Epoch | Batch 545 | Query Loss: 0.0013
+Meta-Epoch | Batch 550 | Query Loss: 0.3300
+Meta-Epoch | Batch 555 | Query Loss: 0.3228
+Meta-Epoch | Batch 560 | Query Loss: 0.3364
+Meta-Epoch | Batch 565 | Query Loss: 4.2922
+Meta-Epoch | Batch 570 | Query Loss: 0.0362
+Meta-Epoch | Batch 575 | Query Loss: 2.5001
+Meta-Epoch | Batch 580 | Query Loss: 3.2591
+Meta-Epoch | Batch 585 | Query Loss: 0.2170
+Meta-Epoch | Batch 590 | Query Loss: 0.1009
+Meta-Epoch | Batch 595 | Query Loss: 0.1944
+Meta-Epoch | Batch 600 | Query Loss: 0.6514
+Meta-Epoch | Batch 605 | Query Loss: 0.6139
+Meta-Epoch | Batch 610 | Query Loss: 0.9350
+Meta-Epoch | Batch 615 | Query Loss: 2.5099
+Meta-Epoch | Batch 620 | Query Loss: 0.8626
+Meta-Epoch | Batch 625 | Query Loss: 0.2004
+Meta-Epoch | Batch 630 | Query Loss: 0.0996
+Meta-Epoch | Batch 635 | Query Loss: 1.0495
+Meta-Epoch | Batch 640 | Query Loss: 2.8473
+Meta-Epoch | Batch 645 | Query Loss: 0.0289
+Meta-Epoch | Batch 650 | Query Loss: 0.0073
+Meta-Epoch | Batch 655 | Query Loss: 0.6471
+Meta-Epoch | Batch 660 | Query Loss: 0.5031
+Meta-Epoch | Batch 665 | Query Loss: 2.1994
+Meta-Epoch | Batch 670 | Query Loss: 0.0248
+Meta-Epoch | Batch 675 | Query Loss: 1.8156
+Meta-Epoch | Batch 680 | Query Loss: 0.1583
+Meta-Epoch | Batch 685 | Query Loss: 0.2845
+Meta-Epoch | Batch 690 | Query Loss: 5.3249
+Meta-Epoch | Batch 695 | Query Loss: 2.5035
+Meta-Epoch | Batch 700 | Query Loss: 2.5001
+Meta-Epoch | Batch 705 | Query Loss: 0.2303
+Meta-Epoch | Batch 710 | Query Loss: 0.5030
+Meta-Epoch | Batch 715 | Query Loss: 2.5803
+Meta-Epoch | Batch 720 | Query Loss: 2.3345
+Meta-Epoch | Batch 725 | Query Loss: 2.5022
+Meta-Epoch | Batch 730 | Query Loss: 0.0000
+Meta-Epoch | Batch 735 | Query Loss: 2.5001
+Meta-Epoch | Batch 740 | Query Loss: 0.0001
+Meta-Epoch | Batch 745 | Query Loss: 0.3887
+Meta-Epoch | Batch 750 | Query Loss: 0.1297
+Meta-Epoch | Batch 755 | Query Loss: 2.5672
+Meta-Epoch | Batch 760 | Query Loss: 0.0112
+Meta-Epoch | Batch 765 | Query Loss: 0.0201
+Meta-Epoch | Batch 770 | Query Loss: 3.4406
+Meta-Epoch | Batch 775 | Query Loss: 2.5000
+Meta-Epoch | Batch 780 | Query Loss: 2.6342
+Meta-Epoch | Batch 785 | Query Loss: 1.8837
+Meta-Epoch | Batch 790 | Query Loss: 1.9042
+Meta-Epoch | Batch 795 | Query Loss: 0.9010
+Meta-Epoch | Batch 800 | Query Loss: 0.4823
+Meta-Epoch | Batch 805 | Query Loss: 2.5036
+Meta-Epoch | Batch 810 | Query Loss: 0.0168
+Meta-Epoch | Batch 815 | Query Loss: 0.5470
+Meta-Epoch | Batch 820 | Query Loss: 1.8712
+Meta-Epoch | Batch 825 | Query Loss: 3.3453
+Meta-Epoch | Batch 830 | Query Loss: 3.6805
+Meta-Epoch | Batch 835 | Query Loss: 2.5047
+Meta-Epoch | Batch 840 | Query Loss: 3.9377
+Meta-Epoch | Batch 845 | Query Loss: 2.6114
+Meta-Epoch | Batch 850 | Query Loss: 0.0110
+Meta-Epoch | Batch 855 | Query Loss: 1.0139
+Meta-Epoch | Batch 860 | Query Loss: 0.1836
+Meta-Epoch | Batch 865 | Query Loss: 0.0002
+Meta-Epoch | Batch 870 | Query Loss: 0.3517
+Meta-Epoch | Batch 875 | Query Loss: 0.0001
+Meta-Epoch | Batch 880 | Query Loss: 0.0004
+Meta-Epoch | Batch 885 | Query Loss: 0.0772
+Meta-Epoch | Batch 890 | Query Loss: 5.0622
+Meta-Epoch | Batch 895 | Query Loss: 1.9902
+Meta-Epoch | Batch 900 | Query Loss: 2.3841
+Meta-Epoch | Batch 905 | Query Loss: 2.5194
+Meta-Epoch | Batch 910 | Query Loss: 2.5671
+Meta-Epoch | Batch 915 | Query Loss: 2.5147
+Meta-Epoch | Batch 920 | Query Loss: 7.5000
+Meta-Epoch | Batch 925 | Query Loss: 0.0161
+Meta-Epoch | Batch 930 | Query Loss: 2.6647
+Meta-Epoch | Batch 935 | Query Loss: 0.1202
+Meta-Epoch | Batch 940 | Query Loss: 0.1862
+Meta-Epoch | Batch 945 | Query Loss: 0.0137
+Meta-Epoch | Batch 950 | Query Loss: 0.0772
+Meta-Epoch | Batch 955 | Query Loss: 0.0001
+Meta-Epoch | Batch 960 | Query Loss: 5.0001
+Meta-Epoch | Batch 965 | Query Loss: 0.7313
+Meta-Epoch | Batch 970 | Query Loss: 2.7993
+Meta-Epoch | Batch 975 | Query Loss: 4.3857
+Meta-Epoch | Batch 980 | Query Loss: 4.4054
+Meta-Epoch | Batch 985 | Query Loss: 1.9236
+Meta-Epoch | Batch 990 | Query Loss: 2.5000
+Meta-Epoch | Batch 995 | Query Loss: 0.8831
+Meta-Epoch | Batch 1000 | Query Loss: 0.5400
+Meta-Epoch | Batch 1005 | Query Loss: 0.2772
+Meta-Epoch | Batch 1010 | Query Loss: 0.2339
+Meta-Epoch | Batch 1015 | Query Loss: 0.0756
+Meta-Epoch | Batch 1020 | Query Loss: 1.2030
+Meta-Epoch | Batch 1025 | Query Loss: 0.0249
+Meta-Epoch | Batch 1030 | Query Loss: 3.5738
+Meta-Epoch | Batch 1035 | Query Loss: 0.0608
+Meta-Epoch | Batch 1040 | Query Loss: 2.1019
+Meta-Epoch | Batch 1045 | Query Loss: 3.9700
+Meta-Epoch | Batch 1050 | Query Loss: 2.5021
+Meta-Epoch | Batch 1055 | Query Loss: 2.7892
+Meta-Epoch | Batch 1060 | Query Loss: 3.7354
+Meta-Epoch | Batch 1065 | Query Loss: 4.1474
+Meta-Epoch | Batch 1070 | Query Loss: 0.0341
+Meta-Epoch | Batch 1075 | Query Loss: 2.5111
+Meta-Epoch | Batch 1080 | Query Loss: 1.0639
+Meta-Epoch | Batch 1085 | Query Loss: 1.4997
+Meta-Epoch | Batch 1090 | Query Loss: 2.1235
+Meta-Epoch | Batch 1095 | Query Loss: 3.3628
+Meta-Epoch | Batch 1100 | Query Loss: 0.1458
+Meta-Epoch | Batch 1105 | Query Loss: 0.0632
+Meta-Epoch | Batch 1110 | Query Loss: 0.1745
+Meta-Epoch | Batch 1115 | Query Loss: 0.4362
+Meta-Epoch | Batch 1120 | Query Loss: 2.5106
+Meta-Epoch | Batch 1125 | Query Loss: 0.2505
+Meta-Epoch | Batch 1130 | Query Loss: 2.5009
+Meta-Epoch | Batch 1135 | Query Loss: 2.8432
+Meta-Epoch | Batch 1140 | Query Loss: 2.5002
+Meta-Epoch | Batch 1145 | Query Loss: 0.0001
+Meta-Epoch | Batch 1150 | Query Loss: 2.6930
+Meta-Epoch | Batch 1155 | Query Loss: 1.4806
+Meta-Epoch | Batch 1160 | Query Loss: 1.1567
+Meta-Epoch | Batch 1165 | Query Loss: 1.9979
+Meta-Epoch | Batch 1170 | Query Loss: 2.5790
+Meta-Epoch | Batch 1175 | Query Loss: 0.2455
+Meta-Epoch | Batch 1180 | Query Loss: 0.0732
+Meta-Epoch | Batch 1185 | Query Loss: 0.6404
+Meta-Epoch | Batch 1190 | Query Loss: 0.0199
+Meta-Epoch | Batch 1195 | Query Loss: 0.9352
+Meta-Epoch | Batch 1200 | Query Loss: 3.6491
+Meta-Epoch | Batch 1205 | Query Loss: 0.0000
+Meta-Epoch | Batch 1210 | Query Loss: 3.8651
+Meta-Epoch | Batch 1215 | Query Loss: 0.0518
+Meta-Epoch | Batch 1220 | Query Loss: 0.8168
+Meta-Epoch | Batch 1225 | Query Loss: 0.1985
+Meta-Epoch | Batch 1230 | Query Loss: 0.0000
+Meta-Epoch | Batch 1235 | Query Loss: 3.9432
+Meta-Epoch | Batch 1240 | Query Loss: 0.1065
+Meta-Epoch | Batch 1245 | Query Loss: 0.0337
+Meta-Epoch | Batch 1250 | Query Loss: 0.1128
+Meta-Epoch | Batch 1255 | Query Loss: 0.2175
+Meta-Epoch | Batch 1260 | Query Loss: 0.0001
+Meta-Epoch | Batch 1265 | Query Loss: 3.0165
+Meta-Epoch | Batch 1270 | Query Loss: 0.0487
+Meta-Epoch | Batch 1275 | Query Loss: 0.0792
+Meta-Epoch | Batch 1280 | Query Loss: 1.5239
+Meta-Epoch | Batch 1285 | Query Loss: 0.9523
+Meta-Epoch | Batch 1290 | Query Loss: 1.5559
+Meta-Epoch | Batch 1295 | Query Loss: 5.0000
+Meta-Epoch | Batch 1300 | Query Loss: 0.0001
+Meta-Epoch | Batch 1305 | Query Loss: 1.1508
+Meta-Epoch | Batch 1310 | Query Loss: 2.5000
+Meta-Epoch | Batch 1315 | Query Loss: 0.2290
+Meta-Epoch | Batch 1320 | Query Loss: 0.1039
+Meta-Epoch | Batch 1325 | Query Loss: 5.0119
+Meta-Epoch | Batch 1330 | Query Loss: 6.2791
+Meta-Epoch | Batch 1335 | Query Loss: 0.0546
+Meta-Epoch | Batch 1340 | Query Loss: 0.4459
+Meta-Epoch | Batch 1345 | Query Loss: 2.2235
+Meta-Epoch | Batch 1350 | Query Loss: 0.0028
+Meta-Epoch | Batch 1355 | Query Loss: 1.4661
+Meta-Epoch | Batch 1360 | Query Loss: 1.9748
+Meta-Epoch | Batch 1365 | Query Loss: 0.3818
+Meta-Epoch | Batch 1370 | Query Loss: 0.9666
+Meta-Epoch | Batch 1375 | Query Loss: 5.0000
+Meta-Epoch | Batch 1380 | Query Loss: 1.0252
+Meta-Epoch | Batch 1385 | Query Loss: 0.0083
+Meta-Epoch | Batch 1390 | Query Loss: 5.2662
+Meta-Epoch | Batch 1395 | Query Loss: 2.5543
+Meta-Epoch | Batch 1400 | Query Loss: 0.1645
+Meta-Epoch | Batch 1405 | Query Loss: 0.7051
+Meta-Epoch | Batch 1410 | Query Loss: 0.1759
+Meta-Epoch | Batch 1415 | Query Loss: 2.5045
+Meta-Epoch | Batch 1420 | Query Loss: 0.2263
+Meta-Epoch | Batch 1425 | Query Loss: 0.4288
+Meta-Epoch | Batch 1430 | Query Loss: 3.0367
+Meta-Epoch | Batch 1435 | Query Loss: 0.0147
+Meta-Epoch | Batch 1440 | Query Loss: 0.0000
+Meta-Epoch | Batch 1445 | Query Loss: 2.6748
+Meta-Epoch | Batch 1450 | Query Loss: 0.6961
+Meta-Epoch | Batch 1455 | Query Loss: 0.5408
+Meta-Epoch | Batch 1460 | Query Loss: 0.5915
+Meta-Epoch | Batch 1465 | Query Loss: 1.0013
+Meta-Epoch | Batch 1470 | Query Loss: 0.1553
+Meta-Epoch | Batch 1475 | Query Loss: 1.7835
+Meta-Epoch | Batch 1480 | Query Loss: 2.5001
+Meta-Epoch | Batch 1485 | Query Loss: 1.2222
+Meta-Epoch | Batch 1490 | Query Loss: 0.0998
+Meta-Epoch | Batch 1495 | Query Loss: 5.0777
+Meta-Epoch | Batch 1500 | Query Loss: 7.5000
+Meta-Epoch | Batch 1505 | Query Loss: 5.4447
+Meta-Epoch | Batch 1510 | Query Loss: 0.1649
+Meta-Epoch | Batch 1515 | Query Loss: 0.0192
+Meta-Epoch | Batch 1520 | Query Loss: 1.5481
+Meta-Epoch | Batch 1525 | Query Loss: 0.0001
+Meta-Epoch | Batch 1530 | Query Loss: 0.0052
+Meta-Epoch | Batch 1535 | Query Loss: 2.5096
+Meta-Epoch | Batch 1540 | Query Loss: 4.0943
+Meta-Epoch | Batch 1545 | Query Loss: 2.1682
+Meta-Epoch | Batch 1550 | Query Loss: 0.8566
+Meta-Epoch | Batch 1555 | Query Loss: 3.6618
+Meta-Epoch | Batch 1560 | Query Loss: 0.0146
+Meta-Epoch | Batch 1565 | Query Loss: 0.1111
+Meta-Epoch | Batch 1570 | Query Loss: 2.5020
+Meta-Epoch | Batch 1575 | Query Loss: 1.0544
+Meta-Epoch | Batch 1580 | Query Loss: 4.8001
+Meta-Epoch | Batch 1585 | Query Loss: 3.2674
+Meta-Epoch | Batch 1590 | Query Loss: 4.7645
+Meta-Epoch | Batch 1595 | Query Loss: 0.0071
+Meta-Epoch | Batch 1600 | Query Loss: 0.0003
+Meta-Epoch | Batch 1605 | Query Loss: 0.7611
+Meta-Epoch | Batch 1610 | Query Loss: 1.5610
+Meta-Epoch | Batch 1615 | Query Loss: 0.0089
+Meta-Epoch | Batch 1620 | Query Loss: 4.5965
+Meta-Epoch | Batch 1625 | Query Loss: 0.3358
+Meta-Epoch | Batch 1630 | Query Loss: 2.5278
+Meta-Epoch | Batch 1635 | Query Loss: 6.2123
+Meta-Epoch | Batch 1640 | Query Loss: 0.1840
+Meta-Epoch | Batch 1645 | Query Loss: 1.0126
+Meta-Epoch | Batch 1650 | Query Loss: 7.5000
+Meta-Epoch | Batch 1655 | Query Loss: 3.0817
+Meta-Epoch | Batch 1660 | Query Loss: 1.8385
+Meta-Epoch | Batch 1665 | Query Loss: 1.0464
+Meta-Epoch | Batch 1670 | Query Loss: 0.2749
+Meta-Epoch | Batch 1675 | Query Loss: 0.7353
+Meta-Epoch | Batch 1680 | Query Loss: 0.5617
+Meta-Epoch | Batch 1685 | Query Loss: 2.0211
+Meta-Epoch | Batch 1690 | Query Loss: 0.0096
+Meta-Epoch | Batch 1695 | Query Loss: 1.6213
+Meta-Epoch | Batch 1700 | Query Loss: 0.4330
+Meta-Epoch | Batch 1705 | Query Loss: 2.5005
+Meta-Epoch | Batch 1710 | Query Loss: 1.5968
+Meta-Epoch | Batch 1715 | Query Loss: 2.8080
+Meta-Epoch | Batch 1720 | Query Loss: 0.0075
+Meta-Epoch | Batch 1725 | Query Loss: 4.9112
+Meta-Epoch | Batch 1730 | Query Loss: 3.8822
+Meta-Epoch | Batch 1735 | Query Loss: 2.5409
+Meta-Epoch | Batch 1740 | Query Loss: 0.6205
+Meta-Epoch | Batch 1745 | Query Loss: 0.0004
+Meta-Epoch | Batch 1750 | Query Loss: 0.1503
+Meta-Epoch | Batch 1755 | Query Loss: 0.2378
+Meta-Epoch | Batch 1760 | Query Loss: 0.2070
+Meta-Epoch | Batch 1765 | Query Loss: 0.0000
+Meta-Epoch | Batch 1770 | Query Loss: 0.9645
+Meta-Epoch | Batch 1775 | Query Loss: 1.2490
+Meta-Epoch | Batch 1780 | Query Loss: 0.0020
+Meta-Epoch | Batch 1785 | Query Loss: 4.8197
+Meta-Epoch | Batch 1790 | Query Loss: 4.8467
+Meta-Epoch | Batch 1795 | Query Loss: 0.0151
+Meta-Epoch | Batch 1800 | Query Loss: 0.4705
+Meta-Epoch | Batch 1805 | Query Loss: 2.5000
+Meta-Epoch | Batch 1810 | Query Loss: 0.0001
+Meta-Epoch | Batch 1815 | Query Loss: 2.5059
+Meta-Epoch | Batch 1820 | Query Loss: 0.1249
+Meta-Epoch | Batch 1825 | Query Loss: 0.0049
+Meta-Epoch | Batch 1830 | Query Loss: 2.1467
+Meta-Epoch | Batch 1835 | Query Loss: 2.9813
+Meta-Epoch | Batch 1840 | Query Loss: 0.0112
+Meta-Epoch | Batch 1845 | Query Loss: 2.7680
+Meta-Epoch | Batch 1850 | Query Loss: 5.3756
+Meta-Epoch | Batch 1855 | Query Loss: 2.5230
+Meta-Epoch | Batch 1860 | Query Loss: 0.1653
+Meta-Epoch | Batch 1865 | Query Loss: 2.9898
+Meta-Epoch | Batch 1870 | Query Loss: 0.2530
+Meta-Epoch | Batch 1875 | Query Loss: 3.5785
+Meta-Epoch | Batch 1880 | Query Loss: 0.1135
+Meta-Epoch | Batch 1885 | Query Loss: 0.0306
+Meta-Epoch | Batch 1890 | Query Loss: 3.7774
+Meta-Epoch | Batch 1895 | Query Loss: 1.7233
+Meta-Epoch | Batch 1900 | Query Loss: 2.6573
+Meta-Epoch | Batch 1905 | Query Loss: 1.2338
+Meta-Epoch | Batch 1910 | Query Loss: 4.9091
+Meta-Epoch | Batch 1915 | Query Loss: 0.5302
+Meta-Epoch | Batch 1920 | Query Loss: 0.1002
+Meta-Epoch | Batch 1925 | Query Loss: 0.4053
+Meta-Epoch | Batch 1930 | Query Loss: 0.0538
+Meta-Epoch | Batch 1935 | Query Loss: 0.1889
+Meta-Epoch | Batch 1940 | Query Loss: 0.0048
+Meta-Epoch | Batch 1945 | Query Loss: 4.2633
+Meta-Epoch | Batch 1950 | Query Loss: 2.5004
+Meta-Epoch | Batch 1955 | Query Loss: 2.5207
+Meta-Epoch | Batch 1960 | Query Loss: 0.0330
+Meta-Epoch | Batch 1965 | Query Loss: 2.6429
+Meta-Epoch | Batch 1970 | Query Loss: 4.6867
+Meta-Epoch | Batch 1975 | Query Loss: 3.0058
+Meta-Epoch | Batch 1980 | Query Loss: 2.6047
+Meta-Epoch | Batch 1985 | Query Loss: 0.4478
+Meta-Epoch | Batch 1990 | Query Loss: 0.4744
+Meta-Epoch | Batch 1995 | Query Loss: 0.8635
+Meta-Epoch | Batch 2000 | Query Loss: 0.2513
+Meta-Epoch | Batch 2005 | Query Loss: 5.0000
+Meta-Epoch | Batch 2010 | Query Loss: 5.0916
+Meta-Epoch | Batch 2015 | Query Loss: 0.4675
+Meta-Epoch | Batch 2020 | Query Loss: 0.7553
+Meta-Epoch | Batch 2025 | Query Loss: 1.8107
+Meta-Epoch | Batch 2030 | Query Loss: 0.9049
+Meta-Epoch | Batch 2035 | Query Loss: 0.0059
+Meta-Epoch | Batch 2040 | Query Loss: 0.5022
+Meta-Epoch | Batch 2045 | Query Loss: 1.8865
+Meta-Epoch | Batch 2050 | Query Loss: 4.8612
+Meta-Epoch | Batch 2055 | Query Loss: 3.3327
+Meta-Epoch | Batch 2060 | Query Loss: 2.5694
+Meta-Epoch | Batch 2065 | Query Loss: 0.6727
+Meta-Epoch | Batch 2070 | Query Loss: 2.5027
+Meta-Epoch | Batch 2075 | Query Loss: 2.5000
+Meta-Epoch | Batch 2080 | Query Loss: 0.0256
+Meta-Epoch | Batch 2085 | Query Loss: 2.7029
+Meta-Epoch | Batch 2090 | Query Loss: 0.9415
+Meta-Epoch | Batch 2095 | Query Loss: 0.7259
+Meta-Epoch | Batch 2100 | Query Loss: 1.5194
+Meta-Epoch | Batch 2105 | Query Loss: 2.3755
+Meta-Epoch | Batch 2110 | Query Loss: 0.0006
+Meta-Epoch | Batch 2115 | Query Loss: 0.3501
+Meta-Epoch | Batch 2120 | Query Loss: 0.1120
+Meta-Epoch | Batch 2125 | Query Loss: 3.5920
+Meta-Epoch | Batch 2130 | Query Loss: 2.5001
+Meta-Epoch | Batch 2135 | Query Loss: 2.8887
+Meta-Epoch | Batch 2140 | Query Loss: 1.2725
+Meta-Epoch | Batch 2145 | Query Loss: 2.2432
+Meta-Epoch | Batch 2150 | Query Loss: 2.5805
+Meta-Epoch | Batch 2155 | Query Loss: 0.2651
+Meta-Epoch | Batch 2160 | Query Loss: 0.7848
+Meta-Epoch | Batch 2165 | Query Loss: 0.3622
+Meta-Epoch | Batch 2170 | Query Loss: 0.9212
+Meta-Epoch | Batch 2175 | Query Loss: 0.2038
+Meta-Epoch | Batch 2180 | Query Loss: 0.4934
+Meta-Epoch | Batch 2185 | Query Loss: 0.1485
+Meta-Epoch | Batch 2190 | Query Loss: 2.5001
+Meta-Epoch | Batch 2195 | Query Loss: 0.0284
+Meta-Epoch | Batch 2200 | Query Loss: 2.5003
+Meta-Epoch | Batch 2205 | Query Loss: 0.0007
+Meta-Epoch | Batch 2210 | Query Loss: 2.8833
+Meta-Epoch | Batch 2215 | Query Loss: 2.9345
+Meta-Epoch | Batch 2220 | Query Loss: 0.8579
+Meta-Epoch | Batch 2225 | Query Loss: 2.6046
+Meta-Epoch | Batch 2230 | Query Loss: 0.0114
+Meta-Epoch | Batch 2235 | Query Loss: 3.4801
+Meta-Epoch | Batch 2240 | Query Loss: 7.5000
+Meta-Epoch | Batch 2245 | Query Loss: 0.7658
+Meta-Epoch | Batch 2250 | Query Loss: 0.0416
+Meta-Epoch | Batch 2255 | Query Loss: 0.2057
+Meta-Epoch | Batch 2260 | Query Loss: 0.0000
+Meta-Epoch | Batch 2265 | Query Loss: 2.6941
+Meta-Epoch | Batch 2270 | Query Loss: 0.0000
+Meta-Epoch | Batch 2275 | Query Loss: 1.0432
+Meta-Epoch | Batch 2280 | Query Loss: 5.0092
+Meta-Epoch | Batch 2285 | Query Loss: 6.2420
+Meta-Epoch | Batch 2290 | Query Loss: 3.3925
+Meta-Epoch | Batch 2295 | Query Loss: 2.5320
+Meta-Epoch | Batch 2300 | Query Loss: 0.1159
+Meta-Epoch | Batch 2305 | Query Loss: 0.3174
+Meta-Epoch | Batch 2310 | Query Loss: 3.0216
+Meta-Epoch | Batch 2315 | Query Loss: 0.0910
+Meta-Epoch | Batch 2320 | Query Loss: 0.4217
+Meta-Epoch | Batch 2325 | Query Loss: 1.2198
+Meta-Epoch | Batch 2330 | Query Loss: 2.5708
+Meta-Epoch | Batch 2335 | Query Loss: 2.5001
+Meta-Epoch | Batch 2340 | Query Loss: 0.0015
+Meta-Epoch | Batch 2345 | Query Loss: 0.3105
+Meta-Epoch | Batch 2350 | Query Loss: 2.3692
+Meta-Epoch | Batch 2355 | Query Loss: 0.5740
+Meta-Epoch | Batch 2360 | Query Loss: 0.3909
+Meta-Epoch | Batch 2365 | Query Loss: 0.2660
+Meta-Epoch | Batch 2370 | Query Loss: 0.0296
+Meta-Epoch | Batch 2375 | Query Loss: 0.0003
+Meta-Epoch | Batch 2380 | Query Loss: 1.0882
+Meta-Epoch | Batch 2385 | Query Loss: 0.6986
+Meta-Epoch | Batch 2390 | Query Loss: 2.5011
+Meta-Epoch | Batch 2395 | Query Loss: 1.4141
+Meta-Epoch | Batch 2400 | Query Loss: 0.0001
+Meta-Epoch | Batch 2405 | Query Loss: 2.5372
+Meta-Epoch | Batch 2410 | Query Loss: 0.0678
+Meta-Epoch | Batch 2415 | Query Loss: 2.5000
+Meta-Epoch | Batch 2420 | Query Loss: 0.0173
+Meta-Epoch | Batch 2425 | Query Loss: 0.2549
+Meta-Epoch | Batch 2430 | Query Loss: 2.2950
+Meta-Epoch | Batch 2435 | Query Loss: 0.1783
+Meta-Epoch | Batch 2440 | Query Loss: 2.7771
+Meta-Epoch | Batch 2445 | Query Loss: 0.4178
+Meta-Epoch | Batch 2450 | Query Loss: 0.2200
+Meta-Epoch | Batch 2455 | Query Loss: 0.0000
+Meta-Epoch | Batch 2460 | Query Loss: 0.0000
+Meta-Epoch | Batch 2465 | Query Loss: 0.2436
+Meta-Epoch | Batch 2470 | Query Loss: 0.0088
+Meta-Epoch | Batch 2475 | Query Loss: 0.0384
+Meta-Epoch | Batch 2480 | Query Loss: 1.1664
+Meta-Epoch | Batch 2485 | Query Loss: 0.2888
+Meta-Epoch | Batch 2490 | Query Loss: 2.5000
+Meta-Epoch | Batch 2495 | Query Loss: 0.0732
+Meta-Epoch | Batch 2500 | Query Loss: 0.1941
+Meta-Epoch | Batch 2505 | Query Loss: 0.0004
+Meta-Epoch | Batch 2510 | Query Loss: 2.5000
+Meta-Epoch | Batch 2515 | Query Loss: 0.0031
+Meta-Epoch | Batch 2520 | Query Loss: 4.2879
+Meta-Epoch | Batch 2525 | Query Loss: 0.0924
+Meta-Epoch | Batch 2530 | Query Loss: 1.5937
+Meta-Epoch | Batch 2535 | Query Loss: 0.1389
+Meta-Epoch | Batch 2540 | Query Loss: 0.0708
+Meta-Epoch | Batch 2545 | Query Loss: 0.6666
+Meta-Epoch | Batch 2550 | Query Loss: 3.5188
+Meta-Epoch | Batch 2555 | Query Loss: 0.0743
+Meta-Epoch | Batch 2560 | Query Loss: 0.2571
+Meta-Epoch | Batch 2565 | Query Loss: 0.0314
+Meta-Epoch | Batch 2570 | Query Loss: 0.3691
+Meta-Epoch | Batch 2575 | Query Loss: 0.7548
+Meta-Epoch | Batch 2580 | Query Loss: 0.5329
+Meta-Epoch | Batch 2585 | Query Loss: 2.5966
+Meta-Epoch | Batch 2590 | Query Loss: 4.1321
+Meta-Epoch | Batch 2595 | Query Loss: 0.2081
+Meta-Epoch | Batch 2600 | Query Loss: 1.6042
+Meta-Epoch | Batch 2605 | Query Loss: 0.1958
+Meta-Epoch | Batch 2610 | Query Loss: 0.2381
+Meta-Epoch | Batch 2615 | Query Loss: 5.3447
+Meta-Epoch | Batch 2620 | Query Loss: 0.8013
+Meta-Epoch | Batch 2625 | Query Loss: 3.8698
+Meta-Epoch | Batch 2630 | Query Loss: 1.7922
+Meta-Epoch | Batch 2635 | Query Loss: 0.4233
+Meta-Epoch | Batch 2640 | Query Loss: 2.5118
+Meta-Epoch | Batch 2645 | Query Loss: 1.7330
+Meta-Epoch | Batch 2650 | Query Loss: 2.3284
+Meta-Epoch | Batch 2655 | Query Loss: 2.5298
+Meta-Epoch | Batch 2660 | Query Loss: 0.1335
+Meta-Epoch | Batch 2665 | Query Loss: 2.7886
+Meta-Epoch | Batch 2670 | Query Loss: 3.2156
+Meta-Epoch | Batch 2675 | Query Loss: 0.0000
+Meta-Epoch | Batch 2680 | Query Loss: 3.9425
+Meta-Epoch | Batch 2685 | Query Loss: 2.5172
+Meta-Epoch | Batch 2690 | Query Loss: 2.3062
+Meta-Epoch | Batch 2695 | Query Loss: 0.9108
+Meta-Epoch | Batch 2700 | Query Loss: 2.5124
+Meta-Epoch | Batch 2705 | Query Loss: 2.2617
+Meta-Epoch | Batch 2710 | Query Loss: 0.3528
+Meta-Epoch | Batch 2715 | Query Loss: 0.1088
+Meta-Epoch | Batch 2720 | Query Loss: 1.8942
+2026-01-05 17:58:58,551 | INFO |   Meta Loss: 1.6545 (Steps: 5)
+2026-01-05 17:58:58,551 | INFO | Epoch 5 | Meta Loss: 1.6545
+2026-01-05 17:58:58,558 | INFO | DEBUG: Pre-Scan Test DataLoader for OOB IDs...
+2026-01-05 17:59:00,511 | INFO | DEBUG: Max Test Item ID: 9456 | Model Emb Size: 9469
+2026-01-05 17:59:01,630 | WARNING | OOB Source User IDs detected! Max: 11115, Limit: 11094. Clamping...
+2026-01-05 17:59:01,754 | WARNING | OOB Source User IDs detected! Max: 11141, Limit: 11094. Clamping...
+2026-01-05 17:59:01,878 | WARNING | OOB Source User IDs detected! Max: 11166, Limit: 11094. Clamping...
+2026-01-05 17:59:02,002 | WARNING | OOB Source User IDs detected! Max: 11192, Limit: 11094. Clamping...
+2026-01-05 17:59:02,130 | WARNING | OOB Source User IDs detected! Max: 11218, Limit: 11094. Clamping...
+2026-01-05 17:59:02,254 | WARNING | OOB Source User IDs detected! Max: 11243, Limit: 11094. Clamping...
+2026-01-05 17:59:02,378 | WARNING | OOB Source User IDs detected! Max: 11269, Limit: 11094. Clamping...
+2026-01-05 17:59:02,501 | WARNING | OOB Source User IDs detected! Max: 11295, Limit: 11094. Clamping...
+2026-01-05 17:59:02,628 | WARNING | OOB Source User IDs detected! Max: 11322, Limit: 11094. Clamping...
+2026-01-05 17:59:02,755 | WARNING | OOB Source User IDs detected! Max: 11348, Limit: 11094. Clamping...
+2026-01-05 17:59:02,881 | WARNING | OOB Source User IDs detected! Max: 11374, Limit: 11094. Clamping...
+2026-01-05 17:59:02,980 | WARNING | OOB Source User IDs detected! Max: 11392, Limit: 11094. Clamping...
+2026-01-05 17:59:02,985 | INFO |   Eval Results:
+2026-01-05 17:59:02,985 | INFO |     HR@10: 0.1609 | NDCG@10: 0.1191
+2026-01-05 17:59:02,986 | INFO |     [ColdUser] HR@10: 0.0000 | NDCG@10: 0.1191
+2026-01-05 17:59:02,986 | INFO |     [ColdItem] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 17:59:02,986 | INFO | Epoch 5 | HR@10: 0.1609 | ColdUser_HR@10: 0.0000 | ColdItem_HR@10: 0.0000
+2026-01-05 17:59:02,986 | INFO |     HR@10: 0.1609 | NDCG@10: 0.1191
+2026-01-05 17:59:02,986 | INFO |     [Cold] HR@10: 0.0000 | NDCG@10: 0.0000
+2026-01-05 17:59:02,986 | INFO | Epoch 5 | HR@10: 0.1609 | NDCG@10: 0.1191 | Cold_HR@10: 0.0000
+2026-01-05 17:59:02,986 | INFO |     HR@20: 0.2715 | NDCG@20: 0.1468
+2026-01-05 17:59:02,986 | INFO |     [ColdUser] HR@20: 0.0000 | NDCG@20: 0.1468
+2026-01-05 17:59:02,986 | INFO |     [ColdItem] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 17:59:02,987 | INFO | Epoch 5 | HR@20: 0.2715 | ColdUser_HR@20: 0.0000 | ColdItem_HR@20: 0.0000
+2026-01-05 17:59:02,987 | INFO |     HR@20: 0.2715 | NDCG@20: 0.1468
+2026-01-05 17:59:02,987 | INFO |     [Cold] HR@20: 0.0000 | NDCG@20: 0.0000
+2026-01-05 17:59:02,987 | INFO | Epoch 5 | HR@20: 0.2715 | NDCG@20: 0.1468 | Cold_HR@20: 0.0000
+2026-01-05 17:59:02,987 | INFO | 
+Training Complete!
+2026-01-05 17:59:02,993 | INFO | Saved ID Mappings to models/saved/mappings.pkl
+2026-01-05 17:59:02,993 | INFO | 
+--- Running Scientific Evaluation (Ranking & Cold-Start) ---
+2026-01-05 17:59:03,006 | INFO | Bucket Definition 'Cold (1)': 9754 users eligible.
+2026-01-05 17:59:03,006 | INFO | Bucket Definition 'Few (2-4)': 111 users eligible.
+2026-01-05 17:59:03,006 | INFO | Bucket Definition 'Medium (5-10)': 1003 users eligible.
+2026-01-05 17:59:03,006 | INFO | Bucket Definition 'Warm (>10)': 17 users eligible.
+2026-01-05 17:59:03,006 | INFO | Running Inference on Full Dataset for Bucket Analysis...
+2026-01-05 17:59:12,863 | INFO | 
+=== FINAL SCIENTIFIC BREAKDOWN ===
+2026-01-05 17:59:12,863 | INFO | Bucket 'Cold (1)': 0/9754 evaluated (All Skipped?)
+2026-01-05 17:59:12,863 | INFO | Bucket 'Few (2-4)': 0/111 evaluated (All Skipped?)
+2026-01-05 17:59:12,863 | INFO | Bucket 'Medium (5-10)': 0/1003 evaluated (All Skipped?)
+2026-01-05 17:59:12,863 | INFO | Bucket 'Warm (>10)': 0/17 evaluated (All Skipped?)
+2026-01-05 17:59:12,863 | INFO | Full System Verification Complete!
+2026-01-05 17:59:12,864 | INFO | 
+--- [Module 5] Online Learning Phase ---
+2026-01-05 17:59:12,871 | INFO | Drift Detected: True
+2026-01-05 17:59:12,872 | INFO | Triggering Online Adaptation...
+2026-01-05 17:59:12,872 | INFO | User Adapted.
+2026-01-05 17:59:12,872 | INFO | 
+--- [Module 3] Retrieval & Re-ranking ---
+2026-01-05 17:59:12,872 | INFO | 
+--- [Module 6] Explainability ---
+2026-01-05 17:59:12,872 | INFO | Explanation: {'user_id': 'User_X', 'item_id': 'Item_Y', 'cross_domain_contribution': 0.85, 'kg_evidence': ['User', 'Viewed', 'SciFi', 'IsGenre', 'Item'], 'history_match_score': 0.4}

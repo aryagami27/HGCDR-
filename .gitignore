@@ -7,3 +7,9 @@ models/saved
 
 # Cache
 hf_cache
+__pycache__
+**/__pycache__/
+
+
+# Misc
+data.tar.gz

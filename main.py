@@ -110,6 +110,7 @@ def main():
     # Model Hyperparameters
     parser.add_argument('--gnn_layers', type=int, default=None, help='Number of GNN layers')
     parser.add_argument('--gnn_heads', type=int, default=None, help='Number of GNN heads')
+    parser.add_argument('--batch_size', type=int, default=4, help='Batch Size for Training')
     
     args = parser.parse_args()
     
@@ -136,6 +137,7 @@ def main():
     if args.gnn_heads is not None: config['gnn_heads'] = args.gnn_heads
     if args.disable_contrast: config['enable_contrast'] = False
     if args.seed: config['seed'] = args.seed
+    config['batch_size'] = args.batch_size
     
     # Set Reproducibility Seed
     set_seed(config.get('seed', 42))
@@ -485,7 +487,7 @@ def main():
     logging.info("Initializing DataLoader...")
     dataloader = DataLoader(
         dataset,
-        batch_size=4,
+        batch_size=args.batch_size,
         shuffle=True,
         collate_fn=collate_fn
     )
